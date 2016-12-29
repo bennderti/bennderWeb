@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author dyanez
+ * @author dyanez 28-12-2016
  */
 @Controller
 public class HomeController {
