@@ -39,7 +39,7 @@ public class HomeController {
         log.info("FIN");
         return modelAndView;
     }
-    
+    //.- login!!!    
     @RequestMapping(value = "/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public ModelAndView login(@ModelAttribute("loginForm") LoginForm loginForm) {
         log.info("INICIO");
