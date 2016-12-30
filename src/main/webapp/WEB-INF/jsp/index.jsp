@@ -10,7 +10,7 @@
     </head>
     <body>
         <h1>Bienvenidos a Bennder</h1>
-        <p>Plataforma de beneficios corporativos</p>
+        <p>Plataforma de Beneficios Corporativos</p>
         
         <form:form method="POST" action="login.html" commandName="loginForm">
             <table>
