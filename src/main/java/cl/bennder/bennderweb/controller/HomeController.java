@@ -30,7 +30,7 @@ public class HomeController {
     
     @Autowired
     private UsuarioServices usuarioServices;
-    
+    //.- Index
     @RequestMapping(value = "/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView index() {
         log.info("INICIO");
