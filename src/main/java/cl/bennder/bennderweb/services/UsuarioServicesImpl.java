@@ -27,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
 public class UsuarioServicesImpl implements UsuarioServices{
     
     private static final Logger log = LoggerFactory.getLogger(UsuarioServicesImpl.class);
-    private static final String URL_VALIDACION_USUARIO = "http://localhost:9090/Bennder/services/login";
+    private static final String URL_VALIDACION_USUARIO = "http://localhost:8080/Bennder/services/login";
     
     
 
