@@ -14,6 +14,8 @@
 
    <mvc:annotation-driven/>
    <context:component-scan base-package="cl.bennder.bennderweb"/>
+   
+   <context:property-placeholder location="classpath:bennder.properties"/>
   
   <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"
