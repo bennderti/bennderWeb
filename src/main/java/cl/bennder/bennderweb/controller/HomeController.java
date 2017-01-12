@@ -34,7 +34,7 @@ public class HomeController {
     @RequestMapping(value = "/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView index() {
         log.info("INICIO");
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView("login");
         modelAndView.addObject("loginForm", new LoginForm());
         log.info("FIN");
         return modelAndView;

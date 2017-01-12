@@ -5,7 +5,7 @@
  */
 package cl.bennder.bennderweb.rest.connector;
 
-import cl.bennder.bennderweb.controller.URLServiciosBennder;
+import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.model.Validacion;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
