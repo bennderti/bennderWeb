@@ -35,7 +35,7 @@
     <!-- responsive css -->
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/responsive.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
     <!-- color css -->
-    <link  class="color-scheme-color" type="text/css" rel="stylesheet" media="all"  href="<c:url value="/resources/css/theme/color-01.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
+    <link  class="color-scheme-color" type="text/css" rel="stylesheet" media="all"  href="<c:url value="/resources/css/theme/color-03.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
     <!-- modernizr css -->
     <script type="text/javascript" src="<c:url value="/resources/js/vendor/modernizr-2.8.3.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
 </head>
@@ -574,10 +574,13 @@
         </div>
         <div id="color-20" class="color-scheme-content" style="background: #FF7077">
         </div>
-        <div class="color-scheme-select-btn trans-05">
+        <!-- Selector de color (oculto)-->
+        <div class="color-scheme-select-btn trans-05" style="display: none;">
             <span class="fa fa-cogs"></span>
         </div>
+        <!---->
     </div>
+       
     <!-- all js here -->
     <!-- jquery latest version -->
     <script type="text/javascript" src="<c:url value="/resources/js/vendor/jquery-1.12.0.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
@@ -601,5 +604,10 @@
     <script type="text/javascript" src="<c:url value="/resources/js/main.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
     <!-- Cookie js -->
     <script type="text/javascript" src="<c:url value="/resources/js/jquery.cookie.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/modal/bennder-modal.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+    <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     
+        <jsp:param name="btnAceptar" value="Aceptar"/>
+        <jsp:param name="btnCancelar" value="Cancelar"/>
+    </jsp:include>
 </body>
 </html>

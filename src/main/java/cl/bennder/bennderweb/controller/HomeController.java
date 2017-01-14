@@ -9,6 +9,7 @@ import cl.bennder.bennderweb.model.LoginForm;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
 import cl.bennder.bennderweb.services.UsuarioServices;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -50,6 +52,16 @@ public class HomeController {
         modelAndView.addObject("msg", response.getValidacion().getMensaje());
         log.info("FIN");
         return modelAndView;
+    }
+    
+    @RequestMapping(value="loginJs.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String loginJs(@ModelAttribute("loginForm") LoginForm loginForm){
+        log.info("INICIO");
+        log.info("datos ->{}",loginForm.toString());
+        LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
+        String respJson =  new Gson().toJson(response);
+        log.info("FIN");
+        return respJson;
     }
     
 //    @RequestMapping(value = "/index.html", method = RequestMethod.GET)
