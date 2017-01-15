@@ -33,7 +33,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close"  aria-hidden="true">&times;</button>
+          <button type="button" class="close"  aria-hidden="true" onclick="ModalBennder.close()">&times;</button>
           <h4 class="modal-title" id="myModalLabel"></h4>
         </div>
         <div class="modal-body">
