@@ -33,15 +33,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <button type="button" class="close"  aria-hidden="true">&times;</button>
           <h4 class="modal-title" id="myModalLabel"></h4>
         </div>
         <div class="modal-body">
           <p class = "modal-text"></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" ><c:out value="${param.btnCancelar}"/></button>
-          <button type="button" class="btn btn-primary"><c:out value="${param.btnAceptar}"/></button>
+          <button type="button" class="btn btn-default btn-cancelar-bennder" onclick="ModalBennder.close()"><c:out value="${param.btnCancelar}"/></button>
+          <button type="button" class="btn btn-primary btn-aceptar-bennder" onclick="ModalBennder.close()"><c:out value="${param.btnAceptar}"/></button>
         </div>
       </div>
       <!-- /.modal-content -->

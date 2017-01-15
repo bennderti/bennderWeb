@@ -604,7 +604,6 @@
     <script type="text/javascript" src="<c:url value="/resources/js/main.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
     <!-- Cookie js -->
     <script type="text/javascript" src="<c:url value="/resources/js/jquery.cookie.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <script type="text/javascript" src="<c:url value="/resources/js/modal/bennder-modal.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
     <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     
         <jsp:param name="btnAceptar" value="Aceptar"/>
         <jsp:param name="btnCancelar" value="Cancelar"/>
