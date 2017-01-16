@@ -358,7 +358,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
 <!--                    <form action="#">-->
-                    <form:form method="POST" action="login.html" commandName="loginForm">
+                <form:form method="POST" action="login.html" id="form-login" commandName="loginForm">
                     <div class="form-fields">
                         <h2>
                             Login</h2>
@@ -374,18 +374,18 @@
 <!--                            <input type="password" />-->
                             <form:password path="password"/>
                         </p>
-                    </div>
+                    </div>                    
+                    <!--</form>-->
+                    </form:form>    
                     <div class="form-action">
                         <p class="lost_password">
                             <a href="#">Lost your password?</a></p>
-                        <input type="submit" value="Login" />
+                        <input type="submit" value="Login" id="input-login" />
                         <label>
                             <input type="checkbox" />
                             Remember me
                         </label>
                     </div>
-                    <!--</form>-->
-                    </form:form>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <form action="#">
@@ -404,7 +404,7 @@
                         </p>
                     </div>
                     <div class="form-action">
-                        <input type="submit" value="Register" />
+                        <input type="submit" value="Register" id="inicio" />
                     </div>
                     </form>
                 </div>
@@ -513,6 +513,9 @@
     <!-- all js here -->
     <!-- jquery latest version -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
+    <!--Js Login (dejar versión *.min.js ofuscada-->
+    <script type="text/javascript" src="<c:url value="/resources/js/login/login.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+    
     <!--Modal -->
     <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     
         <jsp:param name="btnAceptar" value="Aceptar"/>
