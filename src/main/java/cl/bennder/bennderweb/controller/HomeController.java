@@ -32,27 +32,6 @@ public class HomeController {
     
     @Autowired
     private UsuarioServices usuarioServices;
-    //.- Index
-    @RequestMapping(value = "/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView index() {
-        log.info("INICIO");
-        ModelAndView modelAndView = new ModelAndView("login");
-        modelAndView.addObject("loginForm", new LoginForm());
-        log.info("FIN");
-        return modelAndView;
-    }
-    //.- login!!!    
-    @RequestMapping(value = "/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public ModelAndView login(@ModelAttribute("loginForm") LoginForm loginForm) {
-        log.info("INICIO");
-        log.info("datos ->{}",loginForm.toString());
-        LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
-        log.info("response ->{}",response.toString());
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("msg", response.getValidacion().getMensaje());
-        log.info("FIN");
-        return modelAndView;
-    }
     
         //.- home (Version 1)!!!    
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
@@ -63,19 +42,4 @@ public class HomeController {
         return modelAndView;
     }
     
-    @RequestMapping(value="loginJs.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String loginJs(@ModelAttribute("loginForm") LoginForm loginForm){
-        log.info("INICIO");
-        log.info("datos ->{}",loginForm.toString());
-        LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
-        String respJson =  new Gson().toJson(response);
-        log.info("FIN");
-        return respJson;
-    }
-    
-//    @RequestMapping(value = "/index.html", method = RequestMethod.GET)
-//    public String home( Model model) {
-//        log.info("index-inicio");
-//        return "index";
-//    }
 }
