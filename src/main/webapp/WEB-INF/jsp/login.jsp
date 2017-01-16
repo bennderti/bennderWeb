@@ -11,33 +11,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href='<c:url value="/resources/img/bennder/favicon.png"/>'>
     <!-- google fonts -->
     <link href='https://fonts.googleapis.com/css?family=Lato:400,900,700,300' rel='stylesheet'
         type='text/css'>
     <!-- all css here -->
-    <!-- bootstrap v3.3.6 css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- animate css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/animate.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- jquery-ui.min css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.min.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- meanmenu css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/meanmenu.min.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- RS slider css -->
-    <link type="text/css"  media="screen" rel="stylesheet" href="<c:url value="/resources/lib/rs-plugin/css/settings.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- owl.carousel css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/owl.carousel.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- font-awesome css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- style css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/style.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- responsive css -->
-    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/responsive.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- color css -->
-    <link  class="color-scheme-color" type="text/css" rel="stylesheet" media="all"  href="<c:url value="/resources/css/theme/color-03.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
-    <!-- modernizr css -->
-    <script type="text/javascript" src="<c:url value="/resources/js/vendor/modernizr-2.8.3.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/cssTemplate.jsp"/>
 </head>
 <body>
     <!--[if lt IE 8]>
@@ -529,84 +508,16 @@
 		</footer>
     <!-- footer end -->
     <!-- Color Variations -->
-    <div class="color-scheme-select trans-05">
-        <div class="color-scheme-title text-colored mgt-25 mgb-15">
-            <h5>
-                20 Awesome Colors</h5>
-        </div>
-        <div id="color-01" class="color-scheme-content color-scheme-selected" style="background: #01c583">
-        </div>
-        <div id="color-02" class="color-scheme-content " style="background: #F64747">
-        </div>
-        <div id="color-03" class="color-scheme-content" style="background: #0082c8">
-        </div>
-        <div id="color-04" class="color-scheme-content" style="background: #FF9800">
-        </div>
-        <div id="color-05" class="color-scheme-content" style="background: #E91E63">
-        </div>
-        <div id="color-06" class="color-scheme-content" style="background: #009688">
-        </div>
-        <div id="color-07" class="color-scheme-content" style="background: #FF5722">
-        </div>
-        <div id="color-08" class="color-scheme-content" style="background: #9EC139">
-        </div>
-        <div id="color-09" class="color-scheme-content" style="background: #9C27B0">
-        </div>
-        <div id="color-10" class="color-scheme-content" style="background: #4CAF50">
-        </div>
-        <div id="color-11" class="color-scheme-content" style="background: #795548">
-        </div>
-        <div id="color-12" class="color-scheme-content" style="background: #FF007F">
-        </div>
-        <div id="color-13" class="color-scheme-content" style="background: #673AB7">
-        </div>
-        <div id="color-14" class="color-scheme-content" style="background: #8BC34A">
-        </div>
-        <div id="color-15" class="color-scheme-content" style="background: #3E2723">
-        </div>
-        <div id="color-16" class="color-scheme-content" style="background: #FF7711">
-        </div>
-        <div id="color-17" class="color-scheme-content" style="background: #BF9C4F">
-        </div>
-        <div id="color-18" class="color-scheme-content" style="background: #33691E">
-        </div>
-        <div id="color-19" class="color-scheme-content" style="background: #607D8B">
-        </div>
-        <div id="color-20" class="color-scheme-content" style="background: #FF7077">
-        </div>
-        <!-- Selector de color (oculto)-->
-        <div class="color-scheme-select-btn trans-05" style="display: none;">
-            <span class="fa fa-cogs"></span>
-        </div>
-        <!---->
-    </div>
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/colorSchemeSelect.jsp"/>
        
     <!-- all js here -->
     <!-- jquery latest version -->
-    <script type="text/javascript" src="<c:url value="/resources/js/vendor/jquery-1.12.0.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- bootstrap js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/bootstrap.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- owl.carousel js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/owl.carousel.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- jquery-ui js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery-ui.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- RS-Plugin JS -->
-    <script type="text/javascript" src="<c:url value="/resources/lib/rs-plugin/js/jquery.themepunch.tools.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <script type="text/javascript" src="<c:url value="/resources/lib/rs-plugin/js/jquery.themepunch.revolution.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <script type="text/javascript" src="<c:url value="/resources/lib/rs-plugin/rs.home.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- meanmenu js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery.meanmenu.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- wow js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/wow.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- plugins js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/plugins.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- main js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/main.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    <!-- Cookie js -->
-    <script type="text/javascript" src="<c:url value="/resources/js/jquery.cookie.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
+    <!--Modal -->
     <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     
         <jsp:param name="btnAceptar" value="Aceptar"/>
         <jsp:param name="btnCancelar" value="Cancelar"/>
     </jsp:include>
+    <!--Modal-->
 </body>
 </html>

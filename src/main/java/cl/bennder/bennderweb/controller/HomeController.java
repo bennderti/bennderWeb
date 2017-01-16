@@ -54,6 +54,15 @@ public class HomeController {
         return modelAndView;
     }
     
+        //.- home (Version 1)!!!    
+    @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView homeI() {
+        log.info("INICIO");
+        ModelAndView modelAndView = new ModelAndView("home");
+        log.info("FIN");
+        return modelAndView;
+    }
+    
     @RequestMapping(value="loginJs.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String loginJs(@ModelAttribute("loginForm") LoginForm loginForm){
         log.info("INICIO");
