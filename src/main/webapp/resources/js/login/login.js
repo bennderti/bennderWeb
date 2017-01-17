@@ -8,16 +8,20 @@ jQuery(document).on('ready', function() {
 
 function login(){
     $.ajax({
-    url: 'loginJs.html',
+    url: 'login.html',
     type: 'POST',
     dataType: 'JSON',
     data: $("#form-login").serialize(),
     success: function(data) {
-        window.location.href = "home.html";
-        //alert(data.validacion.mensaje);
+        if(data.validacion.codigo === '0'){
+            window.location.href = data.goToUrl;
+        }
+        else{
+            ModalBennder.mostrar({tipo:"advertencia",mensaje:data.validacion.mensaje,titulo:"Login"});
+        }
     },
     error:function(x,y,z){
-        alert("Error");
+        ModalBennder.mostrar({tipo:"error",mensaje:"Problemas al validar usuario",titulo:"Login"});
     }
 });
     

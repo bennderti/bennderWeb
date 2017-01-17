@@ -77,14 +77,14 @@ public class RestConnector {
             }
         }
 
-        if ( validacion == null ) {
-            LOG.error("Sin respuesta servicio REST (validacion)");
-            return null;
-        }
-        if ( "0".compareTo(validacion.getCodigo()) != 0) {
-            LOG.error("Respuesta NOK, mensaje->{}", validacion.getMensaje());
-            return null;
-        }
+//        if ( validacion == null ) {
+//            LOG.error("Sin respuesta servicio REST (validacion)");
+//            return new Validacion("1", "Sin respuesta servicio REST (validacion)");
+//        }
+//        if ( "0".compareTo(validacion.getCodigo()) != 0) {
+//            LOG.error("Respuesta NOK, mensaje->{}", validacion.getMensaje());
+//            return null;
+//        }
         LOG.info("FIN");
         return response;
     }

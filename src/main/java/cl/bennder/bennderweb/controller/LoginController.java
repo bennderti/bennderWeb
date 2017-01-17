@@ -5,6 +5,8 @@
  */
 package cl.bennder.bennderweb.controller;
 
+import cl.bennder.bennderweb.body.response.LoginBodyResponse;
+import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.LoginForm;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
@@ -42,7 +44,7 @@ public class LoginController {
         return modelAndView;
     }
     //.- login!!!    
-    @RequestMapping(value = "/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    /*@RequestMapping(value = "/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public ModelAndView login(@ModelAttribute("loginForm") LoginForm loginForm) {
         log.info("INICIO");
         log.info("datos ->{}",loginForm.toString());
@@ -52,13 +54,19 @@ public class LoginController {
         modelAndView.addObject("msg", response.getValidacion().getMensaje());
         log.info("FIN");
         return modelAndView;
-    }
-    @RequestMapping(value="loginJs.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String loginJs(@ModelAttribute("loginForm") LoginForm loginForm){
+    }*/
+    @RequestMapping(value="login.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm){
         log.info("INICIO");
         log.info("datos ->{}",loginForm.toString());
         LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
-        String respJson =  new Gson().toJson(response);
+        LoginBodyResponse rBody = new LoginBodyResponse();
+        rBody.setValidacion(response.getValidacion());
+        if(response!=null && response.getValidacion()!=null && response.getValidacion().getCodigo()!=null &&
+           "0".equals(response.getValidacion().getCodigo())){
+            rBody.setGoToUrl(GoToUrl.URL_HOME);
+        }
+        String respJson =  new Gson().toJson(rBody);
         log.info("FIN");
         return respJson;
     }
