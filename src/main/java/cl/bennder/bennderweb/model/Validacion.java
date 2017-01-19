@@ -5,11 +5,13 @@
  */
 package cl.bennder.bennderweb.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author dyanez
  */
-public class Validacion {
+public class Validacion implements Serializable{
     private String codigo;
     private String mensaje;
 
