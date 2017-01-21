@@ -8,6 +8,7 @@ package cl.bennder.bennderweb.controller;
 import cl.bennder.bennderweb.model.LoginForm;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
+import cl.bennder.bennderweb.services.CategoriaServices;
 import cl.bennder.bennderweb.services.UsuarioServices;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
@@ -31,13 +32,14 @@ public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     
     @Autowired
-    private UsuarioServices usuarioServices;
+    private CategoriaServices categoriaServices;
     
         //.- home (Version 1)!!!    
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView homeI() {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("home");
+        modelAndView.addObject("categorias", categoriaServices.getCategorias().getCategorias());
         log.info("FIN");
         return modelAndView;
     }

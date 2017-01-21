@@ -8,7 +8,9 @@ package cl.bennder.bennderweb.rest.connector;
 import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.model.Validacion;
 import cl.bennder.bennderweb.properties.Properties;
+import cl.bennder.bennderweb.rest.request.CategoriasRequest;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
+import cl.bennder.bennderweb.rest.response.CategoriasResponse;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -33,7 +35,9 @@ public class RestConnector {
     public static LoginResponse validacionUsuario( final LoginRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
     }
-    
+    public static CategoriasResponse getCategorias( final CategoriasRequest query ) {
+        return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_GET_CATEGORIAS, query, CategoriasResponse.class);
+    }
     private static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass ) {
         LOG.info("INICIO");
         HttpHeaders headers = new HttpHeaders();

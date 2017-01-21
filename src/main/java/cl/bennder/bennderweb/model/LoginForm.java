@@ -10,14 +10,14 @@ package cl.bennder.bennderweb.model;
  * @author dyanez
  */
 public class LoginForm {
-    private String user;
+    private Integer user;
     private String password;
 
-    public String getUser() {
+    public Integer getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(Integer user) {
         this.user = user;
     }
 

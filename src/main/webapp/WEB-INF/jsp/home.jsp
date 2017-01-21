@@ -20,7 +20,9 @@
     <div class="sticky-wrapper">
         <header>			
             <!-- header-bottom-area start -->            
-            <jsp:include page="/WEB-INF/jsp/template-e-comerce/headerBottomAreaSearch.jsp"/>
+            <jsp:include page="/WEB-INF/jsp/template-e-comerce/headerBottomAreaSearch.jsp">
+                <jsp:param name="categorias" value="${categorias}"/>
+            </jsp:include>
             <!-- header-bottom-area end -->
             <!-- main-menu-area start -->
             <jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaHidden.jsp"/>          
@@ -59,5 +61,12 @@
     <!-- all js here -->
     <!-- jquery latest version -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
+    
+       <!--Modal -->
+    <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     
+        <jsp:param name="btnAceptar" value="Aceptar"/>
+        <jsp:param name="btnCancelar" value="Cancelar"/>
+    </jsp:include>
+    <!--Modal-->
 </body>
 </html>
