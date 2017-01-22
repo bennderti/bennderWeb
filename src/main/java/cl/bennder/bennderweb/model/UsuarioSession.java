@@ -5,10 +5,15 @@
  */
 package cl.bennder.bennderweb.model;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
 /**
  *
  * @author dyanez
  */
+
 public class UsuarioSession {
     private Integer idUsuario;
 

@@ -44,6 +44,7 @@ public class SessionFilter extends OncePerRequestFilter {
         urlIgnoradas.add("/index.html");
         urlIgnoradas.add("/login.html");
         HttpSession session = req.getSession();	
+        UsuarioSession u = this.usuarioSession;
         if (urlIgnoradas.contains(urlPatter)) {
             chain.doFilter(req, res);
         } else {
