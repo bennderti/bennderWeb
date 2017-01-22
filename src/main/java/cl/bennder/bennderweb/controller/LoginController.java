@@ -13,6 +13,7 @@ import cl.bennder.bennderweb.rest.request.LoginRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
 import cl.bennder.bennderweb.services.UsuarioServices;
 import com.google.gson.Gson;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class LoginController {
         return modelAndView;
     }*/
     @RequestMapping(value="login.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm){
+    public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session){
         log.info("INICIO");
         log.info("datos ->{}",loginForm.toString());
         LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
@@ -70,6 +71,8 @@ public class LoginController {
            "0".equals(response.getValidacion().getCodigo())){
             rBody.setGoToUrl(GoToUrl.URL_HOME);
             usuarioSession.setIdUsuario(loginForm.getUser());
+            session.setAttribute("user", loginForm.getUser());
+            log.info("Se guarda usuario en sessión ->{}",loginForm.getUser());
         }
         String respJson =  new Gson().toJson(rBody);
         log.info("FIN");

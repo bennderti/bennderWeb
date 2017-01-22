@@ -54,12 +54,19 @@ public class HomeController {
         return modelAndView;
     }
     
-    @RequestMapping(value = "/pageNotFound.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/cierreSession.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView pageNotFound() {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("index");
         log.info("FIN");
         return modelAndView;
     }
+//    @RequestMapping(value = "/redirect.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+//    public ModelAndView redirect() {
+//        log.info("INICIO");
+//        ModelAndView modelAndView = new ModelAndView("index");
+//        log.info("FIN");
+//        return modelAndView;
+//    }
     
 }
