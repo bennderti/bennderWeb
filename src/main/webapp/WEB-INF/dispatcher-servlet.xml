@@ -16,6 +16,14 @@
    <context:component-scan base-package="cl.bennder.bennderweb"/>
    
    <context:property-placeholder location="classpath:bennder.properties"/>
+   
+    <!-- Permite usuar estos datos en session en cualquier parte de la aplicacion -->
+    <!--<beans:bean id="usuarioSession" class="cl.bennder.bennderweb.model.UsuarioSession" scope="session">
+        <aop:scoped-proxy/>
+    </beans:bean> -->  
+   <bean id="usuarioSession" class="cl.bennder.bennderweb.model.UsuarioSession" scope="session">
+        <aop:scoped-proxy/>
+    </bean> 
   
   <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"

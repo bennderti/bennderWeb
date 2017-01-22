@@ -8,6 +8,7 @@ package cl.bennder.bennderweb.controller;
 import cl.bennder.bennderweb.body.response.LoginBodyResponse;
 import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.LoginForm;
+import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
 import cl.bennder.bennderweb.services.UsuarioServices;
@@ -29,6 +30,9 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class LoginController {
+    
+    @Autowired
+    private UsuarioSession usuarioSession;
     
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
     
@@ -65,6 +69,7 @@ public class LoginController {
         if(response!=null && response.getValidacion()!=null && response.getValidacion().getCodigo()!=null &&
            "0".equals(response.getValidacion().getCodigo())){
             rBody.setGoToUrl(GoToUrl.URL_HOME);
+            usuarioSession.setIdUsuario(loginForm.getUser());
         }
         String respJson =  new Gson().toJson(rBody);
         log.info("FIN");

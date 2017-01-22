@@ -6,6 +6,7 @@
 package cl.bennder.bennderweb.controller;
 
 import cl.bennder.bennderweb.model.LoginForm;
+import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
 import cl.bennder.bennderweb.services.CategoriaServices;
@@ -33,6 +34,9 @@ public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     
     @Autowired
+    private UsuarioSession usuarioSession;
+    
+    @Autowired
     private CategoriaServices categoriaServices;
     
     
@@ -42,7 +46,9 @@ public class HomeController {
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView homeI() {
         log.info("INICIO");
+        log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("home");
+        
         modelAndView.addObject("categorias", categoriaServices.getCategorias().getCategorias());
         log.info("FIN");
         return modelAndView;
@@ -51,7 +57,7 @@ public class HomeController {
     @RequestMapping(value = "/pageNotFound.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView pageNotFound() {
         log.info("INICIO");
-        ModelAndView modelAndView = new ModelAndView("errorPage");
+        ModelAndView modelAndView = new ModelAndView("index");
         log.info("FIN");
         return modelAndView;
     }

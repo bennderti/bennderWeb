@@ -51,9 +51,9 @@
                                 Disculpa, recurso no encontrado para página solicitada
                             </div>
                             <div class="error-actions">
-                                <a href="home.html" class="btn btn-primary btn-lg">
+                                <a href="index.html" class="btn btn-primary btn-lg">
                                     <span class="glyphicon glyphicon-home"></span>
-                                    Ir a Home </a>
+                                    Ir a login </a>
                             </div>
                         </div>
                     </div>
