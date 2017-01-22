@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,12 +35,23 @@ public class HomeController {
     @Autowired
     private CategoriaServices categoriaServices;
     
+    
+    @ExceptionHandler
+    
         //.- home (Version 1)!!!    
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView homeI() {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("categorias", categoriaServices.getCategorias().getCategorias());
+        log.info("FIN");
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/pageNotFound.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView pageNotFound() {
+        log.info("INICIO");
+        ModelAndView modelAndView = new ModelAndView("errorPage");
         log.info("FIN");
         return modelAndView;
     }
