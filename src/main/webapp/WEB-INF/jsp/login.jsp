@@ -55,6 +55,9 @@
         <jsp:param name="btnAceptar" value="Aceptar"/>
         <jsp:param name="btnCancelar" value="Cancelar"/>
     </jsp:include>
-    <!--Modal-->
+    <!--Modal-->    
+    <!-- Loading -->
+    <jsp:include page="/WEB-INF/jsp/utils/loading.jsp"/>
+    <!-- Loading -->
 </body>
 </html>

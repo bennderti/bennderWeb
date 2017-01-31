@@ -7,6 +7,7 @@ jQuery(document).on('ready', function() {
 
 
 function login(){
+    ModalLoading.mostrar();
     $.ajax({
     url: 'login.html',
     type: 'POST',
@@ -19,8 +20,10 @@ function login(){
         else{
             ModalBennder.mostrar({tipo:"advertencia",mensaje:data.validacion.mensaje,titulo:"Login"});
         }
+        ModalLoading.cerrar();
     },
     error:function(x,y,z){
+        ModalLoading.cerrar();
         ModalBennder.mostrar({tipo:"error",mensaje:"Problemas al validar usuario",titulo:"Login"});
     }
 });

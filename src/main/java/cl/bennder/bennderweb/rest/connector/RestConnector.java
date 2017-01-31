@@ -32,11 +32,13 @@ import org.springframework.web.client.RestTemplate;
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
     
+    
     public static LoginResponse validacionUsuario( final LoginRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
+        //return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
     }
     public static CategoriasResponse getCategorias( final CategoriasRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_GET_CATEGORIAS, query, CategoriasResponse.class);
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, query, CategoriasResponse.class);
     }
     private static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass ) {
         LOG.info("INICIO");

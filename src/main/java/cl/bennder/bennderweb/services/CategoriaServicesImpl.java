@@ -48,7 +48,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
             log.info("URL services: {} ",(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS));
-            ResponseEntity<CategoriasResponse> resp = restTemplate.exchange(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, HttpMethod.POST, req, CategoriasResponse.class);
+             ResponseEntity<CategoriasResponse> resp = restTemplate.exchange(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, HttpMethod.POST, req, CategoriasResponse.class);
             response = resp.getBody();
             
             //response = RestConnector.getCategorias(new CategoriasRequest());

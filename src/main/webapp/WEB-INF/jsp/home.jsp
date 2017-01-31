@@ -15,7 +15,10 @@
         <![endif]-->
     <!-- Add your site or application content here -->
     <!-- header-top-area start -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/headerTopArea.jsp"/>
+    
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/headerTopArea.jsp">
+       <jsp:param name="muestraSesion" value="si"/>
+    </jsp:include>
     <!-- header-top-area end -->
     <div class="sticky-wrapper">
         <header>			
