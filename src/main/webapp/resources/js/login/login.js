@@ -3,6 +3,8 @@ jQuery(document).on('ready', function() {
          login();
          return false;
      });
+     //aceptando numericos
+     $("#user-login").numeric();
 });
 
 

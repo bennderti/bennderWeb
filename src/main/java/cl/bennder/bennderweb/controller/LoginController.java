@@ -78,5 +78,14 @@ public class LoginController {
         log.info("FIN");
         return respJson;
     }
+    @RequestMapping(value="logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public String logout(HttpSession session){
+        if(session != null){
+            log.info("limpiando datos de sessión...");
+            session.invalidate();
+            usuarioSession = null;
+        }
+        return "redirect:/index.html";
+    }
     
 }

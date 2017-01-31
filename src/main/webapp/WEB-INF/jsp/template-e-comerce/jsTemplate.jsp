@@ -23,3 +23,6 @@
 <script type="text/javascript" src="<c:url value="/resources/js/main.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
 <!-- Cookie js -->
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.cookie.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+<!-- Validaciones de numéricos -->
+<!--url:http://girescom.com/include/jquery/plugins/alphanumeric/ -->
+<script type="text/javascript" src="<c:url value="/resources/js/validaciones/jquery.alphanumeric.pack.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>

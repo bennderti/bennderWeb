@@ -10,40 +10,40 @@
                 <form:form method="POST" action="login.html" id="form-login" commandName="loginForm">
                     <div class="form-fields">
                         <h2>
-                            Login</h2>
+                            Iniciar sesión</h2>
                         <p>
                             <label>
-                                Username or email address <span class="required">*</span></label>
+                                Usuario <span class="required">*</span></label>
 <!--                            <input type="text" />-->
-                            <form:input path="user" autocomplete="off"/>
+                                <form:input path="user" autocomplete="off" id="user-login"/>
                         </p>
                         <p>
                             <label>
                                 Password <span class="required">*</span></label>
 <!--                            <input type="password" />-->
-                            <form:password path="password"/>
+                                <form:password path="password" maxlength="15"/>
                         </p>
                     </div>                    
                     <!--</form>-->
                     </form:form>    
                     <div class="form-action">
-                        <p class="lost_password">
-                            <a href="#">Lost your password?</a></p>
-                        <input type="submit" value="Login" id="input-login" />
-                        <label>
+                        <!--<p class="lost_password">
+                            <a href="#">Lost your password?</a></p>-->
+                        <input type="submit" value="Ingresar" id="input-login" />
+                        <!--<label>
                             <input type="checkbox" />
                             Remember me
-                        </label>
+                        </label>-->
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <form action="#">
                     <div class="form-fields">
                         <h2>
-                            Register</h2>
+                            Registrar</h2>
                         <p>
                             <label>
-                                Email address <span class="required">*</span></label>
+                                Usuario <span class="required">*</span></label>
                             <input type="text" />
                         </p>
                         <p>
@@ -53,7 +53,7 @@
                         </p>
                     </div>
                     <div class="form-action">
-                        <input type="submit" value="Register" id="inicio" />
+                        <input type="submit" value="Registrar" id="inicio" />
                     </div>
                     </form>
                 </div>
