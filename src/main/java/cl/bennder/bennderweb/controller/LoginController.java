@@ -83,7 +83,6 @@ public class LoginController {
         if(session != null){
             log.info("limpiando datos de sessión...");
             session.invalidate();
-            usuarioSession = null;
         }
         return "redirect:/index.html";
     }
