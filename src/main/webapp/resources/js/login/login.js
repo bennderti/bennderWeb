@@ -4,7 +4,7 @@ jQuery(document).on('ready', function() {
          return false;
      });
      //aceptando numericos
-     $("#user-login").numeric();
+     
 });
 
 

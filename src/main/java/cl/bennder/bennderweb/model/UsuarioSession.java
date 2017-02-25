@@ -15,16 +15,16 @@ import org.springframework.stereotype.Controller;
  */
 
 public class UsuarioSession {
-    private Integer idUsuario;
+    private String idUsuario;
 
     public UsuarioSession() {
     }
 
-    public Integer getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
     

@@ -16,7 +16,7 @@
                         <p>
                             <label>
                                 Usuario <span class="required">*</span></label>
-                                <form:input path="user" autocomplete="off" id="user-login"/>
+                                <form:input path="user" autocomplete="off" id="user-login" maxlength="50"/>
                         </p>
                         <p>
                             <label>
