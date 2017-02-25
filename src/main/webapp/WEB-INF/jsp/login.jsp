@@ -20,11 +20,18 @@
     <!-- header-top-area end -->
     <div class="sticky-wrapper">
         <header>			
-			<!-- header-bottom-area start -->            
-			<jsp:include page="/WEB-INF/jsp/template-e-comerce/headerBottomAreaSearch.jsp"/>
-			<!-- header-bottom-area end -->
-			<!-- main-menu-area start -->
-			<jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaHidden.jsp"/>           
+                        <div class="header-bottom-area">
+                            <div class="container">
+                                <div class="row logo-bennder">
+                                    <div class="">
+                                        <div class="logo">
+                                            <a href="index.html"><span>B</span>ennder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+			<!-- header-bottom-area end -->         
 			<!-- main-menu-area end -->
 			<!-- mobile-menu-area start -->
 			<jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaVisible.jsp"/>
@@ -39,7 +46,11 @@
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/myAccountArea.jsp"/>
     <!-- my-account-area end -->
     <!-- footer start -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/footer.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/footer.jsp">
+        <jsp:param name="footerTopAreaShow" value="no"/>
+        <jsp:param name="footerBottomAreaCopyrightShow" value="si"/>
+        <jsp:param name="footerBottomAreaPaymentShow" value="no"/>
+    </jsp:include>
     <!-- footer end -->
     <!-- Color Variations -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/colorSchemeSelect.jsp"/>

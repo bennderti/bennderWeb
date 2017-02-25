@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li class="active">Login</li>
+                        <li><a href="#">Login</a></li>
+                        <!--<li class="active">Login</li>-->
                     </ul>
                 </div>
             </div>

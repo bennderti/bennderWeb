@@ -1,12 +1,14 @@
 <%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/login/login.css"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>">
+
      <!-- my-account-area start -->
     <div class="my-account-area">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-<!--                    <form action="#">-->
+            <div class="row center-login">
+                <!--<div class="col-md-6 col-sm-6">-->
+                <div class="">
                 <form:form method="POST" action="login.html" id="form-login" commandName="loginForm">
                     <div class="form-fields">
                         <h2>
@@ -14,17 +16,14 @@
                         <p>
                             <label>
                                 Usuario <span class="required">*</span></label>
-<!--                            <input type="text" />-->
                                 <form:input path="user" autocomplete="off" id="user-login"/>
                         </p>
                         <p>
                             <label>
                                 Password <span class="required">*</span></label>
-<!--                            <input type="password" />-->
                                 <form:password path="password" maxlength="15"/>
                         </p>
-                    </div>                    
-                    <!--</form>-->
+                    </div>              
                     </form:form>    
                     <div class="form-action">
                         <!--<p class="lost_password">
@@ -36,7 +35,7 @@
                         </label>-->
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <!--<div class="col-md-6 col-sm-6">
                     <form action="#">
                     <div class="form-fields">
                         <h2>
@@ -57,6 +56,7 @@
                     </div>
                     </form>
                 </div>
+                -->
             </div>
         </div>
     </div>

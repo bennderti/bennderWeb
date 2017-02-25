@@ -3,6 +3,8 @@
 <!-- footer start -->
 <footer>
     <!-- footer-top-area start -->
+    
+    <c:if test="${not empty param.footerTopAreaShow && param.footerTopAreaShow == 'si'}">
     <div class="footer-top-area">
         <div class="container">
             <div class="row">
@@ -73,22 +75,29 @@
                 <!-- footer-widget end -->
             </div>
         </div>
-    </div>
+    </div>        
+    </c:if>
+
     <!-- footer-top-area end -->
     <!-- footer-bottom-area start -->
     <div class="footer-bottom-area">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="copyright">
-                        <p>Copyright © <a href="#" target="_blank">Online Shop</a>. All Rights Reserved</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="payment-img">
-                        <img src='<c:url value="/resources/img/payment.png"/>'  alt="" />
-                    </div>
-                </div>
+                <c:if test="${not empty param.footerBottomAreaCopyrightShow && param.footerBottomAreaCopyrightShow == 'si'}">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                       <div class="copyright">
+                           <p>Copyright © <a href="#" target="_blank">Bennder</a>. Todos los derechos reservados</p>
+                       </div>
+                   </div>                   
+                </c:if>
+
+                <c:if test="${not empty param.footerBottomAreaPaymentShow && param.footerBottomAreaPaymentShow == 'si'}">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="payment-img">
+                            <img src='<c:url value="/resources/img/payment.png"/>'  alt="" />
+                        </div>
+                    </div>                    
+                </c:if>
             </div>
         </div>
     </div>
