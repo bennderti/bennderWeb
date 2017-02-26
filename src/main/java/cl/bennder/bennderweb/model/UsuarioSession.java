@@ -13,19 +13,30 @@ import org.springframework.stereotype.Controller;
  *
  * @author dyanez
  */
-
 public class UsuarioSession {
-    private String idUsuario;
+
+    private Integer idUsuario;//rut sin dv
+    private String usuario;//ejemplo correo
 
     public UsuarioSession() {
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     
+
 }

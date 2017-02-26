@@ -1,34 +1,59 @@
-jQuery(document).on('ready', function() {
-     $("#input-login").click(function(e){
-         login();
-         return false;
-     });
-     //aceptando numericos
-     
+jQuery(document).on('ready', function () {
+    $("#input-login").click(function (e) {
+        LoginBennder.login();
+        return false;
+    });
+    //aceptando numericos
+
+    //.- restricciones caractéres
+    $("#user-login,#password").alphanumeric({allow: ".-_@"});
+
+    //.- enter 
+    $("#user-login,#password").keyup(function (e) {
+        if (e.keyCode === 13) {
+            LoginBennder.login();
+        }
+    });
+
 });
 
-
-function login(){
-    ModalLoading.mostrar();
-    $.ajax({
-    url: 'login.html',
-    type: 'POST',
-    dataType: 'JSON',
-    data: $("#form-login").serialize(),
-    success: function(data) {
-        if(data.validacion.codigo === '0'){
-            window.location.href = data.goToUrl;
+var LoginBennder = {
+    validacion:function(){
+        if($.trim($("#user-login").val()) === ""){
+            return {mensaje:"Favor completar usuario",isValid : false};
         }
-        else{
-            ModalBennder.mostrar({tipo:"advertencia",mensaje:data.validacion.mensaje,titulo:"Login"});
+        if($.trim($("#password").val()) === ""){
+            return {mensaje:"Favor completar contraseña",isValid : false};
         }
-        ModalLoading.cerrar();
+        return {mensaje:"OK",isValid : true};
     },
-    error:function(x,y,z){
-        ModalLoading.cerrar();
-        ModalBennder.mostrar({tipo:"error",mensaje:"Problemas al validar usuario",titulo:"Login"});
+    login: function () {
+        var val = this.validacion();
+        if(!val.isValid){
+            ModalBennder.mostrar({tipo: "advertencia", mensaje: val.mensaje, titulo: "Validación"});
+            return false;
+        }
+        ModalLoading.mostrar();
+        $.ajax({
+            url: 'login.html',
+            type: 'POST',
+            dataType: 'JSON',
+            data: $("#form-login").serialize(),
+            success: function (data) {
+                if (data.validacion.codigo === '0') {
+                    window.location.href = data.goToUrl;
+                } else {
+                    ModalBennder.mostrar({tipo: "advertencia", mensaje: data.validacion.mensaje, titulo: "Login"});
+                }
+                ModalLoading.cerrar();
+            },
+            error: function (x, y, z) {
+                ModalLoading.cerrar();
+                ModalBennder.mostrar({tipo: "error", mensaje: "Problemas al validar usuario", titulo: "Login"});
+            }
+        });
     }
-});
-    
-}
+};
+
+
 

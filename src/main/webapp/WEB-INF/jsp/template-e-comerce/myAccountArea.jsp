@@ -21,7 +21,7 @@
                         <p>
                             <label>
                                 Password <span class="required">*</span></label>
-                                <form:password path="password" maxlength="15"/>
+                                <form:password path="password" maxlength="15" id="password"/>
                         </p>
                     </div>              
                     </form:form>    

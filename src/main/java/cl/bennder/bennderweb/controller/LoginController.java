@@ -67,10 +67,10 @@ public class LoginController {
         LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
         LoginBodyResponse rBody = new LoginBodyResponse();
         rBody.setValidacion(response.getValidacion());
-        if(response!=null && response.getValidacion()!=null && response.getValidacion().getCodigo()!=null &&
+        if(response.getValidacion()!=null && response.getValidacion().getCodigo()!=null &&
            "0".equals(response.getValidacion().getCodigo())){
             rBody.setGoToUrl(GoToUrl.URL_HOME);
-            usuarioSession.setIdUsuario(loginForm.getUser());
+            usuarioSession.setIdUsuario(response.getIdUsuario());//rut de cliente sin dv
             session.setAttribute("user", loginForm.getUser());
             log.info("Se guarda usuario en sessión ->{}",loginForm.getUser());
         }
