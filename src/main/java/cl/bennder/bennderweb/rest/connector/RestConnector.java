@@ -59,29 +59,29 @@ public class RestConnector {
         }
 
         R response = callResult.getBody();
-        if ( response == null ) {
-            LOG.error("Sin respuesta de servicio REST (getBody)");
-            return null;
-        }
+//        if ( response == null ) {
+//            LOG.error("Sin respuesta de servicio REST (getBody)");
+//            return null;
+//        }
 
-        Validacion validacion = null;
-
-        // Search all the methods for a repuesta
-        for ( Method method : response.getClass().getDeclaredMethods() ) {
-            // If the method is public, without params and giving back a Repuesta
-            if ( Modifier.isPublic(method.getModifiers())
-                 && ( method.getParameterTypes().length == 0 )
-                 && method.getReturnType().equals(Validacion.class) ) {
-                // We should have it
-                try {
-                    validacion = (Validacion) method.invoke(response);
-                    break;
-                }
-                catch ( IllegalAccessException | InvocationTargetException ignored ) {
-                    // Simply skip this method
-                }
-            }
-        }
+//        Validacion validacion = null;
+//
+//        // Search all the methods for a repuesta
+//        for ( Method method : response.getClass().getDeclaredMethods() ) {
+//            // If the method is public, without params and giving back a Repuesta
+//            if ( Modifier.isPublic(method.getModifiers())
+//                 && ( method.getParameterTypes().length == 0 )
+//                 && method.getReturnType().equals(Validacion.class) ) {
+//                // We should have it
+//                try {
+//                    validacion = (Validacion) method.invoke(response);
+//                    break;
+//                }
+//                catch ( IllegalAccessException | InvocationTargetException ignored ) {
+//                    // Simply skip this method
+//                }
+//            }
+//        }
 
 //        if ( validacion == null ) {
 //            LOG.error("Sin respuesta servicio REST (validacion)");
