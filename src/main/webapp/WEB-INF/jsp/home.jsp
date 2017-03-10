@@ -36,7 +36,7 @@
         </header>
     </div>
     <!-- HOME SLIDER -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/homeSlider.jsp"/> 
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/homeSlider.jsp"/>
     <!-- END HOME SLIDER -->
     <!-- banner-area start -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/bannerArea.jsp"/> 

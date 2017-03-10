@@ -23,6 +23,7 @@
                                 Password <span class="required">*</span></label>
                                 <form:password path="password" maxlength="15" id="password"/>
                         </p>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />                        
                     </div>              
                     </form:form>    
                     <div class="form-action">

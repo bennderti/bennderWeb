@@ -53,6 +53,40 @@ public class HomeController {
         log.info("FIN");
         return modelAndView;
     }
+    /*
+    @RequestMapping(value = "/admin/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView admin() {
+        log.info("INICIO");
+        log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
+        ModelAndView modelAndView = new ModelAndView("home");
+        
+        modelAndView.addObject("categorias", categoriaServices.getCategorias().getCategorias());
+        modelAndView.addObject("rol", "admin");
+        log.info("FIN");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/proveedor/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView proveedor() {
+        log.info("INICIO");
+        log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
+        ModelAndView modelAndView = new ModelAndView("home");
+        
+        modelAndView.addObject("categorias", categoriaServices.getCategorias().getCategorias());
+        modelAndView.addObject("rol", "proveedor");
+        log.info("FIN");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/empresa/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView empresa() {
+        log.info("INICIO");
+        log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
+        ModelAndView modelAndView = new ModelAndView("home");
+        
+        modelAndView.addObject("categorias", categoriaServices.getCategorias().getCategorias());
+        modelAndView.addObject("rol", "empresa");
+        log.info("FIN");
+        return modelAndView;
+    }*/
     
     @RequestMapping(value = "/cierreSession.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView pageNotFound() {
