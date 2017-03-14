@@ -33,31 +33,16 @@
                             </li>
                             <li><a href="#">Clothing</a>
                                 <div class="mega-menu">
-                                    <span>
-                                        <a class="mega-title" href="#">WOMEN CLOTH </a>
-                                        <a href="shop.html">casual shirt</a>
-                                        <a href="shop.html">rikke t-shirt</a>
-                                        <a href="shop.html">mia top </a>
-                                        <a href="shop.html">muscle tee </a>
-                                    </span>
-                                    <span>
-                                        <a class="mega-title" href="#">MEN CLOTH </a>
-                                        <a href="shop.html">casual shirt</a>
-                                        <a href="shop.html">rikke t-shirt</a>
-                                        <a href="shop.html">mia top </a>
-                                        <a href="shop.html">muscle tee </a>
-                                    </span>
-                                    <span>
-                                        <a class="mega-title" href="#">WOMEN JEWELRY </a>
-                                        <a href="shop.html">necklace </a>
-                                        <a href="shop.html">chunky short striped </a>
-                                        <a href="shop.html">samhar cuff</a>
-                                        <a href="shop.html">nail set </a>
-                                    </span>
-                                    <span class="mega-menu-img">
-                                        <a href="shop.html"><img alt="" src='<c:url value="/resources/img/5_hover_2.jpg"/>'>
-                                        </a>
-                                    </span>
+                                    <c:if test="${not empty categorias}">
+                                        <c:forEach items="${categorias}" var="categoria">
+                                            <span>
+                                                <a class="mega-title" href="<c:url value="/categoria/${categoria.nombre}.html"/>">${categoria.nombre}</a>
+                                                <c:forEach items="${categoria.subCategorias}" var="subCategoria">
+                                                    <a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre}</a>
+                                                </c:forEach>
+                                            </span>
+                                        </c:forEach>
+                                    </c:if>
                                 </div>										
                             </li>
                             <li><a href="shop.html">Footwear </a></li>

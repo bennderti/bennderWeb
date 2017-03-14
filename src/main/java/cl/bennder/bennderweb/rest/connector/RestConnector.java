@@ -40,7 +40,7 @@ public class RestConnector {
     public static CategoriasResponse getCategorias( final CategoriasRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, query, CategoriasResponse.class);
     }
-    private static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass ) {
+    public static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass ) {
         LOG.info("INICIO");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

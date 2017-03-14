@@ -49,7 +49,7 @@ public class HomeController {
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("home");
         
-        modelAndView.addObject("categorias", categoriaServices.getCategorias().getCategorias());
+        modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
         log.info("FIN");
         return modelAndView;
     }

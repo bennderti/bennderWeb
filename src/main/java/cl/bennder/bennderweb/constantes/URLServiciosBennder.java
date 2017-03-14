@@ -12,4 +12,7 @@ package cl.bennder.bennderweb.constantes;
 public abstract class URLServiciosBennder {
     public static final String URL_VALIDACION_USUARIO = "login";
     public static final String URL_GET_CATEGORIAS = "getCategorias";
+    public static final String URL_OBTENER_BENEFICIOS_POR_CATEGORIA = "obtenerBeneficiosPorCategoria";
+    public static final String URL_OBTENER_CATEGORIAS_RELACIONADAS = "obtenerCategoriasRelacionadas";
+    public static final String URL_CARGAR_CATEGORIA = "cargarCategoria";
 }

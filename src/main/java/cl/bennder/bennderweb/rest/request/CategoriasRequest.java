@@ -12,4 +12,14 @@ import java.io.Serializable;
  * @author dyanez
  */
 public class CategoriasRequest extends UserRequest implements Serializable{
+
+    private String nombreCategoria;
+
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
 }

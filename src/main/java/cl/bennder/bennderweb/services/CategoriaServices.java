@@ -5,6 +5,8 @@
  */
 package cl.bennder.bennderweb.services;
 
+import cl.bennder.bennderweb.rest.response.BeneficiosResponse;
+import cl.bennder.bennderweb.rest.response.CategoriaResponse;
 import cl.bennder.bennderweb.rest.response.CategoriasResponse;
 
 
@@ -13,5 +15,8 @@ import cl.bennder.bennderweb.rest.response.CategoriasResponse;
  * @author dyanez
  */
 public interface CategoriaServices {
-    public CategoriasResponse getCategorias();
+    CategoriasResponse obtenerCategorias();
+    BeneficiosResponse obtenerBeneficiosPorCategoria();
+    CategoriasResponse obtenerCategoriasRelacionadas(String nombreCategoria);
+    CategoriaResponse cargarCategoria(String nombreCategoria);
 }

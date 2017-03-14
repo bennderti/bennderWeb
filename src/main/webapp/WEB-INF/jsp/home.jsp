@@ -28,7 +28,9 @@
             </jsp:include>
             <!-- header-bottom-area end -->
             <!-- main-menu-area start -->
-            <jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaHidden.jsp"/>          
+            <jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaHidden.jsp">
+                <jsp:param name="categorias" value="${categorias}"/>
+            </jsp:include>
             <!-- main-menu-area end -->
             <!-- mobile-menu-area start -->
             <jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaVisible.jsp"/>  
