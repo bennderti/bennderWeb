@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- shop-content start -->
 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
     <div class="shop-content">
@@ -60,9 +61,19 @@
                                     </div>
                                     <div class="product-info">
                                         <h3><a href="single-product.html">${beneficio.titulo}</a></h3>
-                                        <div class="pro-price">
-                                            <span class="normal">$150</span> <span class="old">$180</span>
-                                        </div>
+
+                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
+                                            <div class="pro-price">
+                                                <span class="normal">${beneficio.porcentajeDescuento}%</span>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 2}">
+                                            <div class="pro-price">
+                                                <fmt:setLocale value="es_CL" scope="session"/>
+                                                <span class="normal"><fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/></span> <span class="old"><fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/></span>
+                                            </div>
+                                        </c:if>
+
                                         <div class="pro-rating">
                                             <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
                                                 class="fa fa-star"></i><i class="fa fa-star"></i>
