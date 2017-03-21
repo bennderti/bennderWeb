@@ -43,6 +43,7 @@ public class SessionFilter extends OncePerRequestFilter {
         String urlPatter = req.getServletPath();
         urlIgnoradas.add("/index.html");
         urlIgnoradas.add("/login.html");
+        urlIgnoradas.add("/requestPassword.html");
         HttpSession session = req.getSession();	
         UsuarioSession u = this.usuarioSession;
         if (urlIgnoradas.contains(urlPatter)) {

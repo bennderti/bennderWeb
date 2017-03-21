@@ -9,7 +9,9 @@ import cl.bennder.bennderweb.controller.HomeController;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
+import cl.bennder.bennderweb.rest.request.RecuperacionPasswordRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
+import cl.bennder.bennderweb.rest.response.ValidacionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -30,9 +32,14 @@ public class UsuarioServicesImpl implements UsuarioServices{
     
     private static final Logger log = LoggerFactory.getLogger(UsuarioServicesImpl.class);
     //private static final String URL_VALIDACION_USUARIO = "login";
-    
-    
 
+    @Override
+    public ValidacionResponse recuperacionPassword(RecuperacionPasswordRequest request) {
+        return RestConnector.recuperacionPassword(request);
+    }
+    
+    
+    
     @Override
     public LoginResponse validacionUsuario(LoginRequest request) {
         LoginResponse response = new LoginResponse();

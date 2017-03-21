@@ -10,7 +10,9 @@ import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.LoginForm;
 import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
+import cl.bennder.bennderweb.rest.request.RecuperacionPasswordRequest;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
+import cl.bennder.bennderweb.rest.response.ValidacionResponse;
 import cl.bennder.bennderweb.services.UsuarioServices;
 import com.google.gson.Gson;
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -85,6 +88,21 @@ public class LoginController {
             session.invalidate();
         }
         return "redirect:/index.html";
+    }
+    
+    /***
+     * Permite solicitar/recuperar la contraseña la cual es enviada al correo ingresado
+     * @param usuario usuario bennder, usualmente email
+     * @return 
+     */
+    @RequestMapping(value="requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String recuperarPassword(@RequestParam("u") String usuario){
+        log.info("INICIO");
+        log.info("Usuario/correo a recuperar password ->{}",usuario);
+        ValidacionResponse response = usuarioServices.recuperacionPassword(new RecuperacionPasswordRequest(usuario));
+        String respJson =  new Gson().toJson(response);
+        log.info("FIN");
+        return respJson;
     }
     
 }

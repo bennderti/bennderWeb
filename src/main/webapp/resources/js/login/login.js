@@ -17,7 +17,35 @@ jQuery(document).on('ready', function () {
 
 });
 
-var LoginBennder = {
+var LoginBennder = {    
+    recuperacionPassword:function(){
+        //.- validar formato
+        $('#pwdModal').modal('hide');
+        var u = $.trim($("#username-bennder").val());
+        if(u === ""){
+            ModalBennder.mostrar({tipo: "advertencia", mensaje: "Favor completar usuario.", titulo: "Recuperación contraseña"});
+            return false;
+        }
+        ModalLoading.mostrar();
+        $.ajax({
+            url: 'requestPassword.html',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {u:u},
+            success: function (data) {
+                ModalLoading.cerrar();
+                if (data.validacion.codigo === '0') {
+                    ModalBennder.mostrar({tipo: "informativo", mensaje: data.validacion.mensaje, titulo: "Recuperación contraseña"});
+                } else {
+                    ModalBennder.mostrar({tipo: "advertencia", mensaje: data.validacion.mensaje, titulo: "Recuperación contraseña"});
+                }
+            },
+            error: function (x, y, z) {
+                ModalLoading.cerrar();
+                ModalBennder.mostrar({tipo: "error", mensaje: "Problemas al enviar correo para recuperar contraseña", titulo: "Recuperación contraseña"});
+            }
+        });       
+    },
     validacion:function(){
         if($.trim($("#user-login").val()) === ""){
             return {mensaje:"Favor completar usuario",isValid : false};

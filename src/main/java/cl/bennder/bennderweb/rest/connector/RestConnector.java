@@ -10,8 +10,10 @@ import cl.bennder.bennderweb.model.Validacion;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.request.CategoriasRequest;
 import cl.bennder.bennderweb.rest.request.LoginRequest;
+import cl.bennder.bennderweb.rest.request.RecuperacionPasswordRequest;
 import cl.bennder.bennderweb.rest.response.CategoriasResponse;
 import cl.bennder.bennderweb.rest.response.LoginResponse;
+import cl.bennder.bennderweb.rest.response.ValidacionResponse;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -32,7 +34,10 @@ import org.springframework.web.client.RestTemplate;
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
     
-    
+    public static ValidacionResponse recuperacionPassword( final RecuperacionPasswordRequest query ) {
+        //return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_MAIL_RECUPERACION_PASSWORD, query, ValidacionResponse.class);
+    }
     public static LoginResponse validacionUsuario( final LoginRequest query ) {
         //return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
