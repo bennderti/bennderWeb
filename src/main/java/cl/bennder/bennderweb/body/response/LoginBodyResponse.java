@@ -5,8 +5,7 @@
  */
 package cl.bennder.bennderweb.body.response;
 
-import cl.bennder.bennderweb.model.Validacion;
-import cl.bennder.bennderweb.rest.response.LoginResponse;
+import cl.bennder.entitybennderwebrest.model.Validacion;
 
 /**
  *

@@ -7,8 +7,6 @@ package cl.bennder.bennderweb.controller;
 
 import cl.bennder.bennderweb.model.LoginForm;
 import cl.bennder.bennderweb.model.UsuarioSession;
-import cl.bennder.bennderweb.rest.request.LoginRequest;
-import cl.bennder.bennderweb.rest.response.LoginResponse;
 import cl.bennder.bennderweb.services.CategoriaServices;
 import cl.bennder.bennderweb.services.UsuarioServices;
 import com.google.gson.Gson;

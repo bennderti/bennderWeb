@@ -6,17 +6,13 @@
 package cl.bennder.bennderweb.rest.connector;
 
 import cl.bennder.bennderweb.constantes.URLServiciosBennder;
-import cl.bennder.bennderweb.model.Validacion;
 import cl.bennder.bennderweb.properties.Properties;
-import cl.bennder.bennderweb.rest.request.CategoriasRequest;
-import cl.bennder.bennderweb.rest.request.LoginRequest;
-import cl.bennder.bennderweb.rest.request.RecuperacionPasswordRequest;
-import cl.bennder.bennderweb.rest.response.CategoriasResponse;
-import cl.bennder.bennderweb.rest.response.LoginResponse;
-import cl.bennder.bennderweb.rest.response.ValidacionResponse;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
+import cl.bennder.entitybennderwebrest.request.LoginRequest;
+import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
+import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.LoginResponse;
+import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;

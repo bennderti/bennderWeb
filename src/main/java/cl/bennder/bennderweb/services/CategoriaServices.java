@@ -5,9 +5,10 @@
  */
 package cl.bennder.bennderweb.services;
 
-import cl.bennder.bennderweb.rest.response.BeneficiosResponse;
-import cl.bennder.bennderweb.rest.response.CategoriaResponse;
-import cl.bennder.bennderweb.rest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
+import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
+import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+
 
 
 /**

@@ -5,10 +5,11 @@
  */
 package cl.bennder.bennderweb.services;
 
-import cl.bennder.bennderweb.rest.request.LoginRequest;
-import cl.bennder.bennderweb.rest.request.RecuperacionPasswordRequest;
-import cl.bennder.bennderweb.rest.response.LoginResponse;
-import cl.bennder.bennderweb.rest.response.ValidacionResponse;
+import cl.bennder.entitybennderwebrest.request.LoginRequest;
+import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
+import cl.bennder.entitybennderwebrest.response.LoginResponse;
+import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
+
 
 /**
  *

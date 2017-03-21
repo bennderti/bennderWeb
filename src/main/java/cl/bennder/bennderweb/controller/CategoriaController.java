@@ -1,9 +1,8 @@
 package cl.bennder.bennderweb.controller;
 
-import cl.bennder.bennderweb.model.Categoria;
 import cl.bennder.bennderweb.model.UsuarioSession;
-import cl.bennder.bennderweb.rest.response.CategoriaResponse;
 import cl.bennder.bennderweb.services.CategoriaServices;
+import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
