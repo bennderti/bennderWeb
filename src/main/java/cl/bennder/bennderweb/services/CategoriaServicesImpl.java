@@ -9,6 +9,7 @@ import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.entitybennderwebrest.request.BeneficiosRequest;
+import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
@@ -27,6 +28,22 @@ import java.awt.image.RescaleOp;
 public class CategoriaServicesImpl implements CategoriaServices{
 
     private static final Logger log = LoggerFactory.getLogger(CategoriaServicesImpl.class);
+
+    /***
+     * Obtiene las categorias por id de categoria
+     * @param request
+     * @return 
+     */
+    @Override
+    public CategoriasResponse obtenerCategoriasById(CategoriaByIdRequest request) {
+        return RestConnector.obtenerCategoriasById(request);    }
+
+    @Override
+    public BeneficiosResponse getBeneficiosByIdCat(CategoriaByIdRequest request) {
+        return RestConnector.getBeneficiosByIdCat(request);
+    }
+    
+    
     
     
     @Override

@@ -7,9 +7,11 @@ package cl.bennder.bennderweb.rest.connector;
 
 import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.properties.Properties;
+import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
+import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
@@ -30,6 +32,12 @@ import org.springframework.web.client.RestTemplate;
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
     
+    public static CategoriasResponse obtenerCategoriasById( final CategoriaByIdRequest query ) {
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_ID, query, CategoriasResponse.class);
+    }
+    public static BeneficiosResponse getBeneficiosByIdCat( final CategoriaByIdRequest query ) {
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_BENEFICIOS_BY_ID_CAT, query, BeneficiosResponse.class);
+    }
     public static ValidacionResponse recuperacionPassword( final RecuperacionPasswordRequest query ) {
         //return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_MAIL_RECUPERACION_PASSWORD, query, ValidacionResponse.class);
