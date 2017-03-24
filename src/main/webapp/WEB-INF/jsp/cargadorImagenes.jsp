@@ -88,8 +88,26 @@
                                 <option value="-1">Seleccione beneficio</option>
                             </select>
                     </div>    
-                    <br>                    
-                </div> 
+                    <br>  
+                </div>                 
+                <div class="col-lg-4 col-lg-offset-4 images-upload" style="display: none"> 
+                    <h3>Seleccione imagenes a subir</h3>
+                    <form:form method="post" action="uploadImagesBeneficios.html" modelAttribute="uploadForm" enctype="multipart/form-data">
+                        <p>Selecciona iamgens y presiona <strong>+ Imagen</strong> para agrear mas imagenes.</p>
+
+                        <input id="addFile" type="button" value="+ Imagen" class="btn btn-primary" onclick="Cargador.addFile();"/>
+                            <table id="fileTable">
+                                    <tr>
+                                        <td><input name="files[0]" type="file"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input name="files[1]" type="file" /></td>
+                                    </tr>
+                            </table>
+                        <br/><input id="btn-upload-images-submit" type="submit" value="" style="display: none;"/>
+                        <input id="btn-upload-images" type="button" value="Subir imagenes" class="btn btn-primary" onclick="Cargador.uploadImagesBeneficios();"/>                        
+                    </form:form>
+                </div>
             </div>
         </div>
     </div>

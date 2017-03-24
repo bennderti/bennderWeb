@@ -21,7 +21,16 @@
     <!--<beans:bean id="usuarioSession" class="cl.bennder.bennderweb.model.UsuarioSession" scope="session">
         <aop:scoped-proxy/>
     </beans:bean> -->  
+  <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
   
+  <!--
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="20971520" /> 
+         http://www.codejava.net/frameworks/spring/spring-mvc-file-upload-tutorial-with-eclipse-ide?start=3
+        <property name="maxInMemorySize" value="1048576" />  
+    </bean>-->
   
   <bean id="viewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"

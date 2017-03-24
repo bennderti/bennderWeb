@@ -2,6 +2,7 @@ package cl.bennder.bennderweb.controller;
 
 
 
+import cl.bennder.bennderweb.model.FileUploadForm;
 import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.services.CategoriaServices;
 import cl.bennder.bennderweb.services.ProveedorServices;
@@ -11,16 +12,20 @@ import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import com.google.gson.Gson;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -89,7 +94,29 @@ public class CargadorController {
         log.info("FIN");
         return respJson;
     }
-    
+    @RequestMapping(value = "/uploadImagesBeneficios.html", method = RequestMethod.POST)
+    public ModelAndView uploadImagesBeneficios(@ModelAttribute("uploadForm") FileUploadForm uploadForm) {
+        log.info("INICIO");
+        List<MultipartFile> files = uploadForm.getFiles();
+
+        List<String> fileNames = new ArrayList<>();
+
+        if(null != files && files.size() > 0) {
+                for (MultipartFile multipartFile : files) {
+                        String fileName = multipartFile.getOriginalFilename();
+                        log.info("fileName ->{}",fileName);
+                        fileNames.add(fileName);
+                        //Handle file content - multipartFile.getInputStream()
+
+                }
+        }
+
+        ModelAndView modelAndView = new ModelAndView("cargadorImagenes");
+        modelAndView.addObject("proveedores", proveedorServices.obtenerProveedorHabilitados(new ProveedorIdRequest()).getProveedores());
+        log.info("FIN");
+        //return new ModelAndView("redirect:cargaBeneficiosProveedores.html");
+        return modelAndView;
+	}
     
     
     
