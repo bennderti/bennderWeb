@@ -95,8 +95,9 @@ public class CargadorController {
         return respJson;
     }
     @RequestMapping(value = "/uploadImagesBeneficios.html", method = RequestMethod.POST)
-    public ModelAndView uploadImagesBeneficios(@ModelAttribute("uploadForm") FileUploadForm uploadForm) {
+    public ModelAndView uploadImagesBeneficios(@ModelAttribute("uploadForm") FileUploadForm uploadForm,@RequestParam("idBeneficio") Integer idBeneficio) {
         log.info("INICIO");
+        log.info("idBeneficio ->{}",idBeneficio);
         List<MultipartFile> files = uploadForm.getFiles();
 
         List<String> fileNames = new ArrayList<>();

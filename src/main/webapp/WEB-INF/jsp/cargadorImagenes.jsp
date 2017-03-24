@@ -105,6 +105,7 @@
                                     </tr>
                             </table>
                         <br/><input id="btn-upload-images-submit" type="submit" value="" style="display: none;"/>
+                        <input type="hidden" name="idBeneficio" id="input-idBeneficio"/>
                         <input id="btn-upload-images" type="button" value="Subir imagenes" class="btn btn-primary" onclick="Cargador.uploadImagesBeneficios();"/>                        
                     </form:form>
                 </div>

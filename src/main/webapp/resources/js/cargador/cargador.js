@@ -18,6 +18,7 @@ var Cargador = {
            ModalBennder.mostrar({tipo: "error", mensaje: "Favor seleccionar beneficio", titulo: "Cargador"});
        }
        else{
+           $("#input-idBeneficio").val($("#select-beneficio").val());
            $("#btn-upload-images-submit").click();
        } 
     },
