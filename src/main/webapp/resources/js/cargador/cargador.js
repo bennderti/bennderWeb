@@ -13,11 +13,16 @@ jQuery(document).on('ready', function () {
     });
 });
 var Cargador = {
+    onSelectPrincipal:function(index){
+       $("#input-indexPrincipal").val(index); 
+    },
     uploadImagesBeneficios:function(){
        if($("#select-beneficio").val() === "-1"){
            ModalBennder.mostrar({tipo: "error", mensaje: "Favor seleccionar beneficio", titulo: "Cargador"});
        }
        else{
+           //<input type="hidden" name="indexPrincipal" id="input-indexPrincipal"/>
+           
            $("#input-idBeneficio").val($("#select-beneficio").val());
            $("#btn-upload-images-submit").click();
        } 
@@ -25,10 +30,23 @@ var Cargador = {
     addFile:function(){
         var fileIndex = $('#fileTable tr').children().length;
         if(fileIndex !== undefined){
-            $('#fileTable').append(
-				'<tr><td>'+
-				'	<input type="file" name="files['+ fileIndex +']" />'+
-				'</td></tr>');
+//            $('#fileTable').append(
+//				'<tr><td>'+
+//				'	<input type="file" name="files['+ fileIndex +']" />'+
+//				'</td></tr>');
+                        
+                        
+            $('#fileTable').append(            
+                                    '<tr>'+
+                                    '    <td>'+
+                                    '        <div class="input-group">'+
+                                    '            <span class="input-group-addon beautiful">'+
+                                    '                <input type="radio" name="optradio" onclick="Cargador.onSelectPrincipal('+ fileIndex +')"> Principal '+
+                                    '            </span> '+
+                                    '            <input name="files['+ fileIndex +']" type="file" class="form-control">'+
+                                    '        </div>'+
+                                    '    </td>'+
+                                    '</tr>');
         }
 		
     },
