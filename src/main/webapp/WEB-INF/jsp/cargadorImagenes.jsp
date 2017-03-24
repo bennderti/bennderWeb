@@ -59,15 +59,21 @@
     <div class="my-account-area">
         <div class="container">
             <div class="row">                
-                <div class="col-lg-4 col-lg-offset-4">                                   
+                <div class="col-lg-4 col-lg-offset-4"> 
+                    <div class="input-group">
+                            <select id="select-proveedores"  class="form-control" >
+                                <option value="-1">Seleccione proveedor...</option>
+                                <c:if test="${not empty proveedores}">
+                                    <c:forEach items="${proveedores}" var="p">
+                                        <option value="${p.idProveedor}">${p.nombre}</option>
+                                    </c:forEach>
+                                </c:if>
+                            </select>
+                    </div>
+                    <br>
                     <div class="input-group">
                             <select id="select-categorias"  class="form-control" >
                                 <option value="-1">Seleccione categoria...</option>
-                                <c:if test="${not empty categorias}">
-                                    <c:forEach items="${categorias}" var="c">
-                                        <option value="${c.idCategoria}">${c.nombre}</option>
-                                    </c:forEach>
-                                </c:if>
                             </select>
                     </div>
                     <br>

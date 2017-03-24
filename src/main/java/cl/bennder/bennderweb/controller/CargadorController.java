@@ -4,8 +4,10 @@ package cl.bennder.bennderweb.controller;
 
 import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.services.CategoriaServices;
+import cl.bennder.bennderweb.services.ProveedorServices;
 import cl.bennder.entitybennderwebrest.model.Validacion;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
+import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import com.google.gson.Gson;
@@ -31,19 +33,35 @@ public class CargadorController {
 
     @Autowired
     private CategoriaServices categoriaServices;
+    
+    @Autowired
+    private ProveedorServices proveedorServices;
 
     @Autowired
     private UsuarioSession usuarioSession;
 
     @ExceptionHandler
-    @RequestMapping(value = "/listaCategorias.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView obtenerDetalleCategoria() {
+    @RequestMapping(value = "/cargaBeneficiosProveedores.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView cargaBeneficiosProveedores() {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("cargadorImagenes");
-        modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
+        modelAndView.addObject("proveedores", proveedorServices.obtenerProveedorHabilitados(new ProveedorIdRequest()).getProveedores());
         log.info("FIN");
         return modelAndView;
+    }
+    
+    @RequestMapping(value="obtenerCategoriaByProveedor.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String obtenerCategoriaByProveedor(@RequestParam("id") Integer idProveedor, HttpSession session){
+        log.info("INICIO - idProveedor ->{}",idProveedor);
+        CategoriasResponse response = new CategoriasResponse();
+        response.setValidacion(new Validacion("0", "1", "Sin categorias encontradas"));
+        if(idProveedor!=null){
+            response = proveedorServices.obtenerCategoriaByProveedor(new ProveedorIdRequest(idProveedor));
+        }
+        String respJson =  new Gson().toJson(response);
+        log.info("FIN");
+        return respJson;
     }
     
     @RequestMapping(value="getSubCatById.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
@@ -71,4 +89,8 @@ public class CargadorController {
         log.info("FIN");
         return respJson;
     }
+    
+    
+    
+    
 }

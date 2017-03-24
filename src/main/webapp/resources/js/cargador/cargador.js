@@ -1,5 +1,10 @@
 jQuery(document).on('ready', function () {
 
+    
+    $("#select-proveedores").on("change",function(){
+        Cargador.cargarCategoriaProveedor();
+    });
+
     $("#select-categorias").on("change",function(){
         Cargador.cargarSubCatById();
     });
@@ -8,6 +13,28 @@ jQuery(document).on('ready', function () {
     });
 });
 var Cargador = {
+    cargarCategoriaProveedor:function(){
+        var id=$("#select-proveedores").val();
+        $.ajax({
+            url: 'obtenerCategoriaByProveedor.html',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {id:id},
+            success: function (response) {
+                if(response !==undefined && response !== null){
+                    $("#select-categorias option").remove();
+                    $("#select-categorias").append("<option value ='-1'>Seleccione categoria...</option>");
+                    for(var i= 0;i < response.categorias.length;i++){
+                       var c = response.categorias[i];
+                       $("#select-categorias").append("<option value ='"+c.idCategoria+"'>"+c.nombre+"</option>");
+                    } 
+                }
+            },
+            error: function (x, y, z) {
+                ModalBennder.mostrar({tipo: "error", mensaje: "Error al cargar categorias", titulo: "Cargador"});
+            }
+        }); 
+    },
     cargarBeneficioByIdCat:function(){
         var id=$("#select-sub-categorias").val();
         $.ajax({

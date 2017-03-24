@@ -10,10 +10,12 @@ import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
+import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
+import cl.bennder.entitybennderwebrest.response.ProveedoresResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,13 @@ import org.springframework.web.client.RestTemplate;
  */
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
+    
+    public static CategoriasResponse obtenerCategoriaByProveedor( final ProveedorIdRequest query ) {
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_PROVEEDOR, query, CategoriasResponse.class);
+    }
+    public static ProveedoresResponse obtenerProveedorHabilitados( final ProveedorIdRequest query ) {
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_PROVEEDORES_HABILITADOS, query, ProveedoresResponse.class);
+    } 
     
     public static CategoriasResponse obtenerCategoriasById( final CategoriaByIdRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_ID, query, CategoriasResponse.class);
