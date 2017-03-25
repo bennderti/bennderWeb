@@ -38,7 +38,7 @@ public class CategoriaController {
         CategoriaResponse response = categoriaServices.cargarCategoria(nombreCategoria);
         modelAndView.addObject("beneficios", response.getBeneficios());
         modelAndView.addObject("categoriasRelacionadas", response.getCategoriasRelacionadas());
-        modelAndView.addObject("nombreCategoria", nombreCategoria);
+        modelAndView.addObject("nombreCategoria", response.getCategoriaPadre().getNombre());
 
         log.info("FIN");
         return modelAndView;

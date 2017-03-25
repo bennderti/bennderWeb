@@ -12,11 +12,11 @@
     <aside class="widget widget-categories">
         <h3 class="sidebar-title">${nombreCategoria}</h3>
         <ul class="sidebar-menu">
-            <li><a href="#">Clothes</a> <span class="count">(14)</span></li>
-            <li><a href="#">Men</a> <span class="count">(9)</span></li>
-            <li><a href="#">Shoes</a> <span class="count">(2)</span></li>
-            <li><a href="#">Sunglasses</a> <span class="count">(2)</span></li>
-            <li><a href="#">Women</a> <span class="count">(8)</span></li>
+            <c:if test="${not empty categoriasRelacionadas}">
+                <c:forEach items="${categoriasRelacionadas}" var="subCategoria">
+                    <li><a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
+                </c:forEach>
+            </c:if>
         </ul>
     </aside>
     <!-- widget-categories end -->
