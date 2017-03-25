@@ -20,17 +20,7 @@
     <!-- header-top-area end -->
     <div class="sticky-wrapper">
         <header>			
-                        <div class="header-bottom-area">
-                            <div class="container">
-                                <div class="row logo-bennder">
-                                    <div class="">
-                                        <div class="logo">
-                                            <a href="index.html"><span>B</span>ennder</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 			<!-- header-bottom-area end -->         
 			<!-- main-menu-area end -->
 			<!-- mobile-menu-area start -->
@@ -98,14 +88,29 @@
                         <input id="addFile" type="button" value="+ Imagen" class="btn btn-primary" onclick="Cargador.addFile();"/>
                             <table id="fileTable">
                                     <tr>
-                                        <td><input name="files[0]" type="file"></td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-addon beautiful">
+                                                    <input type="radio" name="optradio" onclick="Cargador.onSelectPrincipal(0)" > Principal
+                                                </span> 
+                                                <input name="files[0]" type="file" class="form-control">
+                                            </div>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><input name="files[1]" type="file" /></td>
+                                        <td>
+                                            <div class="input-group">
+                                                <span class="input-group-addon beautiful">
+                                                    <input type="radio" name="optradio" onclick="Cargador.onSelectPrincipal(1)"> Principal
+                                                </span> 
+                                                <input name="files[1]" type="file" class="form-control">
+                                            </div>
+                                        </td>
                                     </tr>
                             </table>
                         <br/><input id="btn-upload-images-submit" type="submit" value="" style="display: none;"/>
                         <input type="hidden" name="idBeneficio" id="input-idBeneficio"/>
+                        <input type="hidden" name="indexPrincipal" id="input-indexPrincipal"/>
                         <input id="btn-upload-images" type="button" value="Subir imagenes" class="btn btn-primary" onclick="Cargador.uploadImagesBeneficios();"/>                        
                     </form:form>
                 </div>

@@ -95,18 +95,26 @@ public class CargadorController {
         return respJson;
     }
     @RequestMapping(value = "/uploadImagesBeneficios.html", method = RequestMethod.POST)
-    public ModelAndView uploadImagesBeneficios(@ModelAttribute("uploadForm") FileUploadForm uploadForm,@RequestParam("idBeneficio") Integer idBeneficio) {
+    public ModelAndView uploadImagesBeneficios(@ModelAttribute("uploadForm") FileUploadForm uploadForm,
+                                               @RequestParam("idBeneficio") Integer idBeneficio,
+                                               @RequestParam("indexPrincipal") Integer indexPrincipal) {
         log.info("INICIO");
         log.info("idBeneficio ->{}",idBeneficio);
+        log.info("indexPrincipal ->{}",indexPrincipal);
         List<MultipartFile> files = uploadForm.getFiles();
 
         List<String> fileNames = new ArrayList<>();
 
         if(null != files && files.size() > 0) {
+                int i = 0;
                 for (MultipartFile multipartFile : files) {
                         String fileName = multipartFile.getOriginalFilename();
                         log.info("fileName ->{}",fileName);
+                        if(indexPrincipal!=null && indexPrincipal == i){
+                            log.info("La iamgen ->{} se configura como principal",fileName);
+                        }
                         fileNames.add(fileName);
+                        i++;
                         //Handle file content - multipartFile.getInputStream()
 
                 }
