@@ -77,7 +77,7 @@ ul.navbar-nav {
 .navbar-inverse ul.navbar-nav li .li-social a:focus { border: 0; color: #f35b3f; }
 
 .navbar-brand {
-	width: 162px;
+	width: 200px;
 	background: url(../img/logo.png) left center no-repeat;
 	text-indent: -99999px;
 }
@@ -172,9 +172,5 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
 	
-	/* logo */
-    .navbar-brand {
-    	background-image: url(../img/logo@2x.png) !important; background-repeat: no-repeat !important; background-size: 162px 36px !important;
-    }
 	
 }

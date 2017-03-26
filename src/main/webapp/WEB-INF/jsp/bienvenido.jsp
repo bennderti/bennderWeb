@@ -30,43 +30,23 @@
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-        <!-- Favicon and touch icons -->
-<!--        <link rel="shortcut icon" href="/resources/css/bienvenida/ico/favicon.png">        
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/resources/css/bienvenida/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/resources/css/bienvenida/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/resources/css/bienvenida/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="/resources/css/bienvenida/ico/apple-touch-icon-57-precomposed.png">-->
-        
-        <link rel="shortcut icon" href='<c:url value="/resources/css/bienvenida/ico/favicon.png"/>'>        
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href='<c:url value="/resources/css/bienvenida/ico/apple-touch-icon-144-precomposed.png"/>'>
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href='<c:url value="/resources/css/bienvenida/ico/apple-touch-icon-114-precomposed.png"/>'>
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href='<c:url value="/resources/css/bienvenida/ico/apple-touch-icon-72-precomposed.png"/>'>
-        <link rel="apple-touch-icon-precomposed" href='<c:url value="/resources/css/bienvenida/ico/apple-touch-icon-57-precomposed.png"/>'>
-
+        <![endif]-->       
     </head>
 
     <body>
 
 		<!-- Top menu -->
 		<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.html">Work - Life Balance</a>
+			<div style="padding-left: 70px;">
+				<div class="navbar-header">					
+					<a class="navbar-brand" href="index.html" style="height: 55px;">Work - Life Balance</a>
 				</div>                         
                         </div>
 		</nav>
 
         <!-- Top content -->
         <div class="top-content">
-            <div class="container">
+            <div class="container" style="margin-left: inherit;">
                 
                 <div class="row">
                     <div class="col-sm-8 col-sm-offset-2 text">
@@ -83,43 +63,56 @@
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
                     	<form role="form" action="" method="post" class="f1">
 
-                    		<h3>Register To Our App</h3>
-                    		<p>Fill in the form to get instant access</p>
+                    		<h3>Te Queremos Conocer</h3>
+                    		<p>Ayudanos a completar la siguiente Información</p>
                     		<div class="f1-steps">
                     			<div class="f1-progress">
                     			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
                     			</div>
                     			<div class="f1-step active">
                     				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                    				<p>about</p>
+                    				<p>Información Adicional</p>
                     			</div>
                     			<div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
-                    				<p>account</p>
+                    				<div class="f1-step-icon"><i class="fa fa-heart"></i></div>
+                    				<p>Preferencias</p>
                     			</div>
-                    		    <div class="f1-step">
+<!--                    		    <div class="f1-step">
                     				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
-                    				<p>social</p>
-                    			</div>
+                    				<p>Bienvenida</p>
+                    			</div>-->
                     		</div>
                     		
                     		<fieldset>
-                    		    <h4>Tell us who you are:</h4>
+                    		    <h4>Datos de Contacto</h4>
                     			<div class="form-group">
-                    			    <label class="sr-only" for="f1-first-name">First name</label>
-                                    <input type="text" name="f1-first-name" placeholder="First name..." class="f1-first-name form-control" id="f1-first-name">
+                    			    <label class="sr-only" for="f1-first-name">Email personal</label>
+                                    <input type="text" name="f1-first-name" placeholder="Email personal..." class="f1-first-name form-control" id="f1-first-name">
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-last-name">Last name</label>
-                                    <input type="text" name="f1-last-name" placeholder="Last name..." class="f1-last-name form-control" id="f1-last-name">
+                                    <label class="sr-only" for="f1-last-name">Celular</label>
+                                    <input type="text" name="f1-last-name" placeholder="Celular..." class="f1-last-name form-control" id="f1-last-name">
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-about-yourself">About yourself</label>
+<!--                                    <label class="sr-only" for="f1-about-yourself">About yourself</label>
                                     <textarea name="f1-about-yourself" placeholder="About yourself..." 
-                                    	                 class="f1-about-yourself form-control" id="f1-about-yourself"></textarea>
+                                    	                 class="f1-about-yourself form-control" id="f1-about-yourself"></textarea>-->
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Estado Civil
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="#">Solter@</a></li>
+                                            <li><a href="#">Casad@</a></li>
+                                            <li><a href="#">Viud@</li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button type="button" class="btn btn-next">Siguiente</button>
                                 </div>
                             </fieldset>
 
