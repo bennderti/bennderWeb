@@ -46,8 +46,16 @@
                                 <div class="single-product">
                                     <div class="product-img">
                                         <a href="single-product.html">
-                                            <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>' alt="" />
-                                            <img class="secondary-img" src='<c:url value="/resources/img/product/2.jpg"/>' alt="" />
+                                            <c:choose >
+                                                <c:when test="${not empty beneficio.imagenesBeneficio}">
+                                                    <img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
+                                                    <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>'/>
+                                                    <img class="secondary-img" src='<c:url value="/resources/img/product/2.jpg"/>'/>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </a>
                                         <div class="product-action">
                                             <div class="pro-button-top">
@@ -61,7 +69,7 @@
                                     </div>
                                     <div class="product-info">
                                         <h3><a href="single-product.html">${beneficio.titulo}</a></h3>
-
+                                        <h4>${beneficio.nombreProveedor}</h4>
                                         <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
                                             <div class="pro-price">
                                                 <span class="normal">${beneficio.porcentajeDescuento}%</span>
@@ -88,45 +96,62 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">
                 <div class="row shop-list">
-                    <!-- single-product start -->
-                    <div class="col-md-12">
-                        <div class="single-product">
-                            <div class="product-img">
-                                <a href="single-product.html">
-                                    <img class="primary-img" src="img/product/15.jpg" alt="" />
-                                    <img class="secondary-img" src="img/product/16.jpg" alt="" />
-                                </a>
-                            </div>
-                            <div class="product-info">
-                                <h3>
-                                    <a href="single-product.html">Feugiat justo lacinia</a></h3>
-                                <div class="pro-price">
-                                    <span class="normal">$150</span> <span class="old">$180</span>
-                                </div>
-                                <div class="pro-rating">
-                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                        class="fa fa-star"></i><i class="fa fa-star"></i>
-                                </div>
-                                <div class="product-desc">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec
-                                        est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus
-                                        quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit
-                                        id nulla.</p>
-                                </div>
-                                <div class="product-action">
-                                    <div class="pro-button-top">
-                                        <a href="#">add to cart</a>
+                    <c:if test="${not empty beneficios}">
+                        <c:forEach items="${beneficios}" var="beneficio">
+                            <!-- single-product start -->
+                            <div class="col-md-12">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a href="single-product.html">
+                                            <c:choose>
+                                                <c:when test="${not empty beneficio.imagenesBeneficio}">
+                                                    <img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
+                                                    <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>'/>
+                                                    <img class="secondary-img" src='<c:url value="/resources/img/product/2.jpg"/>'/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </a>
                                     </div>
-                                    <div class="pro-button-bottom">
-                                        <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
-                                    </a><a href="#"><i class="fa fa-search-plus"></i></a>
+                                    <div class="product-info">
+                                        <h3>
+                                            <a href="single-product.html">${beneficio.titulo}</a></h3>
+                                        <h4>${beneficio.nombreProveedor}</h4>
+                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
+                                            <div class="pro-price">
+                                                <span class="normal">${beneficio.porcentajeDescuento}%</span>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 2}">
+                                            <div class="pro-price">
+                                                <fmt:setLocale value="es_CL" scope="session"/>
+                                                <span class="normal"><fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/></span> <span class="old"><fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/></span>
+                                            </div>
+                                        </c:if>
+                                        <div class="pro-rating">
+                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                                class="fa fa-star"></i><i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="product-desc">
+                                            <p>${beneficio.descripcion}</p>
+                                        </div>
+                                        <div class="product-action">
+                                            <div class="pro-button-top">
+                                                <a href="#">add to cart</a>
+                                            </div>
+                                            <div class="pro-button-bottom">
+                                                <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
+                                            </a><a href="#"><i class="fa fa-search-plus"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- single-product end -->
+                            <!-- single-product end -->
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>
