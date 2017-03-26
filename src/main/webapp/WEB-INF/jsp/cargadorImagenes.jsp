@@ -83,7 +83,7 @@
                 <div class="col-lg-4 col-lg-offset-4 images-upload" style="display: none"> 
                     <h3>Seleccione imagenes a subir</h3>
                     <form:form method="post" action="uploadImagesBeneficios.html" modelAttribute="uploadForm" enctype="multipart/form-data">
-                        <p>Selecciona iamgens y presiona <strong>+ Imagen</strong> para agrear mas imagenes.</p>
+                        <p>Selecciona imagenes y presiona <strong>+ Imagen</strong> para agrear mas imagenes. Cabe mencionar que las imagenes a cargar actualizarán las anteriores.</p>
 
                         <input id="addFile" type="button" value="+ Imagen" class="btn btn-primary" onclick="Cargador.addFile();"/>
                             <table id="fileTable">
@@ -129,7 +129,6 @@
     <!-- jquery latest version -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
     <!--Js Login (dejar versión *.min.js ofuscada-->
-    <script type="text/javascript" src="<c:url value="/resources/js/login/login.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
     
     <!--Modal -->
     <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     

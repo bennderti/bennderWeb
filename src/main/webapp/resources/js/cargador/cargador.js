@@ -22,7 +22,7 @@ var Cargador = {
        }
        else{
            //<input type="hidden" name="indexPrincipal" id="input-indexPrincipal"/>
-           
+           ModalLoading.mostrar();
            $("#input-idBeneficio").val($("#select-beneficio").val());
            $("#btn-upload-images-submit").click();
        } 
