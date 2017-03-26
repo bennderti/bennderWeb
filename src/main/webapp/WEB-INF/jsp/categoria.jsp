@@ -13,6 +13,14 @@
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/head.jsp"/>
     <!-- all css here -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/cssTemplate.jsp"/>
+    <style>
+        li.active {
+            background-color: #1d78cb;
+        }
+        li.active a{
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <!--[if lt IE 8]>

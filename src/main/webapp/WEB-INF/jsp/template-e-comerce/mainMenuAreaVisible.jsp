@@ -15,22 +15,7 @@
                                     <li><a href="index-3.html">Homepage Version 3</a></li>													
                                 </ul>
                             </li>
-                            <li><a href="about.html">About</a></li>
 
-                            <li><a href="index.html">Shop</a>
-                                <ul>
-                                    <li><a href="shop.html">Shop Sidebar Left</a></li>
-                                    <li><a href="shop-right.html">Shop Sidebar Right</a></li>
-                                    <li><a href="shop-list.html">Shop List View</a></li>
-                                    <li><a href="single-product.html">single-product</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="blog.html">Blog</a>
-                                <ul>
-                                    <li><a href="single-blog.html">single-blog</a></li>
-                                    <li><a href="single-blog-video.html">single-blog-video</a></li>
-                                </ul>
-                            </li>
                             <li><a href="#">Clothing</a>
                                 <div class="mega-menu">
                                     <span>
@@ -58,17 +43,6 @@
                                         <a href="shop.html"><img alt="" src='<c:url value="/resources/img/5_hover_2.jpg"/>'></a>
                                     </span>
                                 </div>										
-                            </li>
-                            <li><a href="shop.html">Footwear </a></li>
-                            <li><a href="#">pages</a>
-                                <ul>
-                                    <li><a href="about.html">about us</a></li>
-                                    <li><a href="cart.html">shopping cart</a></li>
-                                    <li><a href="checkout.html">checkout</a></li>
-                                    <li><a href="wishlist.html">wishlist</a></li>
-                                    <li><a href="login.html">login</a></li>												
-                                    <li><a href="contact.html">contact us</a></li>
-                                </ul>											
                             </li>
                             <li><a href="contact.html">contact</a></li>
                         </ul>

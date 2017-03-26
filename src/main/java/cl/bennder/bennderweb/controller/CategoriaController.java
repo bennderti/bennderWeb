@@ -27,6 +27,11 @@ public class CategoriaController {
     @Autowired
     private UsuarioSession usuarioSession;
 
+    /**
+     * @author Diego
+     * @param nombreCategoria
+     * Carga la pantalla al seleccionar una categoria
+     */
     @ExceptionHandler
     @RequestMapping(value = "/categoria/{nombreCategoria}.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView obtenerDetalleCategoria(@PathVariable String nombreCategoria) {
@@ -39,6 +44,7 @@ public class CategoriaController {
         modelAndView.addObject("beneficios", response.getBeneficios());
         modelAndView.addObject("categoriasRelacionadas", response.getCategoriasRelacionadas());
         modelAndView.addObject("nombreCategoria", response.getCategoriaPadre().getNombre());
+        modelAndView.addObject("categoriaSeleccionada", nombreCategoria);
 
         log.info("FIN");
         return modelAndView;

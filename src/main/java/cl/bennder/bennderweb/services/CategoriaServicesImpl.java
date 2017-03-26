@@ -120,6 +120,11 @@ public class CategoriaServicesImpl implements CategoriaServices{
         return response;
     }
 
+    /**
+     * @author Diego
+     * @param nombreCategoria
+     * @return Categoria con sus beneficios
+     */
     @Override
     public CategoriaResponse cargarCategoria(String nombreCategoria) {
         CategoriaResponse response = new CategoriaResponse();
@@ -138,6 +143,8 @@ public class CategoriaServicesImpl implements CategoriaServices{
                 response.getValidacion().setMensaje("Problemas al obtener categorías relacionadas");
                 log.error("No se pudo obtener categorías relacionadas");
             }
+
+
         } catch (Exception e) {
             log.error("[Exception] Error al obtener categorías", e);
             response.getValidacion().setCodigo("NOK");

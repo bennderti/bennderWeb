@@ -14,7 +14,14 @@
         <ul class="sidebar-menu">
             <c:if test="${not empty categoriasRelacionadas}">
                 <c:forEach items="${categoriasRelacionadas}" var="subCategoria">
-                    <li><a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
+                    <c:choose >
+                        <c:when test="${categoriaSeleccionada eq subCategoria.nombre}">
+                            <li class="active"><a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </c:if>
         </ul>

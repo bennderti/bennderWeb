@@ -15,23 +15,7 @@
                                     <li><a href="index-3.html">Homepage Version 3</a></li>													
                                 </ul>
                             </li>
-                            <li><a href="about.html">About</a></li>
-
-                            <li><a href="index.html">Shop</a>
-                                <ul>
-                                    <li><a href="shop.html">Shop Sidebar Left</a></li>
-                                    <li><a href="shop-right.html">Shop Sidebar Right</a></li>
-                                    <li><a href="shop-list.html">Shop List View</a></li>
-                                    <li><a href="single-product.html">single-product</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="blog.html">Blog</a>
-                                <ul>
-                                    <li><a href="single-blog.html">single-blog</a></li>
-                                    <li><a href="single-blog-video.html">single-blog-video</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Clothing</a>
+                            <li><a href="#">Categorias</a>
                                 <div class="mega-menu">
                                     <c:if test="${not empty categorias}">
                                         <c:forEach items="${categorias}" var="categoria">
@@ -45,20 +29,6 @@
                                     </c:if>
                                 </div>										
                             </li>
-                            <li><a href="shop.html">Footwear </a></li>
-                            <li><a href="shop.html">Bags </a></li>
-                            <li><a href="shop.html">Shoes </a></li>
-                            <li><a href="#">pages</a>
-                                <ul>
-                                    <li><a href="about.html">about us</a></li>
-                                    <li><a href="cart.html">shopping cart</a></li>
-                                    <li><a href="checkout.html">checkout</a></li>
-                                    <li><a href="wishlist.html">wishlist</a></li>
-                                    <li><a href="login.html">login</a></li>												
-                                    <li><a href="contact.html">contact us</a></li>
-                                </ul>											
-                            </li>
-                            <li><a href="contact.html">contact</a></li>
                         </ul>
                     </nav>
                 </div>
