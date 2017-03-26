@@ -12,4 +12,5 @@ package cl.bennder.bennderweb.constantes;
  */
 public abstract class GoToUrl {
     public static final String URL_HOME = "home.html";
+    public static final String URL_BIENVENIDO = "bienvenido.html";
 }
