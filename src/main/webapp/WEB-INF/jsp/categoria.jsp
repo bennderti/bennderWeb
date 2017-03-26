@@ -14,10 +14,10 @@
     <!-- all css here -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/cssTemplate.jsp"/>
     <style>
-        li.active {
+        .widget-categories li.active {
             background-color: #1d78cb;
         }
-        li.active a{
+        .widget-categories li.active a{
             color: white;
         }
     </style>
