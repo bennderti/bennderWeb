@@ -13,6 +13,7 @@ import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
 import cl.bennder.entitybennderwebrest.request.UploadBeneficioImagenRequest;
+import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
@@ -49,8 +50,8 @@ public class RestConnector {
     public static CategoriasResponse obtenerCategoriasById( final CategoriaByIdRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_ID, query, CategoriasResponse.class);
     }
-    public static BeneficiosResponse getBeneficiosByIdCat( final CategoriaByIdRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_BENEFICIOS_BY_ID_CAT, query, BeneficiosResponse.class);
+    public static BeneficiosCargadorResponse getBeneficiosByIdCat( final CategoriaByIdRequest query ) {
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_BENEFICIOS_BY_ID_CAT, query, BeneficiosCargadorResponse.class);
     }
     public static ValidacionResponse recuperacionPassword( final RecuperacionPasswordRequest query ) {
         //return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);

@@ -11,6 +11,7 @@ import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.entitybennderwebrest.request.BeneficiosRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
+import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
@@ -38,7 +39,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
         return RestConnector.obtenerCategoriasById(request);    }
 
     @Override
-    public BeneficiosResponse getBeneficiosByIdCat(CategoriaByIdRequest request) {
+    public BeneficiosCargadorResponse getBeneficiosByIdCat(CategoriaByIdRequest request) {
         return RestConnector.getBeneficiosByIdCat(request);
     }
     

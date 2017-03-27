@@ -10,6 +10,7 @@ import cl.bennder.bennderweb.services.ProveedorServices;
 import cl.bennder.entitybennderwebrest.model.Validacion;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
+import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.UploadBeneficioImagenResponse;
@@ -87,7 +88,7 @@ public class CargadorController {
     @RequestMapping(value="getBeneficiosByIdCat.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public @ResponseBody String getBeneficiosByIdCat(@RequestParam("id") Integer idCategoria, HttpSession session){
         log.info("INICIO - idBeneficio ->{}",idCategoria);
-        BeneficiosResponse response = new BeneficiosResponse();
+        BeneficiosCargadorResponse response = new BeneficiosCargadorResponse();
         response.setValidacion(new Validacion("0", "1", "Sin beneficios encontradas"));
         if(idCategoria!=null){
             response = categoriaServices.getBeneficiosByIdCat(new CategoriaByIdRequest(idCategoria));
