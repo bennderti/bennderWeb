@@ -1,6 +1,6 @@
 jQuery(document).on('ready', function () {
 
-    
+    //https://www.w3schools.com/bootstrap/bootstrap_popover.asp
     $("#select-proveedores").on("change",function(){
         Cargador.cargarCategoriaProveedor();
     });
@@ -13,6 +13,28 @@ jQuery(document).on('ready', function () {
     });
 });
 var Cargador = {
+    previewImage:function(a){
+        var imgSrc = $(a).parent().parent().parent().find("td div img").attr("src");
+        if(imgSrc !== undefined && imgSrc !== ''){
+            $('#imagepreview').attr('src', imgSrc); 
+            $('#imagemodal').modal('show'); 
+        }
+        else{
+            ModalBennder.mostrar({tipo: "advertencia", mensaje: "Aún no ha cargado imagen", titulo: "Cargador"});
+        }
+    },
+    saveTempImg:function(input){
+        ModalLoading.mostrar();
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(input).parent().find("img").attr('src', e.target.result);
+                //$('#blah').attr('src', e.target.result);
+                ModalLoading.cerrar();
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    },
     onSelectPrincipal:function(index){
        $("#input-indexPrincipal").val(index); 
     },
@@ -30,23 +52,22 @@ var Cargador = {
     addFile:function(){
         var fileIndex = $('#fileTable tr').children().length;
         if(fileIndex !== undefined){
-//            $('#fileTable').append(
-//				'<tr><td>'+
-//				'	<input type="file" name="files['+ fileIndex +']" />'+
-//				'</td></tr>');
-                        
-                        
-            $('#fileTable').append(            
-                                    '<tr>'+
-                                    '    <td>'+
-                                    '        <div class="input-group">'+
-                                    '            <span class="input-group-addon beautiful">'+
-                                    '                <input type="radio" name="optradio" onclick="Cargador.onSelectPrincipal('+ fileIndex +')"> Principal '+
-                                    '            </span> '+
-                                    '            <input name="files['+ fileIndex +']" type="file" class="form-control">'+
-                                    '        </div>'+
-                                    '    </td>'+
-                                    '</tr>');
+            $('#fileTable').append('<tr><td> '+
+                                  '    <div class="input-group">'+
+                                  '        <input type="radio" name="optradio" onclick="Cargador.onSelectPrincipal('+ fileIndex +')" > Principal'+
+                                  '    </div>'+
+                                  '</td>'+
+                                  '<td>'+
+                                  '    <div class="input-group">'+
+                                  '        <input name="files['+ fileIndex +']" type="file" class="form-control" onchange="Cargador.saveTempImg(this);">'+
+                                  '        <img src  ="" style="display: none;"/>'+
+                                  '    </div>'+
+                                  '</td>'+
+                                  '<td>'+
+                                  '    <div class="input-group">'+
+                                  '        <a class="btn btn-primary" onclick="Cargador.previewImage(this);">Preview</a>'+
+                                  '    </div>'+
+                                  '</td></tr>');
         }
 		
     },
