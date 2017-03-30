@@ -21,4 +21,5 @@ public abstract class URLServiciosBennder {
     public static final String URL_OBTENER_BENEFICIOS_POR_CATEGORIA = "obtenerBeneficiosPorCategoria";
     public static final String URL_OBTENER_CATEGORIAS_RELACIONADAS = "obtenerCategoriasRelacionadas";
     public static final String URL_CARGAR_CATEGORIA = "cargarCategoria";
+    public static final String URL_OBTENER_DETALLE_BENEFICIO = "obtenerDetalleBeneficio";
 }

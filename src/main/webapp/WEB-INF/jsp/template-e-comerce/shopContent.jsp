@@ -45,7 +45,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <div class="single-product">
                                     <div class="product-img">
-                                        <a href="single-product.html">
+                                        <a href="<c:url value="/detalleBeneficio/${beneficio.idBeneficio}.html"/>">
                                             <c:choose >
                                                 <c:when test="${not empty beneficio.imagenesBeneficio}">
                                                     <img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
@@ -102,7 +102,7 @@
                             <div class="col-md-12">
                                 <div class="single-product">
                                     <div class="product-img">
-                                        <a href="single-product.html">
+                                        <a href="detalleBeneficio/${beneficio.idBeneficio}.html">
                                             <c:choose>
                                                 <c:when test="${not empty beneficio.imagenesBeneficio}">
                                                     <img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
