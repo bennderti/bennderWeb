@@ -15,13 +15,19 @@ import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.UploadBeneficioImagenResponse;
 import com.google.gson.Gson;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -113,7 +119,28 @@ public class CargadorController {
         //return new ModelAndView("redirect:cargaBeneficiosProveedores.html");
         return modelAndView;
 	}
-    
+     
+        @RequestMapping(value = "/files/{file_name}.html", method = RequestMethod.GET)
+        public void getFile(
+            @PathVariable("file_name") String fileName, 
+            HttpServletResponse response) {
+            try {
+              // get your file as InputStream
+              //InputStream is = ...;
+              // copy it to response's OutputStream
+              log.info("file_name-->{}",fileName);
+              File initialFile = new File("C:\\Users\\dyanez\\AppData\\Local\\Temp\\sample1.pdf");
+              //InputStream is = new ByteArrayInputStream(decodedBytes);
+              InputStream targetStream = FileUtils.openInputStream(initialFile);
+              org.apache.commons.io.IOUtils.copy(targetStream, response.getOutputStream());
+              response.flushBuffer();
+              response.setContentType("application/pdf");
+            } catch (IOException ex) {
+              log.info("Error writing file to output stream. Filename was '{}'", fileName, ex);
+              throw new RuntimeException("IOError writing file to output stream");
+            }
+
+        }
     
     
 }
