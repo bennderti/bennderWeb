@@ -1,14 +1,13 @@
 package cl.bennder.bennderweb.controller;
 
-import cl.bennder.bennderweb.constantes.GoToUrl;
-import cl.bennder.bennderweb.model.LoginForm;
 import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.services.BeneficioServices;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.entitybennderwebrest.request.BeneficioRequest;
-import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
+import cl.bennder.entitybennderwebrest.request.GetCuponBeneficioRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficioResponse;
-import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
+import cl.bennder.entitybennderwebrest.response.GetCuponBeneficioResponse;
+import com.google.gson.Gson;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,5 +123,23 @@ public class BeneficioController {
 
         log.info("FIN");
         return modelAndView;
+    }
+    
+    /**
+     * Método utilizado cuando usuario ha seleccionado un cupon bajo la opción obtenido
+     * @author dyanez
+     * @param idBeneficio beneficio seleccionado
+     * @return vista con detalle de un beneficio
+     */
+    @ExceptionHandler
+    @RequestMapping(value = "/getCuponBeneficio/{idBeneficio}.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String getCuponBeneficio(@PathVariable Integer idBeneficio) {
+        log.info("INICIO");
+        log.info("Usuario connected ->{}, beneficio seleccionado ->{}",usuarioSession.getIdUsuario(),idBeneficio);
+        GetCuponBeneficioResponse response = beneficioServices.getCuponBeneficio(new GetCuponBeneficioRequest(idBeneficio, usuarioSession.getIdUsuario()));
+        String respJson =  new Gson().toJson(response);
+        log.info("respJson ->{}",respJson);
+        log.info("FIN");
+        return respJson;
     }
 }
