@@ -57,7 +57,7 @@
                                                 </c:otherwise>
                                             </c:choose>
                                         </a>
-                                        <div class="product-action">
+                                        <div class="product-action hidden">
                                             <div class="pro-button-top">
                                                 <a href="#">add to cart</a>
                                             </div>

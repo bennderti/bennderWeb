@@ -5,6 +5,7 @@
   Time: 23:05
   To change this template use File | Settings | File Templates.
 --%>
+<%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- single-product-area start -->
 <div class="single-product-area">
@@ -69,7 +70,7 @@
                             <hr class="page-divider">
                             <div class="product-action">
                                 <div class="pro-button-top">
-                                    <a href="#">Obtener Beneficio</a>
+                                    <a href="#" onclick="BeneficioBennder.getBeneficio(${beneficio.idBeneficio});">Obtener Beneficio</a>
                                 </div>
                                 <div class="pro-button-bottom">
                                     <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
@@ -362,4 +363,7 @@
         </div>
     </div>
 </div>
+                                            
+                                                <script type="text/javascript" src="<c:url value="/resources/js/beneficio/beneficio.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+    
 <!-- single-product-area end -->

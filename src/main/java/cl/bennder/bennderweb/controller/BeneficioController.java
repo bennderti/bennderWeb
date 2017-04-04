@@ -119,6 +119,9 @@ public class BeneficioController {
         ModelAndView modelAndView = new ModelAndView("detalleBeneficio");
 
         BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(idBeneficio));
+        if(response.getBeneficio()!=null){
+            response.getBeneficio().setIdBeneficio(idBeneficio);
+        }
         modelAndView.addObject("beneficio", response.getBeneficio());
 
         log.info("FIN");
