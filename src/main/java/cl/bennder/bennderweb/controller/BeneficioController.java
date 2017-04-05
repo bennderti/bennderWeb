@@ -101,30 +101,7 @@ public class BeneficioController {
         if(usuarioSession!=null && usuarioSession.getIdUsuario()!=null){
             String mensajeLog = "[IdUsuario -> "+usuarioSession.getIdUsuario()+"]";
             log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando",mensajeLog);
-            //.- se consume servicio de generacion de cupon QR
-            //.- si es ok, se redire a url para descagar pdf en brower
-            //.- sino, se envia mensaje a url validacion cupon
-//            GeneraCuponQrResponse gResponse = cuponBeneficioServices.generaCuponQR(new GeneraCuponQrRequest(usuarioSession.getCodigoCuponEncriptado(), usuarioSession.getIdUsuario()));
-//            if(gResponse!=null && gResponse.getValidacion()!=null){
-//                if("0".equals(gResponse.getValidacion().getCodigo()) && "0".equals(gResponse.getValidacion().getCodigoNegocio()) 
-//                   && gResponse.getCuponPdf()!=null){
-//                    log.info("{} Ahora redireccionado par generar cupón en browser",mensajeLog);
-//                    session.setAttribute("cuponPdf", gResponse.getCuponPdf());
-//                    url = GoToUrl.URL_DOWNLOAD_CUPON_PDF;
-//                }
-//                else{
-//                    log.info("{} Respuesta de generación cupón ->{}",mensajeLog,gResponse.getValidacion().getMensaje());
-//                    usuarioSession.getValidacion().setMensaje(gResponse.getValidacion().getMensaje()); 
-//                    url = GoToUrl.URL_VALIDACION_CUPON;
-//                }
-//            }
-//            else{
-//                log.info("{} Problemas al generar código QR de beneficio",mensajeLog);
-//                usuarioSession.getValidacion().setMensaje("Problemas al generar código QR de beneficio");
-//                url = GoToUrl.URL_VALIDACION_CUPON;
-//            }
-//            usuarioSession.setCodigoCuponEncriptado(null);
-              url = cuponBeneficioServices.validaLinkExternoCupon(session);
+            url = cuponBeneficioServices.validaLinkExternoCupon(session);
         }
         else{
             log.info("Usuario no ha iniciado sesión, se redigige a login");
