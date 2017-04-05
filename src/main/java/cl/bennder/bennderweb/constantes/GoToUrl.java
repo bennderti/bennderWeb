@@ -13,4 +13,6 @@ package cl.bennder.bennderweb.constantes;
 public abstract class GoToUrl {
     public static final String URL_HOME = "home.html";
     public static final String URL_BIENVENIDO = "bienvenido.html";
+    public static final String URL_VALIDACION_CUPON = "validacionCupon.html";
+    public static final String URL_DOWNLOAD_CUPON_PDF = "downloadCuponPdf.html";
 }

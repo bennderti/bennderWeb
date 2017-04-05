@@ -5,9 +5,7 @@
  */
 package cl.bennder.bennderweb.model;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import cl.bennder.entitybennderwebrest.model.Validacion;
 
 /**
  *
@@ -17,6 +15,8 @@ public class UsuarioSession {
 
     private Integer idUsuario;//rut sin dv
     private String usuario;//ejemplo correo
+    private String codigoCuponEncriptado;
+    private Validacion validacion;
 
     public UsuarioSession() {
     }
@@ -37,6 +37,25 @@ public class UsuarioSession {
         this.usuario = usuario;
     }
 
+    public String getCodigoCuponEncriptado() {
+        return codigoCuponEncriptado;
+    }
+
+    public void setCodigoCuponEncriptado(String codigoCuponEncriptado) {
+        this.codigoCuponEncriptado = codigoCuponEncriptado;
+    }
+
+    public Validacion getValidacion() {
+        if(validacion == null){
+            this.validacion = new Validacion();
+        }
+        return validacion;
+    }
+
+    public void setValidacion(Validacion validacion) {
+        this.validacion = validacion;
+    }
+    
     
 
 }

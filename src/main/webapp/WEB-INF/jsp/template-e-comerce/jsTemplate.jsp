@@ -1,5 +1,9 @@
 <%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="context" value="${pageContext.request.contextPath}" scope="request" />
+<script>
+    var context = '${context}';
+</script>
 <!-- all js here -->
 <!-- jquery latest version -->
 <script type="text/javascript" src="<c:url value="/resources/js/vendor/jquery-1.12.0.min.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>

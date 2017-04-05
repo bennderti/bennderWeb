@@ -9,9 +9,12 @@ import cl.bennder.bennderweb.body.response.LoginBodyResponse;
 import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.LoginForm;
 import cl.bennder.bennderweb.model.UsuarioSession;
+import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.bennderweb.services.UsuarioServices;
+import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
+import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import com.google.gson.Gson;
@@ -42,6 +45,10 @@ public class LoginController {
     
     @Autowired
     private UsuarioServices usuarioServices;
+    
+    @Autowired
+    private CuponBeneficioServices cuponBeneficioServices;
+        
     //.- Index
     @RequestMapping(value = "/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView index() {
@@ -70,16 +77,45 @@ public class LoginController {
         LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
         LoginBodyResponse rBody = new LoginBodyResponse();
         rBody.setValidacion(response.getValidacion());
-        
         if(response.getValidacion()!=null && response.getValidacion().getCodigo()!=null && "0".equals(response.getValidacion().getCodigo())){
-            
-            if(response.getIdEstadoUsuario() == 1)
-                rBody.setGoToUrl(GoToUrl.URL_BIENVENIDO);
-            else
-                rBody.setGoToUrl(GoToUrl.URL_HOME);
-            
+            String mensajeLog = "[IdUsuario -> "+response.getIdUsuario()+"]";
             usuarioSession.setIdUsuario(response.getIdUsuario());//rut de cliente sin dv
             session.setAttribute("user", loginForm.getUser());
+            if(usuarioSession!=null && usuarioSession.getCodigoCuponEncriptado()!=null){
+                log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando",mensajeLog);
+                //.- se consume servicio de generacion de cupon QR
+                //.- si es ok, se redire a url para descagar pdf en brower
+                //.- sino, se envia mensaje a url validacion cupon
+                GeneraCuponQrResponse gResponse = cuponBeneficioServices.generaCuponQR(new GeneraCuponQrRequest(usuarioSession.getCodigoCuponEncriptado(), usuarioSession.getIdUsuario()));
+                if(gResponse!=null && gResponse.getValidacion()!=null){
+                    if("0".equals(gResponse.getValidacion().getCodigo()) && "0".equals(gResponse.getValidacion().getCodigoNegocio()) 
+                       && gResponse.getCuponPdf()!=null){
+                        log.info("{} Ahora redireccionado par generar cuppon en browser",mensajeLog);
+                        session.setAttribute("cuponPdf", gResponse.getCuponPdf());
+                        rBody.setGoToUrl(GoToUrl.URL_DOWNLOAD_CUPON_PDF);
+                    }
+                    else{
+                        log.info("{} Respuesta de generación cupon ->{}",mensajeLog,gResponse.getValidacion().getMensaje());
+                        usuarioSession.getValidacion().setMensaje(gResponse.getValidacion().getMensaje());
+                        rBody.setGoToUrl(GoToUrl.URL_VALIDACION_CUPON); 
+                    }
+                }
+                else{
+                    log.info("{} Problemas al generar código QR de beneficio",mensajeLog);
+                    usuarioSession.getValidacion().setMensaje("Problemas al generar código QR de beneficio");
+                    rBody.setGoToUrl(GoToUrl.URL_VALIDACION_CUPON);
+                }
+                usuarioSession.setCodigoCuponEncriptado(null);
+            }
+            else{
+                if(response.getIdEstadoUsuario() == 1){
+                    rBody.setGoToUrl(GoToUrl.URL_BIENVENIDO);
+                }
+                else{
+                    rBody.setGoToUrl(GoToUrl.URL_HOME);
+                }
+            }
+            
             log.info("Se guarda usuario en sessión ->{}",loginForm.getUser());
         }
         String respJson =  new Gson().toJson(rBody);

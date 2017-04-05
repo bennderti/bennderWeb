@@ -44,6 +44,7 @@ public class SessionFilter extends OncePerRequestFilter {
         urlIgnoradas.add("/index.html");
         urlIgnoradas.add("/login.html");
         urlIgnoradas.add("/requestPassword.html");
+        urlIgnoradas.add("/downloadCupon.html");//utilizada para generar/descargar cupon QR
         HttpSession session = req.getSession();	
         UsuarioSession u = this.usuarioSession;
         if (urlIgnoradas.contains(urlPatter)) {

@@ -22,4 +22,6 @@ public abstract class URLServiciosBennder {
     public static final String URL_OBTENER_CATEGORIAS_RELACIONADAS = "obtenerCategoriasRelacionadas";
     public static final String URL_CARGAR_CATEGORIA = "cargarCategoria";
     public static final String URL_OBTENER_DETALLE_BENEFICIO = "obtenerDetalleBeneficio";
+    public static final String URL_BENEFICIO_GENERAR_CUPON_QR = "beneficio/generaCuponQR";
+    public static final String URL_BENEFICIO_GET_CUPON_BENEFICIO = "beneficio/getCuponBeneficio";
 }
