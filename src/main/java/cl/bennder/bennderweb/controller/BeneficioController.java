@@ -1,11 +1,14 @@
 package cl.bennder.bennderweb.controller;
 
+import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.services.BeneficioServices;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.entitybennderwebrest.request.BeneficioRequest;
+import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
 import cl.bennder.entitybennderwebrest.request.GetCuponBeneficioRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficioResponse;
+import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
 import cl.bennder.entitybennderwebrest.response.GetCuponBeneficioResponse;
 import com.google.gson.Gson;
 import java.io.ByteArrayInputStream;
@@ -34,7 +37,7 @@ public class BeneficioController {
     private UsuarioSession usuarioSession;
     
     @Autowired
-    private CuponBeneficioServices uponBeneficioServices;
+    private CuponBeneficioServices cuponBeneficioServices;
     
     /***
      * Método que entrega mensaje al usuario al momento de descargar cupón
@@ -88,22 +91,47 @@ public class BeneficioController {
     
     
     @RequestMapping(value = "/downloadCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView obtenerDetalleBeneficio(@RequestParam("c") String codigoCuponEncriptado) {
+    public ModelAndView obtenerDetalleBeneficio(@RequestParam("c") String codigoCuponEncriptado,HttpSession session) {
         log.info("INICIO");
         log.info("codigoCuponEncriptado(antes formatear) ->{}",codigoCuponEncriptado);
         codigoCuponEncriptado = codigoCuponEncriptado.replaceAll(" ", "\\+");	
         log.info("codigoCuponEncriptado(despues formatear) ->{}",codigoCuponEncriptado);
         usuarioSession.setCodigoCuponEncriptado(codigoCuponEncriptado);
-        //.- valida si usuario ha iniciado sessión, para enviar a pantalla directamente a generar pdf o validación
-        //.-------------------------------------------------
-        //.-------------------------------------------------
-        //.------------------APLCIAR VALIDACIÓN-------------------------------
-        //.-------------------------------------------------
-        //.-------------------------------------------------
+        String url = "index.html";
+        if(usuarioSession!=null && usuarioSession.getIdUsuario()!=null){
+            String mensajeLog = "[IdUsuario -> "+usuarioSession.getIdUsuario()+"]";
+            log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando",mensajeLog);
+            //.- se consume servicio de generacion de cupon QR
+            //.- si es ok, se redire a url para descagar pdf en brower
+            //.- sino, se envia mensaje a url validacion cupon
+            GeneraCuponQrResponse gResponse = cuponBeneficioServices.generaCuponQR(new GeneraCuponQrRequest(usuarioSession.getCodigoCuponEncriptado(), usuarioSession.getIdUsuario()));
+            if(gResponse!=null && gResponse.getValidacion()!=null){
+                if("0".equals(gResponse.getValidacion().getCodigo()) && "0".equals(gResponse.getValidacion().getCodigoNegocio()) 
+                   && gResponse.getCuponPdf()!=null){
+                    log.info("{} Ahora redireccionado par generar cupón en browser",mensajeLog);
+                    session.setAttribute("cuponPdf", gResponse.getCuponPdf());
+                    url = GoToUrl.URL_DOWNLOAD_CUPON_PDF;
+                }
+                else{
+                    log.info("{} Respuesta de generación cupón ->{}",mensajeLog,gResponse.getValidacion().getMensaje());
+                    usuarioSession.getValidacion().setMensaje(gResponse.getValidacion().getMensaje()); 
+                    url = GoToUrl.URL_VALIDACION_CUPON;
+                }
+            }
+            else{
+                log.info("{} Problemas al generar código QR de beneficio",mensajeLog);
+                usuarioSession.getValidacion().setMensaje("Problemas al generar código QR de beneficio");
+                url = GoToUrl.URL_VALIDACION_CUPON;
+            }
+            usuarioSession.setCodigoCuponEncriptado(null);
+        }
+        else{
+            log.info("Usuario no ha iniciado sesión, se redigige a login");
+        }
         
-        log.info("redireccionando a index");
+        log.info("redireccionando a ->{}",url);
         log.info("FIN");
-        return new ModelAndView("redirect:index.html");
+        return new ModelAndView("redirect:"+url);
     }
 
     /**
