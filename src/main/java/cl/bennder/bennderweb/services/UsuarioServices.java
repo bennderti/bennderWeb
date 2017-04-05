@@ -5,6 +5,7 @@
  */
 package cl.bennder.bennderweb.services;
 
+import cl.bennder.bennderweb.controller.LoginController;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
@@ -25,6 +26,4 @@ public interface UsuarioServices {
      */
     public ValidacionResponse recuperacionPassword(RecuperacionPasswordRequest request);
     
-    
-//    public String goToUrl(HttpSession session);
 }
