@@ -5,7 +5,9 @@
  */
 package cl.bennder.bennderweb.services;
 
+import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
+import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,14 @@ import javax.servlet.http.HttpSession;
  * @author dyanez
  */
 public interface CuponBeneficioServices {
+    
+    
+    /***
+     * Método que permite consumir servicio para validar canje o hacer efectivo el cupón de beneficio, cmbiando estado
+     * @param request Contiene código de cupón QR desde link
+     * @return Validación de cupón de beneficio
+     */
+    public CanjeaCuponResponse validaCanjeCuponBeneficio(CanjeaCuponRequest request);
     /***
      * Método que genera cupon con código QR e información de beneficio
      * @param request información de código de beneficio

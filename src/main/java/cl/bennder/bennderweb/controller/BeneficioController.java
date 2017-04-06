@@ -1,14 +1,13 @@
 package cl.bennder.bennderweb.controller;
 
-import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.services.BeneficioServices;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.entitybennderwebrest.request.BeneficioRequest;
-import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
+import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.GetCuponBeneficioRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficioResponse;
-import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
+import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.GetCuponBeneficioResponse;
 import com.google.gson.Gson;
 import java.io.ByteArrayInputStream;
@@ -150,5 +149,21 @@ public class BeneficioController {
         log.info("respJson ->{}",respJson);
         log.info("FIN");
         return respJson;
+    }
+    
+    @RequestMapping(value = "/canjeCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView canjeCupon(@RequestParam("c") String codigoCuponEncriptado,HttpSession session) {
+        log.info("INICIO");
+        log.info("codigoCuponEncriptado(antes formatear) ->{}",codigoCuponEncriptado);
+        codigoCuponEncriptado = codigoCuponEncriptado.replaceAll(" ", "\\+");	
+        log.info("codigoCuponEncriptado(despues formatear) ->{}",codigoCuponEncriptado);
+        log.info("Validando canje/cupón de beneficio");
+        CanjeaCuponResponse response = cuponBeneficioServices.validaCanjeCuponBeneficio(new CanjeaCuponRequest(codigoCuponEncriptado));
+        log.info("Seteando mensaje de validación");
+        usuarioSession.getValidacion().setMensaje(response.getValidacion().getMensaje());
+        String url = "validacionCupon.html";        
+        log.info("redireccionando a ->{}",url);
+        log.info("FIN");
+        return new ModelAndView("redirect:"+url);
     }
 }
