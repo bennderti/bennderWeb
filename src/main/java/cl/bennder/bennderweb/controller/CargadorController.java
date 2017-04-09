@@ -106,11 +106,13 @@ public class CargadorController {
     @RequestMapping(value = "/uploadImagesBeneficios.html", method = RequestMethod.POST)
     public ModelAndView uploadImagesBeneficios(@ModelAttribute("uploadForm") FileUploadForm uploadForm,
                                                @RequestParam("idBeneficio") Integer idBeneficio,
-                                               @RequestParam("indexPrincipal") Integer indexPrincipal) {
+                                               @RequestParam("indexPrincipal") Integer indexPrincipal,
+                                               @RequestParam("idProv") Integer idProveedor) {
         log.info("INICIO");
+        log.info("idProveedor ->{}",idProveedor);
         log.info("idBeneficio ->{}",idBeneficio);
         log.info("indexPrincipal ->{}",indexPrincipal);
-        UploadBeneficioImagenResponse response =  cargadorServices.uploadImagenesBeneficios(uploadForm.getFiles(), idBeneficio, indexPrincipal);
+        UploadBeneficioImagenResponse response =  cargadorServices.uploadImagenesBeneficios(uploadForm.getFiles(), idBeneficio, indexPrincipal,idProveedor);
         ModelAndView modelAndView = new ModelAndView("cargadorImagenes");
         modelAndView.addObject("proveedores", proveedorServices.obtenerProveedorHabilitados(new ProveedorIdRequest()).getProveedores());
         modelAndView.addObject("respuesta",response.getValidacion());

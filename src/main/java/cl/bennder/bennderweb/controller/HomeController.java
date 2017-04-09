@@ -38,8 +38,7 @@ public class HomeController {
     private CategoriaServices categoriaServices;
     
     
-    @ExceptionHandler
-    
+    @ExceptionHandler    
         //.- home (Version 1)!!!    
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView homeI() {

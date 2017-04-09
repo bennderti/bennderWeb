@@ -86,6 +86,8 @@ var Cargador = {
     },
     cargarCategoriaProveedor:function(){
         var id=$("#select-proveedores").val();
+        //<input type="hidden" name="idProv" id="input-idProv"/>
+        $("#input-idProv").val(id);
         $.ajax({
             url: 'obtenerCategoriaByProveedor.html',
             type: 'GET',

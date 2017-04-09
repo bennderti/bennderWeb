@@ -22,7 +22,8 @@ public interface CargadorServices {
      * @param imagenes listados de imagenes
      * @param idBeneficio
      * @param indexPrincipal
+     * @param idProveedor identificador de proveedor
      * @return 
      */
-    public UploadBeneficioImagenResponse uploadImagenesBeneficios(List<MultipartFile> imagenes, Integer idBeneficio,Integer indexPrincipal);
+    public UploadBeneficioImagenResponse uploadImagenesBeneficios(List<MultipartFile> imagenes, Integer idBeneficio,Integer indexPrincipal, Integer idProveedor);
 }

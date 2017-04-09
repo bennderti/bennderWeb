@@ -26,7 +26,7 @@ public class CargadorServicesImpl implements CargadorServices{
     private static final Logger log = LoggerFactory.getLogger(CargadorServicesImpl.class);
 
     @Override
-    public UploadBeneficioImagenResponse uploadImagenesBeneficios(List<MultipartFile> imagenes, Integer idBeneficio,Integer indexPrincipal) { 
+    public UploadBeneficioImagenResponse uploadImagenesBeneficios(List<MultipartFile> imagenes, Integer idBeneficio,Integer indexPrincipal, Integer idProveedor) { 
         UploadBeneficioImagenResponse response = new UploadBeneficioImagenResponse();
         response.setValidacion(new Validacion("0","1","Problemas al subir imagenes a beneficio"));
         log.info("inicio");
@@ -35,12 +35,18 @@ public class CargadorServicesImpl implements CargadorServices{
                 if(imagenes!=null && imagenes.size() > 0){
                     log.info("completando datos request");
                     UploadBeneficioImagenRequest request = new UploadBeneficioImagenRequest();
+                    request.setIdProveedor(idProveedor);
                     int ordenBase = 1;
                     int orden = 1;
                     for (MultipartFile multipartFile : imagenes) {
                             String fileName = multipartFile.getOriginalFilename();
                             log.info("imagen subida ->{}",fileName);
-                            BeneficioImagen bimagen = new BeneficioImagen(idBeneficio, fileName, multipartFile.getBytes(), ordenBase);
+                            //Integer idBeneficio, Integer idImagen, String nombre, byte[] imagen, Integer orden, String imagenBase64, String path
+                            //BeneficioImagen bimagen = new BeneficioImagen(idBeneficio, fileName, multipartFile.getBytes(), ordenBase);
+                            BeneficioImagen bimagen = new BeneficioImagen();
+                            bimagen.setNombre(fileName);
+                            bimagen.setImagen(multipartFile.getBytes());
+                            bimagen.setIdBeneficio(idBeneficio);
                             if(ordenBase < (indexPrincipal + 1)){
                                 orden = ordenBase + 1;
                             }
