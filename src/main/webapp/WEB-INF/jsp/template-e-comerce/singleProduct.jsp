@@ -20,22 +20,35 @@
                                 <c:if test="${not empty beneficio.imagenesBeneficio}">
                                     <div role="tabpanel" class="tab-pane active" id="0">
                                         <a href="#">
-                                            <img src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}" alt="" /></a></div>
+                                            <%--<img src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}" alt="" />--%>
+                                            <img src="${beneficio.imagenesBeneficio[0].path}" alt="" />
+                                        </a>
+                                    </div>
                                     <c:forEach items="${beneficio.imagenesBeneficio}" var="imagen" begin="1" varStatus="loop">
                                         <div role="tabpanel" class="tab-pane" id="${loop.index}">
                                             <a href="#">
-                                                <img src="data:image/jpg;base64, ${imagen.imagenBase64}" alt="" /></a></div>
+                                                <%--<img src="data:image/jpg;base64, ${imagen.imagenBase64}" alt="" />--%>
+                                                <img src="${imagen.path}" alt="" />
+                                            </a>
+                                        </div>
                                     </c:forEach>
                                 </c:if>
                             </div>
                             <!-- Nav tabs -->
                             <ul class="single-product-tab" role="tablist">
-                                <li role="presentation" class="active"><a href="#0" aria-controls="0" role="tab"
-                                data-toggle="tab">
-                                    <img src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}" alt="" /></a></li>
+                                <li role="presentation" class="active">
+                                    <a href="#0" aria-controls="0" role="tab" data-toggle="tab">
+                                    <%--<img src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}" alt="" />--%>
+                                    <img src="${beneficio.imagenesBeneficio[0].path}" alt="" />
+                                    </a>
+                                </li>
                                 <c:forEach items="${beneficio.imagenesBeneficio}" var="imagen" begin="1" varStatus="loop">
-                                    <li role="presentation"><a href="#${loop.index}" aria-controls="${loop.index}" role="tab" data-toggle="tab">
-                                        <img src="data:image/jpg;base64, ${imagen.imagenBase64}" alt="" /></a></li>
+                                    <li role="presentation">
+                                        <a href="#${loop.index}" aria-controls="${loop.index}" role="tab" data-toggle="tab">
+                                            <%--<img src="data:image/jpg;base64, ${imagen.imagenBase64}" alt="" />--%>
+                                            <img src="${imagen.path}" alt="" />
+                                        </a>
+                                    </li>
                                 </c:forEach>
                             </ul>
                         </div>

@@ -48,8 +48,10 @@
                                         <a href="<c:url value="/detalleBeneficio/${beneficio.idBeneficio}.html"/>">
                                             <c:choose >
                                                 <c:when test="${not empty beneficio.imagenesBeneficio}">
-                                                    <img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
-                                                    <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />
+                                                    <%--<img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
+                                                    <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />--%>                                                    
+                                                    <img class="primary-img" src="${beneficio.imagenesBeneficio[0].path}"/>
+                                                    <img class="secondary-img" src="${beneficio.imagenesBeneficio[1].path}" />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>'/>
@@ -105,8 +107,10 @@
                                         <a href="detalleBeneficio/${beneficio.idBeneficio}.html">
                                             <c:choose>
                                                 <c:when test="${not empty beneficio.imagenesBeneficio}">
-                                                    <img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
-                                                    <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />
+                                                    <%--<img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
+                                                    <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />--%>
+                                                    <img class="primary-img" src="${beneficio.imagenesBeneficio[0].path}"/>
+                                                    <img class="secondary-img" src="${beneficio.imagenesBeneficio[1].path}" />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>'/>
