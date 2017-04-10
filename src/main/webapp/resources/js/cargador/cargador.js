@@ -50,7 +50,8 @@ var Cargador = {
        } 
     },
     addFile:function(){
-        var fileIndex = $('#fileTable tr').children().length;
+        //var fileIndex = $('#fileTable tr').children().length;
+        var fileIndex = $("#fileTable tr").length;
         if(fileIndex !== undefined){
             $('#fileTable').append('<tr><td> '+
                                   '    <div class="input-group">'+

@@ -33,6 +33,7 @@ public class CargadorServicesImpl implements CargadorServices{
         try {
             if(indexPrincipal!=null && idBeneficio != null){
                 if(imagenes!=null && imagenes.size() > 0){
+                    log.info("imagenes.size() ->{}",imagenes.size());
                     log.info("completando datos request");
                     UploadBeneficioImagenRequest request = new UploadBeneficioImagenRequest();
                     request.setIdProveedor(idProveedor);
