@@ -34,7 +34,7 @@
 			<!-- header-bottom-area end -->         
 			<!-- main-menu-area end -->
 			<!-- mobile-menu-area start -->
-			<jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaVisible.jsp"/>
+			<%--<jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaVisible.jsp"/>--%>
 			<!-- mobile-menu-area end -->			
         </header>
     </div>
