@@ -47,6 +47,7 @@ public class SessionFilter extends OncePerRequestFilter {
         urlIgnoradas.add("/downloadCupon.html");//utilizada para generar/descargar cupon QR
         urlIgnoradas.add("/canjeCupon.html");//utilizada para validar cupon al ser pistoleado
         urlIgnoradas.add("/validacionCupon.html");//utilizada para mostrar mensaje de validación de cupón
+        urlIgnoradas.add("/validacionCanjeCuponPOS.html");//Envío de datos de vendedor al validar cupón en POS
         
         
         

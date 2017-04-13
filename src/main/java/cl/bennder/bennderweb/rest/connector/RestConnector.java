@@ -16,6 +16,7 @@ import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
 import cl.bennder.entitybennderwebrest.request.UploadBeneficioImagenRequest;
+import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
@@ -24,6 +25,7 @@ import cl.bennder.entitybennderwebrest.response.GetCuponBeneficioResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ProveedoresResponse;
 import cl.bennder.entitybennderwebrest.response.UploadBeneficioImagenResponse;
+import cl.bennder.entitybennderwebrest.response.ValidacionCuponPOSResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +43,10 @@ import org.springframework.web.client.RestTemplate;
  */
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
+    
+    public static ValidacionCuponPOSResponse validacionCuponPOS(final ValidacionCuponPOSRequest query){
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_VALIDA_CUPON_POS, query, ValidacionCuponPOSResponse.class);
+    }
     
     public static CanjeaCuponResponse validaCanjeCuponBeneficio( final CanjeaCuponRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GET_VALIDA_CANJEA_CUPON, query, CanjeaCuponResponse.class);

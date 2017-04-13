@@ -10,8 +10,10 @@ import cl.bennder.bennderweb.model.UsuarioSession;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
+import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
 import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
+import cl.bennder.entitybennderwebrest.response.ValidacionCuponPOSResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,13 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
     
     private static final Logger log = LoggerFactory.getLogger(CuponBeneficioServicesImpl.class);
 
+    @Override
+    public ValidacionCuponPOSResponse validacionCuponPOS(ValidacionCuponPOSRequest request) {
+        return RestConnector.validacionCuponPOS(request);
+    }
+
+    
+    
     @Override
     public CanjeaCuponResponse validaCanjeCuponBeneficio(CanjeaCuponRequest request) {
         return RestConnector.validaCanjeCuponBeneficio(request);

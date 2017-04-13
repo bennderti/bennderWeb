@@ -7,8 +7,10 @@ package cl.bennder.bennderweb.services;
 
 import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
+import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
 import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
+import cl.bennder.entitybennderwebrest.response.ValidacionCuponPOSResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -17,6 +19,12 @@ import javax.servlet.http.HttpSession;
  */
 public interface CuponBeneficioServices {
     
+        /***
+     * Méotodo que consume servicio REST que  permite validar el canje de cupón de beneficio en POS
+     * @param request Datos para validación en POS
+     * @return Validación de cupónde de beneficio en POS
+     */
+      public ValidacionCuponPOSResponse validacionCuponPOS(ValidacionCuponPOSRequest request);
     
     /***
      * Método que permite consumir servicio para validar canje o hacer efectivo el cupón de beneficio, cmbiando estado
