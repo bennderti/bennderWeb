@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <ul class="breadcrumb">
-                            <li><a href="#">Cargador de imagenes para beneficios</a></li>
+                            <li><a href="adminProveedor.html">Cargador de imagenes para beneficios</a></li>
                             <!--<li class="active">Login</li>-->
                         </ul>
                     </div>

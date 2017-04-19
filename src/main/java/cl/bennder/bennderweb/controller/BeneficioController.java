@@ -1,6 +1,6 @@
 package cl.bennder.bennderweb.controller;
 
-import cl.bennder.bennderweb.model.UsuarioSession;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.model.ValidaCuponForm;
 import cl.bennder.bennderweb.services.BeneficioServices;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
@@ -18,7 +18,6 @@ import com.google.gson.Gson;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;

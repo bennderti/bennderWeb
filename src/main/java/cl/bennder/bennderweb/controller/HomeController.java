@@ -5,7 +5,7 @@
  */
 package cl.bennder.bennderweb.controller;
 
-import cl.bennder.bennderweb.model.UsuarioSession;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CategoriaServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

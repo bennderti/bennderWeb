@@ -25,7 +25,7 @@
                                 <div class="row logo-bennder">
                                     <div class="">
                                         <div class="logo">
-                                            <a href="#"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
+                                            <a href="adminProveedor.html"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="breadcrumb">
-                        <li><a href="#">Validación cupón</a></li>
+                        <li><a href="#">Información General <strong>Proveedores</strong></a></li>
                         <!--<li class="active">Login</li>-->
                     </ul>
                 </div>
@@ -59,34 +59,34 @@
         <div class="container">
             <div class="row center-login">
                 <!--<div class="col-md-6 col-sm-6">-->
-                <div class="">
-                <form:form method="POST" action="validacionCanjeCuponPOS.html" id="form-valida-canje-cupon" commandName="validaCuponForm">
-                    <div class="form-fields">
-                        <h2>
-                            Datos validación</h2>
-                        <p>
-                            <label>
-                                RUT Vendedor (sin dv) <span class="required">*</span></label>
-                                <form:input path="idVendedor" autocomplete="off" id="id-vendedor" maxlength="50" cssClass="form-control"/>
-                        </p>
-                        <p>
-                            <label>
-                                Sucursal <span class="required">*</span></label>
-                                <form:select path="idDireccionSucursal" id = "direccion-sucursal" cssClass="form-control">
-                                    <form:option value="-1" label="--Seleccione sucursal--"/>
-                                    <form:options items="${listaSucursal}" itemValue="idDireccion" itemLabel="nombreSucursal"/>
-                                </form:select>
-                        </p>  
-                        <p>
-                            <label>
-                                Password Sucursal <span class="required">*</span></label>
-                                <form:password path="passwordSucursal" maxlength="15" id="password-sucursal" cssClass="form-control"/>
-                        </p>  
-                    </div>              
-                    </form:form>    
-                    <div class="form-action">
-                        <input type="submit" value="Validar" id="valida-cupon" />
-                    </div>
+                <div class="">     
+                    <form:form method="POST" action="guardaInformacionGeneralProveedor.html" id="form-proveedor" modelAttribute="proveedorForm" enctype="multipart/form-data">
+                            <div class="form-fields">
+                                <p>
+                                    <label>Proveedores <span class="required">*</span></label>
+                                    <form:select path="idProveedorSelect" id = "lista-proveedor" cssClass="form-control" onchange="ProveedorBennder.onChangeProveedor();">
+                                        <form:option value="-1" label="--Seleccione Proveedor--"/>
+                                        <form:options items="${proveedores}" itemValue="idProveedor" itemLabel="nombre"/>                           
+                                    </form:select>
+                                </p>
+                                <p>
+                                    <label>Nombre <span class="required">*</span></label>
+                                    <form:input path="nombre" autocomplete="off" id="nombre-proveedor" maxlength="50" cssClass="form-control"/>
+                                </p>  
+                                <p>
+                                    <label>Rut (sin digito verificador) <span class="required">*</span></label>
+                                    <form:input path="rut" autocomplete="off" id="rut-proveedor" maxlength="50" cssClass="form-control"/>
+                                </p>  
+                                <p>
+                                    <label>Selecciona logo empresa</label>
+                                    <input type="file" name="logoImagen" id="logo-imagen"/>
+                            </div>
+                                <input type="submit" value="Guardar" id="submmit-proveedor" style="display: none;"/>
+                        </form:form>    
+                        <div class="form-action">
+                            <input type="submit" value="Guardar" id="valida-proveedor" />
+                        </div> 
+
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
     <!-- jquery latest version -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
     <!--Js Login (dejar versión *.min.js ofuscada-->
-    <script type="text/javascript" src="<c:url value="/resources/js/beneficio/canjeCupon.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/proveedor/proveedor.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
     
     <!--Modal -->
     <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     

@@ -6,7 +6,7 @@
 package cl.bennder.bennderweb.services;
 
 import cl.bennder.bennderweb.constantes.GoToUrl;
-import cl.bennder.bennderweb.model.UsuarioSession;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;

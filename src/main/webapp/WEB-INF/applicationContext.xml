@@ -27,7 +27,10 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
                            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
     
-    <bean id="usuarioSession" class="cl.bennder.bennderweb.model.UsuarioSession" scope="session">
+    <bean id="usuarioSession" class="cl.bennder.bennderweb.session.UsuarioSession" scope="session">
+        <aop:scoped-proxy/>
+    </bean> 
+    <bean id="proveedorSession" class="cl.bennder.bennderweb.session.ProveedorSession" scope="session">
         <aop:scoped-proxy/>
     </bean> 
     <bean id="SessionFilter" name="SessionFilter" class="cl.bennder.bennderweb.filter.SessionFilter" />

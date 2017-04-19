@@ -6,7 +6,7 @@
 package cl.bennder.bennderweb.filter;
 
 //import cl.bennder.bennderweb.controller.HomeController;
-import cl.bennder.bennderweb.model.UsuarioSession;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

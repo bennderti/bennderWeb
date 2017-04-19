@@ -5,9 +5,12 @@
  */
 package cl.bennder.bennderweb.services;
 
+import cl.bennder.bennderweb.session.ProveedorSession;
+import cl.bennder.entitybennderwebrest.model.Proveedor;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.ProveedoresResponse;
+import java.util.List;
 
 /**
  *
@@ -29,4 +32,12 @@ public interface ProveedorServices {
      * @return 
      */
     public ProveedoresResponse obtenerProveedorHabilitados(ProveedorIdRequest request);
+    
+    /***
+     * Permite obtener los operadores desde session o capa de servicio
+     * @return Lista de proveedores habilitados
+     */
+    public List<Proveedor> getProveedoreSessionServices();
+    
+    public Proveedor getProveedorByIdLista(List<Proveedor> lista,Integer idProveedor);
 }
