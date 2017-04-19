@@ -25,7 +25,7 @@
                                 <div class="row logo-bennder">
                                     <div class="">
                                         <div class="logo">
-                                            <a href="home.html"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
+                                            <a href="../home.html"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -58,8 +58,8 @@
             <div class="row center-login">
                 <div class="col-md-6 col-sm-6">
                     <ul>
-                        <li><a href="<c:url value="listaProveedor.html"/>">Información General Proveedor</a></li> 
-                        <li><a href="<c:url value="cargaImagenBeneficiosProveedor.html"/>">Cargar Imagenes Beneficios</a></li>
+                        <li><a href="../proveedor/lista.html">Información General Proveedor</a></li> 
+                        <li><a href="../proveedor/cargaImagenesBeneficio.html">Cargar Imagenes Beneficios</a></li>
                     </ul>
                 </div>
             </div>

@@ -15,6 +15,7 @@ import cl.bennder.entitybennderwebrest.request.GetCuponBeneficioRequest;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
+import cl.bennder.entitybennderwebrest.request.SubCategoriaProveedorRequest;
 import cl.bennder.entitybennderwebrest.request.UploadBeneficioImagenRequest;
 import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
@@ -24,6 +25,7 @@ import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
 import cl.bennder.entitybennderwebrest.response.GetCuponBeneficioResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ProveedoresResponse;
+import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.UploadBeneficioImagenResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionCuponPOSResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
@@ -66,9 +68,9 @@ public class RestConnector {
     public static ProveedoresResponse obtenerProveedorHabilitados( final ProveedorIdRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_PROVEEDORES_HABILITADOS, query, ProveedoresResponse.class);
     } 
-    
-    public static CategoriasResponse obtenerCategoriasById( final CategoriaByIdRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_ID, query, CategoriasResponse.class);
+    //public static CategoriasResponse obtenerCategoriasById( final CategoriaByIdRequest query ) {
+    public static SubCategoriaProveedorResponse obtenerSubCategoriasByIdCatProveedor( final SubCategoriaProveedorRequest query ) {
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_SUB_CATEGORIAS_BY_ID_CAT_PROV, query, SubCategoriaProveedorResponse.class);
     }
     public static BeneficiosCargadorResponse getBeneficiosByIdCat( final CategoriaByIdRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_BENEFICIOS_BY_ID_CAT, query, BeneficiosCargadorResponse.class);

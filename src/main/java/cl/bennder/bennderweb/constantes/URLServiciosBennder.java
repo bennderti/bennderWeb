@@ -13,7 +13,8 @@ public abstract class URLServiciosBennder {
     public static final String URL_MAIL_RECUPERACION_PASSWORD = "mail/recuperacionPassword";
     public static final String URL_VALIDACION_USUARIO = "login";
     public static final String URL_GET_CATEGORIAS = "getCategorias";
-    public static final String URL_GET_CATEGORIAS_BY_ID = "obtenerCategoriasById";
+    //public static final String URL_GET_CATEGORIAS_BY_ID = "obtenerCategoriasById";
+    public static final String URL_GET_SUB_CATEGORIAS_BY_ID_CAT_PROV = "categoria/getSubCategoriasProveedor";
     public static final String URL_GET_CATEGORIAS_BY_PROVEEDOR = "obtenerCategoriaByProveedor";
     public static final String URL_UPLOAD_IMAGENES_BENEFICIOS = "uploadImagenesBeneficios";    
     public static final String URL_GET_PROVEEDORES_HABILITADOS = "obtenerProveedorHabilitados";    

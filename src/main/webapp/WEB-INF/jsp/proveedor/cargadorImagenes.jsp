@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <ul class="breadcrumb">
-                            <li><a href="adminProveedor.html">Cargador de imagenes para beneficios</a></li>
+                            <li><a href="../proveedor/admin.html">Cargador de imagenes para beneficios</a></li>
                             <!--<li class="active">Login</li>-->
                         </ul>
                     </div>
@@ -98,7 +98,7 @@
                     </div>                 
                     <div class="col-lg-4 col-lg-offset-4 images-upload" style="display: none"> 
                         <h3>Seleccione imagenes a subir</h3>
-                        <form:form method="post" action="uploadImagesBeneficios.html" modelAttribute="uploadForm" enctype="multipart/form-data">
+                        <form:form method="post" action="../proveedor/uploadImagesBeneficios.html" modelAttribute="uploadForm" enctype="multipart/form-data">
                             <p>Selecciona imagenes y presiona <strong>+ Imagen</strong> para agrear mas imagenes. Cabe mencionar que las imagenes a cargar actualizarán las anteriores.</p>
 
                             <input id="addFile" type="button" value="+ Imagen" class="btn btn-primary" onclick="Cargador.addFile();"/>

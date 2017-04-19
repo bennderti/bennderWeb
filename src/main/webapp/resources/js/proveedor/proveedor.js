@@ -66,7 +66,7 @@ var ProveedorBennder = {
     onChangeProveedor:function(){        
         var id = $("#lista-proveedor").val();
         if(id !== null && id !== "-1"){
-            window.location.href = context+"/informacionGeneralProveedor.html?id="+id;
+            window.location.href = context+"/proveedor/informacionGeneral.html?id="+id;
         }
         else{
             ModalBennder.mostrar({tipo: "advertencia", mensaje: "Favor seleccionar proveedor", titulo: "Proveedor"});            

@@ -25,7 +25,7 @@
                                 <div class="row logo-bennder">
                                     <div class="">
                                         <div class="logo">
-                                            <a href="adminProveedor.html"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
+                                            <a href="<c:url value='proveedor/admin.html'/>"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
             <div class="row center-login">
                 <!--<div class="col-md-6 col-sm-6">-->
                 <div class="">     
-                    <form:form method="POST" action="guardaInformacionGeneralProveedor.html" id="form-proveedor" modelAttribute="proveedorForm" enctype="multipart/form-data">
+                    <form:form method="POST" action="../proveedor/informacionGeneral.html" id="form-proveedor" modelAttribute="proveedorForm" enctype="multipart/form-data">
                             <div class="form-fields">
                                 <p>
                                     <label>Proveedores <span class="required">*</span></label>

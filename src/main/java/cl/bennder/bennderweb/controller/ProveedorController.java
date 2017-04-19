@@ -2,7 +2,6 @@ package cl.bennder.bennderweb.controller;
 
 
 
-import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.FileUploadForm;
 import cl.bennder.bennderweb.model.ProveedorForm;
 import cl.bennder.bennderweb.session.UsuarioSession;
@@ -13,9 +12,10 @@ import cl.bennder.entitybennderwebrest.model.Proveedor;
 import cl.bennder.entitybennderwebrest.model.Validacion;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
+import cl.bennder.entitybennderwebrest.request.SubCategoriaProveedorRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
-import cl.bennder.entitybennderwebrest.response.GoToUrlResponse;
+import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.UploadBeneficioImagenResponse;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,7 +60,8 @@ public class ProveedorController {
      * Método que carga propias del proveedor
      * @return View para visualizar funcionalidaes de proveedor
      */
-    @RequestMapping(value = "adminProveedor.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    //@RequestMapping(value = "adminProveedor.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "proveedor/admin.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView adminProveedor() {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
@@ -74,7 +74,7 @@ public class ProveedorController {
      * @param idProveedor Identificador de proveedor seleccionado
      * @return Vista para cargar información generarl de proveedor seleccionado
      */
-    @RequestMapping(value = "informacionGeneralProveedor.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "proveedor/informacionGeneral.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView getInformacionGeneral(@RequestParam("id") Integer idProveedor) {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
@@ -98,7 +98,7 @@ public class ProveedorController {
      * @param logoImagenFile 
      * @return 
      */
-    @RequestMapping(value = "/guardaInformacionGeneralProveedor.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "proveedor/informacionGeneral.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public /*@ResponseBody String*/ ModelAndView guardaInformacionGeneral(@ModelAttribute("proveedorForm") ProveedorForm proveedorForm,
                                                          @RequestParam("logoImagen") MultipartFile logoImagenFile) {
         log.info("INICIO");
@@ -120,7 +120,7 @@ public class ProveedorController {
         }
         log.info("Datos proveedor ->{}, tamaño logo ->{} Bytes.",proveedorForm.toString(),tamanio);
         //ModelAndView modelAndView = new ModelAndView("proveedor/informacionGeneral");
-        ModelAndView modelAndView = new ModelAndView("redirect:listaProveedor.html");
+        ModelAndView modelAndView = new ModelAndView("redirect:../proveedor/lista.html");
         
         //List<Proveedor> lista = proveedorServices.getProveedoreSessionServices();
         //modelAndView.addObject("proveedores", lista);
@@ -130,7 +130,7 @@ public class ProveedorController {
         return modelAndView;
     }
     
-    @RequestMapping(value = "listaProveedor.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "proveedor/lista.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView listaProveedores() {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
@@ -144,7 +144,7 @@ public class ProveedorController {
      * Método que carga información lista de proveedor para cargar imagenes de beneficios
      * @return View para visualizar información general de proveedor
      */
-    @RequestMapping(value = "cargaImagenBeneficiosProveedor.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "proveedor/cargaImagenesBeneficio.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView cargaBeneficiosProveedores() {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
@@ -154,7 +154,7 @@ public class ProveedorController {
         return modelAndView;
     }
     
-    @RequestMapping(value="obtenerCategoriaByProveedor.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="proveedor/obtenerCategoriaByProveedor.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public @ResponseBody String obtenerCategoriaByProveedor(@RequestParam("id") Integer idProveedor, HttpSession session){
         log.info("INICIO - idProveedor ->{}",idProveedor);
         CategoriasResponse response = new CategoriasResponse();
@@ -167,20 +167,22 @@ public class ProveedorController {
         return respJson;
     }
     
-    @RequestMapping(value="getSubCatById.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String getSubCatById(@RequestParam("id") Integer idCategoria, HttpSession session){
-        log.info("INICIO - idCategoria ->{}",idCategoria);
-        CategoriasResponse response = new CategoriasResponse();
+    @RequestMapping(value="proveedor/getSubCatById.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String getSubCatById(@RequestParam("idCat") Integer idCategoria, 
+                                              @RequestParam("idProv") Integer idProveedor,
+                                              HttpSession session){
+        log.info("INICIO - idCategoria ->{},idProveedor->{}",idCategoria,idProveedor);
+        SubCategoriaProveedorResponse response = new SubCategoriaProveedorResponse();
         response.setValidacion(new Validacion("0", "1", "Sin categorias encontradas"));
         if(idCategoria!=null){
-            response = categoriaServices.obtenerCategoriasById(new CategoriaByIdRequest(idCategoria));
+            response = categoriaServices.getSubCategoriasProveedor(new SubCategoriaProveedorRequest(idCategoria, idProveedor));
         }
         String respJson =  new Gson().toJson(response);
         log.info("FIN");
         return respJson;
     }
     
-    @RequestMapping(value="getBeneficiosByIdCat.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="proveedor/getBeneficiosByIdCat.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public @ResponseBody String getBeneficiosByIdCat(@RequestParam("id") Integer idCategoria, HttpSession session){
         log.info("INICIO - idBeneficio ->{}",idCategoria);
         BeneficiosCargadorResponse response = new BeneficiosCargadorResponse();
@@ -192,7 +194,7 @@ public class ProveedorController {
         log.info("FIN");
         return respJson;
     }
-    @RequestMapping(value = "/uploadImagesBeneficios.html", method = RequestMethod.POST)
+    @RequestMapping(value = "proveedor/uploadImagesBeneficios.html", method = RequestMethod.POST)
     public ModelAndView uploadImagesBeneficios(@ModelAttribute("uploadForm") FileUploadForm uploadForm,
                                                @RequestParam("idBeneficio") Integer idBeneficio,
                                                @RequestParam("indexPrincipal") Integer indexPrincipal,
