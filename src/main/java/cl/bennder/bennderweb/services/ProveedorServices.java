@@ -7,8 +7,10 @@ package cl.bennder.bennderweb.services;
 
 import cl.bennder.bennderweb.session.ProveedorSession;
 import cl.bennder.entitybennderwebrest.model.Proveedor;
+import cl.bennder.entitybennderwebrest.request.DatosGeneralProveedorRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.DatosGeneralProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.ProveedoresResponse;
 import java.util.List;
 
@@ -40,4 +42,11 @@ public interface ProveedorServices {
     public List<Proveedor> getProveedoreSessionServices();
     
     public Proveedor getProveedorByIdLista(List<Proveedor> lista,Integer idProveedor);
+    
+    /***
+     * Metodo que consume servicio que permite guardar/actualizar los datos generales de proveedor
+     * @param request Datos generales de proveedor
+     * @return Validación de guardado de proveedor
+     */
+    public DatosGeneralProveedorResponse guardaDatosGeneralesProveedor(DatosGeneralProveedorRequest request);
 }

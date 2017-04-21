@@ -13,6 +13,7 @@ public class ValidaCuponForm {
     private Integer idVendedor;
     private Integer idDireccionSucursal;//id direccion de sucursal
     private String passwordSucursal;//contraseña sucusal
+    private String urlLogoProveedor;
 
     public ValidaCuponForm() {
     }
@@ -47,9 +48,19 @@ public class ValidaCuponForm {
         this.passwordSucursal = passwordSucursal;
     }
 
+    public String getUrlLogoProveedor() {
+        return urlLogoProveedor;
+    }
+
+    public void setUrlLogoProveedor(String urlLogoProveedor) {
+        this.urlLogoProveedor = urlLogoProveedor;
+    }
+
     @Override
     public String toString() {
-        return "ValidaCuponForm{" + "idVendedor=" + idVendedor + ", idDireccionSucursal=" + idDireccionSucursal + '}';
+        return "ValidaCuponForm{" + "idVendedor=" + idVendedor + ", idDireccionSucursal=" + idDireccionSucursal + ", passwordSucursal=" + passwordSucursal + ", urlLogoProveedor=" + urlLogoProveedor + '}';
     }
+    
+    
     
 }

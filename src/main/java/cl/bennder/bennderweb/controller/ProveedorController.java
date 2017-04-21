@@ -8,13 +8,16 @@ import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CargadorServices;
 import cl.bennder.bennderweb.services.CategoriaServices;
 import cl.bennder.bennderweb.services.ProveedorServices;
+import cl.bennder.bennderweb.session.ProveedorSession;
 import cl.bennder.entitybennderwebrest.model.Proveedor;
 import cl.bennder.entitybennderwebrest.model.Validacion;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
+import cl.bennder.entitybennderwebrest.request.DatosGeneralProveedorRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.request.SubCategoriaProveedorRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.DatosGeneralProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.UploadBeneficioImagenResponse;
 import com.google.gson.Gson;
@@ -30,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -53,8 +55,8 @@ public class ProveedorController {
     @Autowired
     private UsuarioSession usuarioSession;
     
-//    @Autowired
-//    private ProveedorSession proveedorSession;
+    @Autowired
+    private ProveedorSession proveedorSession;
     
     /***
      * Método que carga propias del proveedor
@@ -83,9 +85,9 @@ public class ProveedorController {
         modelAndView.addObject("proveedores", lista); 
         modelAndView.addObject("proveedorForm", new ProveedorForm());
         Proveedor p = proveedorServices.getProveedorByIdLista(lista, idProveedor);
-        if(p != null){
-            ProveedorForm pf = new ProveedorForm(null, p.getIdProveedor(), p.getNombre(), p.getRut(), p.getRutDv(), p.getPathLogo());
-            pf.setIdProveedorSelect(idProveedor);
+        if(p != null){            
+            ProveedorForm pf = new ProveedorForm(null, idProveedor,p.getIdProveedor(), p.getNombre(), p.getRut(), p.getRutDv(), p.getPathLogo(),null,p.getLogo(),null);
+            //pf.setIdProveedorSelect(idProveedor);
             modelAndView.addObject("proveedorForm", pf);
         }
         log.info("FIN");
@@ -94,33 +96,37 @@ public class ProveedorController {
     
     /***
      * Método que guarda información general del proveedor
-     * @param proveedorForm
-     * @param logoImagenFile 
+     * @param proveedorForm Datos generales de formulario de proveedor
      * @return 
      */
     @RequestMapping(value = "proveedor/informacionGeneral.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public /*@ResponseBody String*/ ModelAndView guardaInformacionGeneral(@ModelAttribute("proveedorForm") ProveedorForm proveedorForm,
-                                                         @RequestParam("logoImagen") MultipartFile logoImagenFile) {
+    public /*@ResponseBody String*/ ModelAndView guardaInformacionGeneral(@ModelAttribute("proveedorForm") ProveedorForm proveedorForm) {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         int tamanio = 0;
+        ModelAndView modelAndView = new ModelAndView("redirect:../proveedor/lista.html");
         try {
-            if(logoImagenFile!=null && logoImagenFile.getBytes()!=null){
-                
-                tamanio = logoImagenFile.getBytes().length;
-                log.info("logoImagenFile.getName()->{}, tamanio->{}",logoImagenFile.getName(),tamanio);
-            }
+            
             if(proveedorForm.getLogoImagen()!=null && proveedorForm.getLogoImagen().getBytes()!=null){
                 //log.info("proveedorForm.getLogoImagen()->{}",proveedorForm.getLogoImagen().getName());
                 tamanio = proveedorForm.getLogoImagen().getBytes().length;
                 log.info("proveedorForm.getLogoImagen())->{}, tamanio->{}",proveedorForm.getLogoImagen().getName(),tamanio);
             }
+            DatosGeneralProveedorRequest request = new DatosGeneralProveedorRequest(new Proveedor(proveedorForm.getIdProveedorSelect(), proveedorForm.getNombre(), proveedorForm.getRut(), null, proveedorForm.getPathLogo(), null,proveedorForm.getLogoImagen()!=null?proveedorForm.getLogoImagen().getBytes():null,proveedorForm.getLogoImagen()!=null?proveedorForm.getLogoImagen().getOriginalFilename():null));
+            request.setIdUsuario(usuarioSession.getIdUsuario());
+            DatosGeneralProveedorResponse response = proveedorServices.guardaDatosGeneralesProveedor(request);
+            if("0".equals(response.getValidacion().getCodigo())){
+                proveedorSession.setLista(null);
+            }
+            proveedorSession.setValidacion(response.getValidacion());
+            
+            
         } catch (IOException ex) {
             log.error("Error en guardaInformacionGeneral, ",ex);
         }
         log.info("Datos proveedor ->{}, tamaño logo ->{} Bytes.",proveedorForm.toString(),tamanio);
         //ModelAndView modelAndView = new ModelAndView("proveedor/informacionGeneral");
-        ModelAndView modelAndView = new ModelAndView("redirect:../proveedor/lista.html");
+        
         
         //List<Proveedor> lista = proveedorServices.getProveedoreSessionServices();
         //modelAndView.addObject("proveedores", lista);
@@ -137,6 +143,7 @@ public class ProveedorController {
         ModelAndView modelAndView = new ModelAndView("proveedor/informacionGeneral");
         modelAndView.addObject("proveedores", proveedorServices.getProveedoreSessionServices());
         modelAndView.addObject("proveedorForm", new ProveedorForm());
+        modelAndView.addObject("validacion", proveedorSession.getValidacion());
         log.info("FIN");
         return modelAndView;
     }

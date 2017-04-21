@@ -59,7 +59,10 @@
         <div class="container">
             <div class="row center-login">
                 <!--<div class="col-md-6 col-sm-6">-->
-                <div class="">     
+                <div class="">
+                    <jsp:include page="/WEB-INF/jsp/utils/alerta.jsp">
+                        <jsp:param name="validacion" value="${validacion}"/>
+                    </jsp:include>
                     <form:form method="POST" action="../proveedor/informacionGeneral.html" id="form-proveedor" modelAttribute="proveedorForm" enctype="multipart/form-data">
                             <div class="form-fields">
                                 <p>
@@ -82,6 +85,7 @@
                                     <input type="file" name="logoImagen" id="logo-imagen"/>
                             </div>
                                 <input type="submit" value="Guardar" id="submmit-proveedor" style="display: none;"/>
+                                <form:hidden path="pathLogo" id="hidden-path-logo"/>
                         </form:form>    
                         <div class="form-action">
                             <input type="submit" value="Guardar" id="valida-proveedor" />

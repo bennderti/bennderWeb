@@ -10,6 +10,7 @@ import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
+import cl.bennder.entitybennderwebrest.request.DatosGeneralProveedorRequest;
 import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
 import cl.bennder.entitybennderwebrest.request.GetCuponBeneficioRequest;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
@@ -21,6 +22,7 @@ import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.DatosGeneralProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
 import cl.bennder.entitybennderwebrest.response.GetCuponBeneficioResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
@@ -62,6 +64,9 @@ public class RestConnector {
     public static UploadBeneficioImagenResponse uploadImagenesBeneficios( final UploadBeneficioImagenRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_UPLOAD_IMAGENES_BENEFICIOS, query, UploadBeneficioImagenResponse.class);
     }   
+    public static DatosGeneralProveedorResponse guardaDatosGeneralesProveedor(final DatosGeneralProveedorRequest query){
+        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GURDA_DATOS_GRALES_PROVEEDOR, query, DatosGeneralProveedorResponse.class);
+    }
     public static CategoriasResponse obtenerCategoriaByProveedor( final ProveedorIdRequest query ) {
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_PROVEEDOR, query, CategoriasResponse.class);
     }

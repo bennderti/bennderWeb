@@ -173,6 +173,7 @@ public class BeneficioController {
             usuarioSession.setCodigoCuponEncriptado(codigoCuponEncriptado);
             model = new ModelAndView("redirect:"+url);
             model.addObject("listaSucursal", response.getSucursales());
+            model.addObject("urlLogoProveedor", response.getUrlLogoProveedor());
             return validacionCanjeCuponPOS(model, session);
         }
         else {

@@ -5,6 +5,7 @@
  */
 package cl.bennder.bennderweb.session;
 import cl.bennder.entitybennderwebrest.model.Proveedor;
+import cl.bennder.entitybennderwebrest.model.Validacion;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 public class ProveedorSession {
 
     private List<Proveedor> lista;
+    private Validacion validacion;
 
     public ProveedorSession() {
     }
@@ -26,5 +28,17 @@ public class ProveedorSession {
     public void setLista(List<Proveedor> lista) {
         this.lista = lista;
     }
+
+    public Validacion getValidacion() {
+        if(validacion == null){
+            this.validacion = new Validacion();
+        }
+        return validacion;
+    }
+
+    public void setValidacion(Validacion validacion) {
+        this.validacion = validacion;
+    }
+    
     
 }

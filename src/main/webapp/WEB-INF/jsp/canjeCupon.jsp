@@ -65,6 +65,9 @@
                         <h2>
                             Datos validación</h2>
                         <p>
+                           <img class="logo-caje-cupon" src="${urlLogoProveedor}" />      
+                        </p>
+                        <p>
                             <label>
                                 RUT Vendedor (sin dv) <span class="required">*</span></label>
                                 <form:input path="idVendedor" autocomplete="off" id="id-vendedor" maxlength="50" cssClass="form-control"/>

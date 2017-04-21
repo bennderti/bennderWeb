@@ -22,10 +22,18 @@ public class ProveedorForm extends Proveedor{
         this.logoImagen = logoImagen;
     }
 
-    public ProveedorForm(MultipartFile logoImagen, Integer idProveedor, String nombre, Integer rut, String rutDv, String path) {
-        super(idProveedor, nombre, rut, rutDv, path);
+    public ProveedorForm(MultipartFile logoImagen, Integer idProveedorSelect) {
         this.logoImagen = logoImagen;
+        this.idProveedorSelect = idProveedorSelect;
     }
+
+    public ProveedorForm(MultipartFile logoImagen, Integer idProveedorSelect, Integer idProveedor, String nombre, Integer rut, String rutDv, String pathLogo, String urlLogo,byte[] logo,String nombreImagen) {
+        super(idProveedor, nombre, rut, rutDv, pathLogo, urlLogo,logo,nombreImagen);
+        this.logoImagen = logoImagen;
+        this.idProveedorSelect = idProveedorSelect;
+    }
+
+    
 
     public MultipartFile getLogoImagen() {
         return logoImagen;

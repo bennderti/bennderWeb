@@ -8,8 +8,10 @@ package cl.bennder.bennderweb.services;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.bennderweb.session.ProveedorSession;
 import cl.bennder.entitybennderwebrest.model.Proveedor;
+import cl.bennder.entitybennderwebrest.request.DatosGeneralProveedorRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.DatosGeneralProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.ProveedoresResponse;
 import java.util.List;
 import org.slf4j.Logger;
@@ -29,6 +31,13 @@ public class ProveedorServicesImpl implements ProveedorServices{
     @Autowired
     private ProveedorSession proveedorSession;
 
+    @Override
+    public DatosGeneralProveedorResponse guardaDatosGeneralesProveedor(DatosGeneralProveedorRequest request) {
+        return RestConnector.guardaDatosGeneralesProveedor(request);
+    }
+
+    
+    
     @Override
     public Proveedor getProveedorByIdLista(List<Proveedor> lista, Integer idProveedor) {
         Proveedor proveedor = null;

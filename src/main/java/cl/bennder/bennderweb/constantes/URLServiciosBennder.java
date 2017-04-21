@@ -16,6 +16,7 @@ public abstract class URLServiciosBennder {
     //public static final String URL_GET_CATEGORIAS_BY_ID = "obtenerCategoriasById";
     public static final String URL_GET_SUB_CATEGORIAS_BY_ID_CAT_PROV = "categoria/getSubCategoriasProveedor";
     public static final String URL_GET_CATEGORIAS_BY_PROVEEDOR = "obtenerCategoriaByProveedor";
+    public static final String URL_GURDA_DATOS_GRALES_PROVEEDOR = "proveedor/guardaDatosGenerales";
     public static final String URL_UPLOAD_IMAGENES_BENEFICIOS = "uploadImagenesBeneficios";    
     public static final String URL_GET_PROVEEDORES_HABILITADOS = "obtenerProveedorHabilitados";    
     public static final String URL_GET_BENEFICIOS_BY_ID_CAT = "getBeneficiosByIdCat";
