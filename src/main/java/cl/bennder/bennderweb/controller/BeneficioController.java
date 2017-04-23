@@ -129,7 +129,7 @@ public class BeneficioController {
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("detalleBeneficio");
 
-        BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(idBeneficio));
+        BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(idBeneficio,usuarioSession.getIdUsuario()));
         if(response.getBeneficio()!=null){
             response.getBeneficio().setIdBeneficio(idBeneficio);
         }
