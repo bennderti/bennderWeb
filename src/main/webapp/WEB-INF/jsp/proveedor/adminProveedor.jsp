@@ -25,7 +25,7 @@
                                 <div class="row logo-bennder">
                                     <div class="">
                                         <div class="logo">
-                                            <a href="index.html"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
+                                            <a href="../home.html"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -40,10 +40,31 @@
     </div>
     <!-- HOME SLIDER -->
     <!-- heading-banner start -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/headingBanner.jsp"/>
-    <!-- heading-banner end -->
+    <div class="heading-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="breadcrumb">
+                        <li><a href="#">Administración Proveedor</a></li>
+                        <!--<li class="active">Login</li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- my-account-area start -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/myAccountArea.jsp"/>
+    <div class="my-account-area">
+        <div class="container">
+            <div class="row center-login">
+                <div class="col-md-6 col-sm-6">
+                    <ul>
+                        <li><a href="../proveedor/lista.html">Información General Proveedor</a></li> 
+                        <li><a href="../proveedor/cargaImagenesBeneficio.html">Cargar Imagenes Beneficios</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- my-account-area end -->
     <!-- footer start -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/footer.jsp">
@@ -59,7 +80,6 @@
     <!-- jquery latest version -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
     <!--Js Login (dejar versión *.min.js ofuscada-->
-    <script type="text/javascript" src="<c:url value="/resources/js/login/login.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
     
     <!--Modal -->
     <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     

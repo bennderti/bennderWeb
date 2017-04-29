@@ -5,7 +5,6 @@
  */
 package cl.bennder.bennderweb.controller;
 
-import cl.bennder.bennderweb.model.LoginForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;

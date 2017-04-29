@@ -11,10 +11,12 @@ import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.entitybennderwebrest.request.BeneficiosRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
+import cl.bennder.entitybennderwebrest.request.SubCategoriaProveedorRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -35,8 +37,9 @@ public class CategoriaServicesImpl implements CategoriaServices{
      * @return 
      */
     @Override
-    public CategoriasResponse obtenerCategoriasById(CategoriaByIdRequest request) {
-        return RestConnector.obtenerCategoriasById(request);    }
+//    public CategoriasResponse obtenerCategoriasById(CategoriaByIdRequest request) {
+    public SubCategoriaProveedorResponse getSubCategoriasProveedor(SubCategoriaProveedorRequest request){
+        return RestConnector.obtenerSubCategoriasByIdCatProveedor(request);    }
 
     @Override
     public BeneficiosCargadorResponse getBeneficiosByIdCat(CategoriaByIdRequest request) {

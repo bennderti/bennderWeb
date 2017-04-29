@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <ul class="breadcrumb">
-                            <li><a href="#">Cargador de imagenes para beneficios</a></li>
+                            <li><a href="../proveedor/admin.html">Cargador de imagenes para beneficios</a></li>
                             <!--<li class="active">Login</li>-->
                         </ul>
                     </div>
@@ -98,7 +98,7 @@
                     </div>                 
                     <div class="col-lg-4 col-lg-offset-4 images-upload" style="display: none"> 
                         <h3>Seleccione imagenes a subir</h3>
-                        <form:form method="post" action="uploadImagesBeneficios.html" modelAttribute="uploadForm" enctype="multipart/form-data">
+                        <form:form method="post" action="../proveedor/uploadImagesBeneficios.html" modelAttribute="uploadForm" enctype="multipart/form-data">
                             <p>Selecciona imagenes y presiona <strong>+ Imagen</strong> para agrear mas imagenes. Cabe mencionar que las imagenes a cargar actualizarán las anteriores.</p>
 
                             <input id="addFile" type="button" value="+ Imagen" class="btn btn-primary" onclick="Cargador.addFile();"/>
@@ -129,7 +129,7 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="files[0]" type="file" class="form-control" onchange="Cargador.saveTempImg(this);">
+                                            <input name="files[1]" type="file" class="form-control" onchange="Cargador.saveTempImg(this);">
                                             <img src  ="" style="display: none;"/>
                                         </div>
                                     </td>
@@ -143,6 +143,7 @@
                             <br/><input id="btn-upload-images-submit" type="submit" value="" style="display: none;"/>
                             <input type="hidden" name="idBeneficio" id="input-idBeneficio"/>
                             <input type="hidden" name="indexPrincipal" id="input-indexPrincipal"/>
+                            <input type="hidden" name="idProv" id="input-idProv"/>
                             <input id="btn-upload-images" type="button" value="Subir imagenes" class="btn btn-primary" onclick="Cargador.uploadImagesBeneficios();"/>                        
                         </form:form>
                     </div>

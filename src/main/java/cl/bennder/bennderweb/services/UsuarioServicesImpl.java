@@ -5,8 +5,6 @@
  */
 package cl.bennder.bennderweb.services;
 
-import cl.bennder.bennderweb.controller.HomeController;
-import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
@@ -14,14 +12,8 @@ import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -30,15 +22,17 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class UsuarioServicesImpl implements UsuarioServices{
     
+    
+    @Autowired
+    CuponBeneficioServices cuponBeneficioServices;
+    
     private static final Logger log = LoggerFactory.getLogger(UsuarioServicesImpl.class);
     //private static final String URL_VALIDACION_USUARIO = "login";
 
     @Override
     public ValidacionResponse recuperacionPassword(RecuperacionPasswordRequest request) {
         return RestConnector.recuperacionPassword(request);
-    }
-    
-    
+    }    
     
     @Override
     public LoginResponse validacionUsuario(LoginRequest request) {

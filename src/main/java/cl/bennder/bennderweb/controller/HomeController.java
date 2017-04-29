@@ -5,21 +5,15 @@
  */
 package cl.bennder.bennderweb.controller;
 
-import cl.bennder.bennderweb.model.LoginForm;
-import cl.bennder.bennderweb.model.UsuarioSession;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CategoriaServices;
-import cl.bennder.bennderweb.services.UsuarioServices;
-import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -38,8 +32,7 @@ public class HomeController {
     private CategoriaServices categoriaServices;
     
     
-    @ExceptionHandler
-    
+    @ExceptionHandler    
         //.- home (Version 1)!!!    
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView homeI() {

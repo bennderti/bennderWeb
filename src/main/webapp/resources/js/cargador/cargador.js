@@ -50,7 +50,8 @@ var Cargador = {
        } 
     },
     addFile:function(){
-        var fileIndex = $('#fileTable tr').children().length;
+        //var fileIndex = $('#fileTable tr').children().length;
+        var fileIndex = $("#fileTable tr").length;
         if(fileIndex !== undefined){
             $('#fileTable').append('<tr><td> '+
                                   '    <div class="input-group">'+
@@ -86,8 +87,10 @@ var Cargador = {
     },
     cargarCategoriaProveedor:function(){
         var id=$("#select-proveedores").val();
+        //<input type="hidden" name="idProv" id="input-idProv"/>
+        $("#input-idProv").val(id);
         $.ajax({
-            url: 'obtenerCategoriaByProveedor.html',
+            url: context+'/proveedor/obtenerCategoriaByProveedor.html',
             type: 'GET',
             dataType: 'JSON',
             data: {id:id},
@@ -111,7 +114,7 @@ var Cargador = {
     cargarBeneficioByIdCat:function(){
         var id=$("#select-sub-categorias").val();
         $.ajax({
-            url: 'getBeneficiosByIdCat.html',
+            url: context+'/proveedor/getBeneficiosByIdCat.html',
             type: 'GET',
             dataType: 'JSON',
             data: {id:id},
@@ -137,26 +140,33 @@ var Cargador = {
         }); 
     },
     cargarSubCatById:function(){
-        var id=$("#select-categorias").val();
-        $.ajax({
-            url: 'getSubCatById.html',
-            type: 'GET',
-            dataType: 'JSON',
-            data: {id:id},
-            success: function (response) {
-                if(response !==undefined && response !== null){
-                    $("#select-sub-categorias option").remove();
-                    $("#select-sub-categorias").append("<option value ='-1'>Seleccione sub categoria...</option>");
-                    for(var i= 0;i < response.categorias.length;i++){
-                       var c = response.categorias[i];
-                       $("#select-sub-categorias").append("<option value ='"+c.idCategoria+"'>"+c.nombre+"</option>");
-                    } 
+        var idCat = $("#select-categorias").val();
+        var idProv = $("#select-proveedores").val();
+        if(idProv!=='-1' && idCat!=='-1'){
+            $.ajax({
+                url: context+'/proveedor/getSubCatById.html',
+                type: 'GET',
+                dataType: 'JSON',
+                data: {idCat:idCat,idProv:idProv},
+                success: function (response) {
+                    if(response !==undefined && response !== null){
+                        $("#select-sub-categorias option").remove();
+                        $("#select-sub-categorias").append("<option value ='-1'>Seleccione sub categoria...</option>");
+                        for(var i= 0;i < response.subCategorias.length;i++){
+                           var c = response.subCategorias[i];
+                           $("#select-sub-categorias").append("<option value ='"+c.idCategoria+"'>"+c.nombre+"</option>");
+                        } 
+                    }
+                },
+                error: function (x, y, z) {
+                    ModalBennder.mostrar({tipo: "error", mensaje: "Error al cargar subctegorias", titulo: "Cargador"});
                 }
-            },
-            error: function (x, y, z) {
-                ModalBennder.mostrar({tipo: "error", mensaje: "Error al cargar subctegorias", titulo: "Cargador"});
-            }
-        }); 
+            }); 
+        }
+        else{
+            ModalBennder.mostrar({tipo: "advertencia", mensaje: "Favor seleccionar proveedor/categoróa.", titulo: "Cargador"});
+        }
+
         
     }
 };

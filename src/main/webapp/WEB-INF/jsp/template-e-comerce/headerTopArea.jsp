@@ -1,4 +1,4 @@
-<%@page import="cl.bennder.bennderweb.model.UsuarioSession"%>
+<%@page import="cl.bennder.bennderweb.session.UsuarioSession"%>
 <%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- header-top-area start -->
