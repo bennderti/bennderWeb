@@ -75,9 +75,9 @@ public class LoginController {
         LoginBodyResponse rBody = new LoginBodyResponse();
         rBody.setValidacion(response.getValidacion());
         if(response.getValidacion()!=null && response.getValidacion().getCodigo()!=null && "0".equals(response.getValidacion().getCodigo())){
-            String mensajeLog = "[IdUsuario -> "+response.getIdUsuario()+"]";
-            usuarioSession.setIdUsuario(response.getIdUsuario());//rut de cliente sin dv
-            session.setAttribute("user", loginForm.getUser());
+            String mensajeLog = "[token -> "+response.getToken()+"]";
+            //usuarioSession.setIdUsuario(response.getIdUsuario());//rut de cliente sin dv
+            //session.setAttribute("user", loginForm.getUser());
             if(usuarioSession!=null && usuarioSession.getCodigoCuponEncriptado()!=null){
                 log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando",mensajeLog);
                  rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
