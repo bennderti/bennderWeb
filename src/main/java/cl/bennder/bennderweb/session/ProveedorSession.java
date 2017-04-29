@@ -6,6 +6,10 @@
 package cl.bennder.bennderweb.session;
 import cl.bennder.entitybennderwebrest.model.Proveedor;
 import cl.bennder.entitybennderwebrest.model.Validacion;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
@@ -13,6 +17,8 @@ import java.util.List;
  * @version 1.0
  * @author dyanez
  */
+@Component
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ProveedorSession {
 
     private List<Proveedor> lista;

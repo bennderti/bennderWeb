@@ -6,11 +6,16 @@
 package cl.bennder.bennderweb.session;
 
 import cl.bennder.entitybennderwebrest.model.Validacion;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author dyanez
  */
+@Component
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UsuarioSession {
 
     private Integer idUsuario;//rut sin dv
