@@ -41,16 +41,6 @@ public class UsuarioServicesImpl implements UsuarioServices{
         response.getValidacion().setMensaje("Problemas al validar usuario");
         log.info("INICIO");
         try {
-            /*
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            HttpEntity<LoginRequest> req = new HttpEntity<>(request, headers);
-
-            RestTemplate restTemplate = new RestTemplate();
-            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            log.info("URL services: {} ",(Properties.URL_SERVIDOR + URL_VALIDACION_USUARIO));
-            ResponseEntity<LoginResponse> resp = restTemplate.exchange(Properties.URL_SERVIDOR + URL_VALIDACION_USUARIO, HttpMethod.POST, req, LoginResponse.class);
-            response = resp.getBody();*/
             response = RestConnector.validacionUsuario(request);
             if(response == null){
                 response = new LoginResponse();

@@ -8,6 +8,7 @@ package cl.bennder.bennderweb.services;
 import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.entitybennderwebrest.request.BeneficiosRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
 import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
@@ -19,7 +20,10 @@ import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 
 /**
@@ -31,6 +35,8 @@ public class CategoriaServicesImpl implements CategoriaServices{
 
     private static final Logger log = LoggerFactory.getLogger(CategoriaServicesImpl.class);
 
+    @Autowired
+    UsuarioSession usuarioSession;
     /***
      * Obtiene las categorias por id de categoria
      * @param request
@@ -55,20 +61,21 @@ public class CategoriaServicesImpl implements CategoriaServices{
         response.getValidacion().setCodigo("NOK");
         response.getValidacion().setMensaje("Problemas al obtener categorías");
         log.info("INICIO");
-        try {
+//        try {
 
-            response = RestConnector.getCategorias(new CategoriasRequest());
+            response = RestConnector.getCategorias(new CategoriasRequest(usuarioSession.getToken()));
             if(response == null){
                 response = new CategoriasResponse();
                 response.getValidacion().setCodigo("NOK");
                 response.getValidacion().setMensaje("Problemas al obtener categorías");
                 log.info("INICIO");
             }
-        } catch (Exception e) {
-            log.error("[Exception] Error al obtener categorías", e);
-            response.getValidacion().setCodigo("NOK");
-            response.getValidacion().setMensaje("Error al obtener categorías");
-        }
+//        }
+//        catch (Exception e) {
+//            log.error("[Exception] Error al obtener categorías", e);
+//            response.getValidacion().setCodigo("NOK");
+//            response.getValidacion().setMensaje("Error al obtener categorías");
+//        }
         log.info("FIN");
         return response;
     }
@@ -105,7 +112,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
         log.info("INICIO");
         try {
 
-            CategoriasRequest categoriasRequest = new CategoriasRequest();
+            CategoriasRequest categoriasRequest = new CategoriasRequest(usuarioSession.getToken());
             categoriasRequest.setNombreCategoria(nombreCategoria);
 
             response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_CATEGORIAS_RELACIONADAS, categoriasRequest , CategoriasResponse.class);
@@ -137,7 +144,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
         log.info("INICIO");
         try {
 
-            CategoriasRequest categoriasRequest = new CategoriasRequest();
+            CategoriasRequest categoriasRequest = new CategoriasRequest(usuarioSession.getToken());
             categoriasRequest.setNombreCategoria(nombreCategoria);
 
             response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CARGAR_CATEGORIA, categoriasRequest , CategoriaResponse.class);

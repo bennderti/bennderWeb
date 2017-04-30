@@ -24,13 +24,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Diego on 29-03-2017.
  */
-@RestController
+@Controller
 public class BeneficioController {
 
     private static final Logger log = LoggerFactory.getLogger(BeneficioController.class);
@@ -129,7 +130,7 @@ public class BeneficioController {
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("detalleBeneficio");
 
-        BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(idBeneficio,usuarioSession.getIdUsuario()));
+        BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(usuarioSession.getToken(), idBeneficio));
         if(response.getBeneficio()!=null){
             response.getBeneficio().setIdBeneficio(idBeneficio);
         }
@@ -150,7 +151,7 @@ public class BeneficioController {
     public @ResponseBody String getCuponBeneficio(@PathVariable Integer idBeneficio) {
         log.info("INICIO");
         log.info("Usuario connected ->{}, beneficio seleccionado ->{}",usuarioSession.getIdUsuario(),idBeneficio);
-        GetCuponBeneficioResponse response = beneficioServices.getCuponBeneficio(new GetCuponBeneficioRequest(idBeneficio, usuarioSession.getIdUsuario()));
+        GetCuponBeneficioResponse response = beneficioServices.getCuponBeneficio(new GetCuponBeneficioRequest(usuarioSession.getToken(), idBeneficio));
         String respJson =  new Gson().toJson(response);
         log.info("respJson ->{}",respJson);
         log.info("FIN");

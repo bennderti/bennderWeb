@@ -22,6 +22,7 @@ public class UsuarioSession {
     private String usuario;//ejemplo correo
     private String codigoCuponEncriptado;
     private Validacion validacion;
+    private String token;
 
     public UsuarioSession() {
     }
@@ -60,7 +61,13 @@ public class UsuarioSession {
     public void setValidacion(Validacion validacion) {
         this.validacion = validacion;
     }
-    
-    
 
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

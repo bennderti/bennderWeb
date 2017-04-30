@@ -7,18 +7,7 @@ package cl.bennder.bennderweb.rest.connector;
 
 import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.properties.Properties;
-import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
-import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
-import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
-import cl.bennder.entitybennderwebrest.request.DatosGeneralProveedorRequest;
-import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
-import cl.bennder.entitybennderwebrest.request.GetCuponBeneficioRequest;
-import cl.bennder.entitybennderwebrest.request.LoginRequest;
-import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
-import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
-import cl.bennder.entitybennderwebrest.request.SubCategoriaProveedorRequest;
-import cl.bennder.entitybennderwebrest.request.UploadBeneficioImagenRequest;
-import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
+import cl.bennder.entitybennderwebrest.request.*;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
@@ -47,6 +36,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
+    private static final String AUTHENTICATION = "Authorization";
     
     public static ValidacionCuponPOSResponse validacionCuponPOS(final ValidacionCuponPOSRequest query){
         return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_VALIDA_CUPON_POS, query, ValidacionCuponPOSResponse.class);
@@ -95,6 +85,7 @@ public class RestConnector {
         LOG.info("INICIO");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set(AUTHENTICATION, ((UserRequest) query).getToken());
         HttpEntity<Q> req = new HttpEntity<>(query, headers);
 
         RestTemplate restTemplate = new RestTemplate();

@@ -10,10 +10,12 @@ import cl.bennder.bennderweb.services.CategoriaServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -39,11 +41,19 @@ public class HomeController {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("home");
-        
-        modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
-        log.info("FIN");
+        try {
+            modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
+            log.info("FIN");
+
+        }
+        catch (HttpClientErrorException ex) {
+            log.error("[Exception] Error al obtener categorías", ex);
+            if (ex.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
+                modelAndView.setViewName("errorPage");
+        }
         return modelAndView;
     }
+
     /*
     @RequestMapping(value = "/admin/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView admin() {
