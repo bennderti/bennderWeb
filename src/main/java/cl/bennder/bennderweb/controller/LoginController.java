@@ -55,18 +55,14 @@ public class LoginController {
         log.info("FIN");
         return modelAndView;
     }
-    //.- login!!!    
-    /*@RequestMapping(value = "/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public ModelAndView login(@ModelAttribute("loginForm") LoginForm loginForm) {
-        log.info("INICIO");
-        log.info("datos ->{}",loginForm.toString());
-        LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
-        log.info("response ->{}",response.toString());
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("msg", response.getValidacion().getMensaje());
-        log.info("FIN");
-        return modelAndView;
-    }*/
+
+    /**
+     * Metodo para authenticar al usuario
+     * @param loginForm (email, password)
+     * @param session
+     * @return pagina home
+     * @author driveros
+     */
     @RequestMapping(value="login.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session){
         log.info("INICIO");

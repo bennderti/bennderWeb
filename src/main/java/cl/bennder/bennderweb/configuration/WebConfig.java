@@ -1,5 +1,7 @@
 package cl.bennder.bennderweb.configuration;
 
+import cl.bennder.bennderweb.multitenancy.MultiTenancyInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +16,8 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan(basePackages = { "cl.bennder.bennderweb" })
 public class WebConfig extends WebMvcConfigurerAdapter{
-	/*@Autowired
-	MultiTenancyInterceptor multiTenancyInterceptor;*/
+	@Autowired
+	MultiTenancyInterceptor multiTenancyInterceptor;
 
 	@Bean
     public InternalResourceViewResolver viewResolver() {
@@ -36,6 +38,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-//		registry.addInterceptor(multiTenancyInterceptor).addPathPatterns("/**");
+		//registry.addInterceptor(multiTenancyInterceptor).addPathPatterns("/**");
 	}
 }

@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                     <div class="product-info">
-                                        <h3><a href="single-product.html">${beneficio.titulo}</a></h3>
+                                        <h3><a href="<c:url value="/detalleBeneficio/${beneficio.idBeneficio}.html"/>">${beneficio.titulo}</a></h3>
                                         <h4>${beneficio.nombreProveedor}</h4>
                                         <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
                                             <div class="pro-price">
