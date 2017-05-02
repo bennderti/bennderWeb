@@ -17,8 +17,8 @@
                             </li>
                             <li><a href="#">Categorias</a>
                                 <div class="mega-menu">
-                                    <c:if test="${not empty categorias}">
-                                        <c:forEach items="${categorias}" var="categoria">
+                                    <c:if test="${not empty sessionScope.categorias}">
+                                        <c:forEach items="${sessionScope.categorias}" var="categoria">
                                             <span>
                                                 <a class="mega-title" href="<c:url value="/categoria/${categoria.nombre}.html"/>">${categoria.nombre}</a>
                                                 <c:forEach items="${categoria.subCategorias}" var="subCategoria">

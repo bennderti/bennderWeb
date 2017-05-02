@@ -7,7 +7,9 @@
 --%>
 <%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!-- single-product-area start -->
+<fmt:setLocale value="es_CL" scope="session"/>
 <div class="single-product-area">
     <div class="container">
         <div class="row">
@@ -56,13 +58,27 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12 shop-list">
                         <div class="product-info product-single">
-                            <h3><a href="single-product.html">${beneficio.titulo}</a></h3>
-                            <h4></h4>
+                            <h3>${beneficio.titulo}</h3>
 
                             <div class="pro-rating">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                    class="fa fa-star"></i><i class="fa fa-star"></i><a class="reviews" href="#">16 reviews</a>
-                                | <a class="add-review" href="#">Add Your Review</a>
+                                <c:choose>
+                                    <c:when test="${beneficio.calificacion == 1}">
+                                        <i class="fa fa-star"></i>
+                                    </c:when>
+                                    <c:when test="${beneficio.calificacion == 2}">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    </c:when>
+                                    <c:when test="${beneficio.calificacion == 3}">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    </c:when>
+                                    <c:when test="${beneficio.calificacion == 4}">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    </c:when>
+                                    <c:when test="${beneficio.calificacion == 5}">
+                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    </c:when>
+                                </c:choose>
+                                    <%--<p><span class="stars">${beneficio.calificacion}</span></p>--%>
                             </div>
                             <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
                                 <div class="pro-price">
@@ -71,7 +87,6 @@
                             </c:if>
                             <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 2}">
                                 <div class="pro-price">
-                                    <fmt:setLocale value="es_CL" scope="session"/>
                                     <span class="normal"><fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/></span> <span class="old"><fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/></span>
                                 </div>
                             </c:if>
@@ -95,36 +110,23 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    <td class="title">
-                                        Category:
-                                    </td>
-                                    <td>
-                                        Men Dress
-                                    </td>
+                                    <td class="title">Categoria:</td>
+                                    <td>${beneficio.nombreCategoria}</td>
                                 </tr>
                                 <tr>
-                                    <td class="title">
-                                        Product Code:
-                                    </td>
-                                    <td>
-                                        PS08
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="title">
-                                        Tags:
-                                    </td>
-                                    <td>
-                                        Fashion - clothes - Dress - Men - jean
-                                    </td>
+                                    <td class="title">Stock:</td>
+                                    <td>${beneficio.stock} ${beneficio.stock == 1 ? 'unidad' : 'unidades'}</td>
                                 </tr>
                                 </tbody>
                             </table>
                             <div class="widget-icon">
-                                <a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i>
-                            </a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-google-plus">
-                            </i></a>
+                                <i class="fa fa-clock-o"></i> Termina el dia <fmt:formatDate value="${beneficio.fechaExpiracion}" pattern="dd MMMM yyyy" />
                             </div>
+                            <%--<div class="widget-icon">--%>
+                                <%--<a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i>--%>
+                            <%--</a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-google-plus">--%>
+                            <%--</i></a>--%>
+                            <%--</div>--%>
                         </div>
                     </div>
                 </div>
@@ -135,9 +137,9 @@
                                 <!-- Nav tabs -->
                                 <ul class="pro-details-tab" role="tablist">
                                     <li role="presentation" class="active"><a href="#tab-desc" aria-controls="tab-desc"
-                                                                              role="tab" data-toggle="tab">Description</a></li>
-                                    <li role="presentation"><a href="#page-comments" aria-controls="page-comments" role="tab"
-                                                               data-toggle="tab">Reviews (1)</a></li>
+                                                                              role="tab" data-toggle="tab">Descripcion</a></li>
+                                    <li role="presentation"><a href="#tab-condiciones" aria-controls="tab-condiciones" role="tab"
+                                                               data-toggle="tab">Condiciones</a></li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
@@ -148,53 +150,19 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="page-comments">
-                                        <div class="product-tab-desc">
-                                            <div class="product-page-comments">
-                                                <h2>
-                                                    1 review for Integer consequat ante lectus</h2>
+                                    <c:if test="${not empty beneficio.condiciones}">
+                                        <div role="tabpanel" class="tab-pane" id="tab-condiciones">
+                                            <div class="product-tab-desc">
+                                                <h3>Condiciones sobre esta promocion</h3>
                                                 <ul>
-                                                    <li>
-                                                        <div class="product-comments">
-                                                            <img src="img/author.jpg" alt="" />
-                                                            <div class="product-comments-content">
-                                                                <p>
-                                                                    <strong>admin</strong> - <span>March 7, 2015:</span> <span class="pro-comments-rating">
-                                                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                                        class="fa fa-star"></i></span>
-                                                                </p>
-                                                                <div class="desc">
-                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec
-                                                                    est tristique auctor. Donec non est at libero vulputate rutrum.
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    <c:forEach items="${beneficio.condiciones}" var="condicion">
+                                                        <li>${condicion}</li>
+                                                    </c:forEach>
                                                 </ul>
-                                                <div class="review-form-wrapper">
-                                                    <h3>
-                                                        Add a review</h3>
-                                                    <form action="#">
-                                                        <input type="text" placeholder="your name" />
-                                                        <input type="email" placeholder="your email" />
-                                                        <div class="your-rating">
-                                                            <h5>
-                                                                Your Rating</h5>
-                                                            <span><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star"></i>
-                                                            </a></span><span><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star">
-                                                            </i></a><a href="#"><i class="fa fa-star"></i></a></span><span><a href="#"><i class="fa fa-star">
-                                                            </i></a><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star">
-                                                            </i></a><a href="#"><i class="fa fa-star"></i></a></span><span><a href="#"><i class="fa fa-star">
-                                                            </i></a><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star">
-                                                            </i></a><a href="#"><i class="fa fa-star"></i></a><a href="#"><i class="fa fa-star">
-                                                            </i></a></span>
-                                                        </div>
-                                                        <textarea id="product-message" cols="30" rows="10" placeholder="Your Rating"></textarea>
-                                                        <input type="submit" value="submit" />
-                                                    </form>
-                                                </div>
                                             </div>
                                         </div>
+                                    </c:if>
+
                                     </div>
                                 </div>
                             </div>
@@ -206,6 +174,6 @@
     </div>
 </div>
                                             
-                                                <script type="text/javascript" src="<c:url value="/resources/js/beneficio/beneficio.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
-    
+<script type="text/javascript" src="<c:url value="/resources/js/beneficio/beneficio.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+
 <!-- single-product-area end -->

@@ -13,8 +13,8 @@
                 <div class="header-search">
                     <select id="select-categorias" class="select-categorias">
                         <option value="-1">Seleccione...</option>
-                        <c:if test="${not empty categorias}">
-                            <c:forEach items="${categorias}" var="c">
+                        <c:if test="${not empty sessionScope.categorias}">
+                            <c:forEach items="${sessionScope.categorias}" var="c">
                                 <option value="${c.idCategoria}">${c.nombre}</option>
                             </c:forEach>
                         </c:if>

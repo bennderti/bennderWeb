@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author dyanez 28-12-2016
@@ -37,12 +39,12 @@ public class HomeController {
     @ExceptionHandler    
         //.- home (Version 1)!!!    
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView homeI() {
+    public ModelAndView homeI(HttpSession session) {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("home");
         try {
-            modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
+            session.setAttribute("categorias", categoriaServices.obtenerCategorias().getCategorias());
             log.info("FIN");
 
         }
