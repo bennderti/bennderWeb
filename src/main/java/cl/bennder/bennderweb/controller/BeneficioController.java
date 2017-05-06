@@ -24,8 +24,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -130,15 +132,22 @@ public class BeneficioController {
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("detalleBeneficio");
 
-        BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(usuarioSession.getToken(), idBeneficio));
-        if(response.getBeneficio()!=null){
-            response.getBeneficio().setIdBeneficio(idBeneficio);
+        try {
+            BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(usuarioSession.getToken(), idBeneficio));
+            if (response.getBeneficio() != null) {
+                response.getBeneficio().setIdBeneficio(idBeneficio);
+            }
+            modelAndView.addObject("beneficio", response.getBeneficio());
         }
-        modelAndView.addObject("beneficio", response.getBeneficio());
-
+        catch (HttpClientErrorException ex){
+            log.error(ex.getLocalizedMessage());
+            if (ex.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
+                modelAndView.setViewName("errorPage");
+        }
         log.info("FIN");
         return modelAndView;
     }
+
     
     /**
      * Método utilizado cuando usuario ha seleccionado un cupon bajo la opción obtenido
