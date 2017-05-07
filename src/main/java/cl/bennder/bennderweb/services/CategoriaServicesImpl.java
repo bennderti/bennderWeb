@@ -61,7 +61,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
         log.info("INICIO");
 //        try {
 
-            RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, new CategoriasRequest(), CategoriasResponse.class, usuarioSession.getToken());
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, new CategoriasRequest(), CategoriasResponse.class, usuarioSession.getToken());
 
             if(response == null){
                 response = new CategoriasResponse();
