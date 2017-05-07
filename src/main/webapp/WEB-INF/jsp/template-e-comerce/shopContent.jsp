@@ -85,8 +85,23 @@
                                         </c:if>
 
                                         <div class="pro-rating">
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                class="fa fa-star"></i><i class="fa fa-star"></i>
+                                            <c:choose>
+                                                <c:when test="${beneficio.calificacion == 1}">
+                                                    <i class="fa fa-star"></i>
+                                                </c:when>
+                                                <c:when test="${beneficio.calificacion == 2}">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </c:when>
+                                                <c:when test="${beneficio.calificacion == 3}">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </c:when>
+                                                <c:when test="${beneficio.calificacion == 4}">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </c:when>
+                                                <c:when test="${beneficio.calificacion == 5}">
+                                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                     </div>
                                 </div>

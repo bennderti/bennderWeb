@@ -78,7 +78,6 @@
                                         <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                                     </c:when>
                                 </c:choose>
-                                    <%--<p><span class="stars">${beneficio.calificacion}</span></p>--%>
                             </div>
                             <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
                                 <div class="pro-price">
