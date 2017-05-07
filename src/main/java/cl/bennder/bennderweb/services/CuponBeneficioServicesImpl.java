@@ -6,6 +6,8 @@
 package cl.bennder.bennderweb.services;
 
 import cl.bennder.bennderweb.constantes.GoToUrl;
+import cl.bennder.bennderweb.constantes.URLServiciosBennder;
+import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
@@ -34,19 +36,19 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
 
     @Override
     public ValidacionCuponPOSResponse validacionCuponPOS(ValidacionCuponPOSRequest request) {
-        return RestConnector.validacionCuponPOS(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_VALIDA_CUPON_POS, request, ValidacionCuponPOSResponse.class, usuarioSession.getToken());
     }
 
     
     
     @Override
     public CanjeaCuponResponse validaCanjeCuponBeneficio(CanjeaCuponRequest request) {
-        return RestConnector.validaCanjeCuponBeneficio(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GET_VALIDA_CANJEA_CUPON, request, CanjeaCuponResponse.class, usuarioSession.getToken());
     }
     
     @Override
     public GeneraCuponQrResponse generaCuponQR(GeneraCuponQrRequest request) {
-        return RestConnector.generaCuponQR(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GENERAR_CUPON_QR, request, GeneraCuponQrResponse.class, usuarioSession.getToken());
     }
 
    @Override

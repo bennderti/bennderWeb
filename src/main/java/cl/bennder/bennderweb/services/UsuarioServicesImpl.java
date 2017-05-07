@@ -5,7 +5,10 @@
  */
 package cl.bennder.bennderweb.services;
 
+import cl.bennder.bennderweb.constantes.URLServiciosBennder;
+import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
@@ -22,7 +25,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioServicesImpl implements UsuarioServices{
     
-    
+    @Autowired
+    UsuarioSession usuarioSession;
+
     @Autowired
     CuponBeneficioServices cuponBeneficioServices;
     
@@ -31,7 +36,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 
     @Override
     public ValidacionResponse recuperacionPassword(RecuperacionPasswordRequest request) {
-        return RestConnector.recuperacionPassword(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_MAIL_RECUPERACION_PASSWORD, request, ValidacionResponse.class, usuarioSession.getToken());
     }    
     
     @Override
@@ -41,7 +46,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
         response.getValidacion().setMensaje("Problemas al validar usuario");
         log.info("INICIO");
         try {
-            response = RestConnector.validacionUsuario(request);
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_VALIDACION_USUARIO, request, LoginResponse.class, usuarioSession.getToken());
             if(response == null){
                 response = new LoginResponse();
                 response.getValidacion().setCodigo("NOK");

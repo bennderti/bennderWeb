@@ -37,55 +37,12 @@ import org.springframework.web.client.RestTemplate;
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
     private static final String AUTHENTICATION = "Authorization";
-    
-    public static ValidacionCuponPOSResponse validacionCuponPOS(final ValidacionCuponPOSRequest query){
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_VALIDA_CUPON_POS, query, ValidacionCuponPOSResponse.class);
-    }
-    
-    public static CanjeaCuponResponse validaCanjeCuponBeneficio( final CanjeaCuponRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GET_VALIDA_CANJEA_CUPON, query, CanjeaCuponResponse.class);
-    }
-    public static GetCuponBeneficioResponse getCuponBeneficio( final GetCuponBeneficioRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GET_CUPON_BENEFICIO, query, GetCuponBeneficioResponse.class);
-    }
-    public static GeneraCuponQrResponse generaCuponQR( final GeneraCuponQrRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GENERAR_CUPON_QR, query, GeneraCuponQrResponse.class);
-    }
-    public static UploadBeneficioImagenResponse uploadImagenesBeneficios( final UploadBeneficioImagenRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_UPLOAD_IMAGENES_BENEFICIOS, query, UploadBeneficioImagenResponse.class);
-    }   
-    public static DatosGeneralProveedorResponse guardaDatosGeneralesProveedor(final DatosGeneralProveedorRequest query){
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GURDA_DATOS_GRALES_PROVEEDOR, query, DatosGeneralProveedorResponse.class);
-    }
-    public static CategoriasResponse obtenerCategoriaByProveedor( final ProveedorIdRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_PROVEEDOR, query, CategoriasResponse.class);
-    }
-    public static ProveedoresResponse obtenerProveedorHabilitados( final ProveedorIdRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_PROVEEDORES_HABILITADOS, query, ProveedoresResponse.class);
-    } 
-    //public static CategoriasResponse obtenerCategoriasById( final CategoriaByIdRequest query ) {
-    public static SubCategoriaProveedorResponse obtenerSubCategoriasByIdCatProveedor( final SubCategoriaProveedorRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_SUB_CATEGORIAS_BY_ID_CAT_PROV, query, SubCategoriaProveedorResponse.class);
-    }
-    public static BeneficiosCargadorResponse getBeneficiosByIdCat( final CategoriaByIdRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_BENEFICIOS_BY_ID_CAT, query, BeneficiosCargadorResponse.class);
-    }
-    public static ValidacionResponse recuperacionPassword( final RecuperacionPasswordRequest query ) {
-        //return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_MAIL_RECUPERACION_PASSWORD, query, ValidacionResponse.class);
-    }
-    public static LoginResponse validacionUsuario( final LoginRequest query ) {
-        //return clientRestGeneric(Properties.URL_SERVIDOR  + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_VALIDACION_USUARIO, query, LoginResponse.class);
-    }
-    public static CategoriasResponse getCategorias( final CategoriasRequest query ) {
-        return clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, query, CategoriasResponse.class);
-    }
-    public static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass ) {
+
+    public static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass, String token) {
         LOG.info("INICIO");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set(AUTHENTICATION, ((UserRequest) query).getToken());
+        headers.set(AUTHENTICATION, token);
         HttpEntity<Q> req = new HttpEntity<>(query, headers);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -101,38 +58,6 @@ public class RestConnector {
         }
 
         R response = callResult.getBody();
-//        if ( response == null ) {
-//            LOG.error("Sin respuesta de servicio REST (getBody)");
-//            return null;
-//        }
-
-//        Validacion validacion = null;
-//
-//        // Search all the methods for a repuesta
-//        for ( Method method : response.getClass().getDeclaredMethods() ) {
-//            // If the method is public, without params and giving back a Repuesta
-//            if ( Modifier.isPublic(method.getModifiers())
-//                 && ( method.getParameterTypes().length == 0 )
-//                 && method.getReturnType().equals(Validacion.class) ) {
-//                // We should have it
-//                try {
-//                    validacion = (Validacion) method.invoke(response);
-//                    break;
-//                }
-//                catch ( IllegalAccessException | InvocationTargetException ignored ) {
-//                    // Simply skip this method
-//                }
-//            }
-//        }
-
-//        if ( validacion == null ) {
-//            LOG.error("Sin respuesta servicio REST (validacion)");
-//            return new Validacion("1", "Sin respuesta servicio REST (validacion)");
-//        }
-//        if ( "0".compareTo(validacion.getCodigo()) != 0) {
-//            LOG.error("Respuesta NOK, mensaje->{}", validacion.getMensaje());
-//            return null;
-//        }
         LOG.info("FIN");
         return response;
     }

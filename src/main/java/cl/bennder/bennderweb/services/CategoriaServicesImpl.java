@@ -45,16 +45,14 @@ public class CategoriaServicesImpl implements CategoriaServices{
     @Override
 //    public CategoriasResponse obtenerCategoriasById(CategoriaByIdRequest request) {
     public SubCategoriaProveedorResponse getSubCategoriasProveedor(SubCategoriaProveedorRequest request){
-        return RestConnector.obtenerSubCategoriasByIdCatProveedor(request);    }
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_SUB_CATEGORIAS_BY_ID_CAT_PROV, request, SubCategoriaProveedorResponse.class, usuarioSession.getToken());
+    }
 
     @Override
     public BeneficiosCargadorResponse getBeneficiosByIdCat(CategoriaByIdRequest request) {
-        return RestConnector.getBeneficiosByIdCat(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_BENEFICIOS_BY_ID_CAT, request, BeneficiosCargadorResponse.class, usuarioSession.getToken());
     }
-    
-    
-    
-    
+
     @Override
     public CategoriasResponse obtenerCategorias() {
         CategoriasResponse response = new CategoriasResponse();
@@ -63,7 +61,8 @@ public class CategoriaServicesImpl implements CategoriaServices{
         log.info("INICIO");
 //        try {
 
-            response = RestConnector.getCategorias(new CategoriasRequest(usuarioSession.getToken()));
+            RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, new CategoriasRequest(), CategoriasResponse.class, usuarioSession.getToken());
+
             if(response == null){
                 response = new CategoriasResponse();
                 response.getValidacion().setCodigo("NOK");
@@ -88,7 +87,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
         log.info("INICIO");
         try {
 
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_BENEFICIOS_POR_CATEGORIA, new BeneficiosRequest(), BeneficiosResponse.class);
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_BENEFICIOS_POR_CATEGORIA, new BeneficiosRequest(), BeneficiosResponse.class, usuarioSession.getToken());
             if(response == null){
                 response = new BeneficiosResponse();
                 response.getValidacion().setCodigo("NOK");
@@ -115,7 +114,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
             CategoriasRequest categoriasRequest = new CategoriasRequest(usuarioSession.getToken());
             categoriasRequest.setNombreCategoria(nombreCategoria);
 
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_CATEGORIAS_RELACIONADAS, categoriasRequest , CategoriasResponse.class);
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_CATEGORIAS_RELACIONADAS, categoriasRequest , CategoriasResponse.class, usuarioSession.getToken());
             if(response == null){
                 response = new CategoriasResponse();
                 response.getValidacion().setCodigo("NOK");
@@ -147,7 +146,7 @@ public class CategoriaServicesImpl implements CategoriaServices{
             CategoriasRequest categoriasRequest = new CategoriasRequest(usuarioSession.getToken());
             categoriasRequest.setNombreCategoria(nombreCategoria);
 
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CARGAR_CATEGORIA, categoriasRequest , CategoriaResponse.class);
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CARGAR_CATEGORIA, categoriasRequest , CategoriaResponse.class, usuarioSession.getToken());
             if(response == null){
                 response = new CategoriaResponse();
                 response.getValidacion().setCodigo("NOK");

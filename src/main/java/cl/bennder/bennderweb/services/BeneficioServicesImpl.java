@@ -17,15 +17,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class BeneficioServicesImpl implements BeneficioServices {
 
+    @Autowired
+    UsuarioSession usuarioSession;
+
     @Override
     public GetCuponBeneficioResponse getCuponBeneficio(GetCuponBeneficioRequest request) {
-        return RestConnector.getCuponBeneficio(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GET_CUPON_BENEFICIO, request, GetCuponBeneficioResponse.class, usuarioSession.getToken());
     }
 
     
     
     @Override
     public BeneficioResponse obtenerDetalleBeneficio(BeneficioRequest request) {
-        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_DETALLE_BENEFICIO, request, BeneficioResponse.class);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_DETALLE_BENEFICIO, request, BeneficioResponse.class, usuarioSession.getToken());
     }
 }

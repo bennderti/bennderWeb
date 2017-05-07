@@ -5,7 +5,10 @@
  */
 package cl.bennder.bennderweb.services;
 
+import cl.bennder.bennderweb.constantes.URLServiciosBennder;
+import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.entitybennderwebrest.model.BeneficioImagen;
 import cl.bennder.entitybennderwebrest.model.Validacion;
 import cl.bennder.entitybennderwebrest.request.UploadBeneficioImagenRequest;
@@ -13,6 +16,7 @@ import cl.bennder.entitybennderwebrest.response.UploadBeneficioImagenResponse;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,8 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 public class CargadorServicesImpl implements CargadorServices{
-    
+
     private static final Logger log = LoggerFactory.getLogger(CargadorServicesImpl.class);
+
+    @Autowired
+    UsuarioSession usuarioSession;
 
     @Override
     public UploadBeneficioImagenResponse uploadImagenesBeneficios(List<MultipartFile> imagenes, Integer idBeneficio,Integer indexPrincipal, Integer idProveedor) { 
@@ -64,7 +71,7 @@ public class CargadorServicesImpl implements CargadorServices{
                             request.getBeneficioImagenes().add(bimagen);
                     }
                     log.info("inicio - consultando servicio para enviar imagenes de beneficio...");
-                    response = RestConnector.uploadImagenesBeneficios(request); 
+                    response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_UPLOAD_IMAGENES_BENEFICIOS, request, UploadBeneficioImagenResponse.class, usuarioSession.getToken());
                     log.info("fin - consultando servicio para enviar imagenes de beneficio...");
                 }
                 else{

@@ -5,8 +5,11 @@
  */
 package cl.bennder.bennderweb.services;
 
+import cl.bennder.bennderweb.constantes.URLServiciosBennder;
+import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.bennderweb.session.ProveedorSession;
+import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.entitybennderwebrest.model.Proveedor;
 import cl.bennder.entitybennderwebrest.request.DatosGeneralProveedorRequest;
 import cl.bennder.entitybennderwebrest.request.ProveedorIdRequest;
@@ -31,9 +34,12 @@ public class ProveedorServicesImpl implements ProveedorServices{
     @Autowired
     private ProveedorSession proveedorSession;
 
+    @Autowired
+    private UsuarioSession usuarioSession;
+
     @Override
     public DatosGeneralProveedorResponse guardaDatosGeneralesProveedor(DatosGeneralProveedorRequest request) {
-        return RestConnector.guardaDatosGeneralesProveedor(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GURDA_DATOS_GRALES_PROVEEDOR, request, DatosGeneralProveedorResponse.class, usuarioSession.getToken());
     }
 
     
@@ -55,17 +61,17 @@ public class ProveedorServicesImpl implements ProveedorServices{
     
     @Override
     public CategoriasResponse obtenerCategoriaByProveedor(ProveedorIdRequest request) {
-        return RestConnector.obtenerCategoriaByProveedor(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS_BY_PROVEEDOR, request, CategoriasResponse.class, usuarioSession.getToken());
     }
 
     @Override
     public ProveedoresResponse obtenerProveedorHabilitados(ProveedorIdRequest request) {
-        return RestConnector.obtenerProveedorHabilitados(request);
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_PROVEEDORES_HABILITADOS, request, ProveedoresResponse.class, usuarioSession.getToken());
     }
 
     @Override
     public List<Proveedor> getProveedoreSessionServices() {
-        List<Proveedor> lista = null;
+        List<Proveedor> lista;
         if(proveedorSession!=null && proveedorSession.getLista()!=null){
             log.info("obteniendo proveedores de capa de session");
             lista = proveedorSession.getLista();

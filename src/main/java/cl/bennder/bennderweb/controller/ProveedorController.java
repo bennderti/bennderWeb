@@ -121,7 +121,6 @@ public class ProveedorController {
                             null,
                             proveedorForm.getLogoImagen()!=null?proveedorForm.getLogoImagen().getBytes():null,
                             proveedorForm.getLogoImagen()!=null?proveedorForm.getLogoImagen().getOriginalFilename():null));
-            request.setToken(usuarioSession.getToken());
 
             DatosGeneralProveedorResponse response = proveedorServices.guardaDatosGeneralesProveedor(request);
             if("0".equals(response.getValidacion().getCodigo())){
