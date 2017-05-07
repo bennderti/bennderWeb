@@ -24,12 +24,12 @@
         <header>			
             <!-- header-bottom-area start -->            
             <jsp:include page="/WEB-INF/jsp/template-e-comerce/headerBottomAreaSearch.jsp">
-                <jsp:param name="categorias" value="${categorias}"/>
+                <jsp:param name="categorias" value="${home}"/>
             </jsp:include>
             <!-- header-bottom-area end -->
             <!-- main-menu-area start -->
             <jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaHidden.jsp">
-                <jsp:param name="categorias" value="${categorias}"/>
+                <jsp:param name="categorias" value="${home}"/>
             </jsp:include>
             <!-- main-menu-area end -->
             <!-- mobile-menu-area start -->

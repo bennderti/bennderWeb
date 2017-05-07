@@ -10,6 +10,7 @@ import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.entitybennderwebrest.request.*;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
+import cl.bennder.entitybennderwebrest.response.CargarHomeResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
 import cl.bennder.entitybennderwebrest.response.DatosGeneralProveedorResponse;
 import cl.bennder.entitybennderwebrest.response.GeneraCuponQrResponse;
@@ -61,4 +62,6 @@ public class RestConnector {
         LOG.info("FIN");
         return response;
     }
+    
+    
 }

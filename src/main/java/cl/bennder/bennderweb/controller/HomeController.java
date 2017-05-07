@@ -7,6 +7,9 @@ package cl.bennder.bennderweb.controller;
 
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CategoriaServices;
+import cl.bennder.bennderweb.services.HomeServices;
+import cl.bennder.entitybennderwebrest.request.CargarHomeRequest;
+import cl.bennder.entitybennderwebrest.response.CargarHomeResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +38,43 @@ public class HomeController {
     @Autowired
     private CategoriaServices categoriaServices;
     
+    @Autowired
+    private HomeServices homeServices;
     
-    @ExceptionHandler    
+    
+//    @ExceptionHandler    
         //.- home (Version 1)!!!    
+//    @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+//    public ModelAndView homeI(HttpSession session) {
+//        log.info("INICIO");
+//        log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
+//        ModelAndView modelAndView = new ModelAndView("home");
+//        try {
+//            session.setAttribute("categorias", categoriaServices.obtenerCategorias().getCategorias());
+//            log.info("FIN");
+//
+//        }
+//        catch (HttpClientErrorException ex) {
+//            log.error("[Exception] Error al obtener categorías", ex);
+//            if (ex.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
+//                modelAndView.setViewName("errorPage");
+//        }
+//        return modelAndView;
+//    }
+    
     @RequestMapping(value = "/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView homeI(HttpSession session) {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("home");
+        
+        CargarHomeRequest request = new CargarHomeRequest();
+        request.setIdUsuario(usuarioSession.getIdUsuario());
+        
+        CargarHomeResponse response =  homeServices.cargarHome(request);
+                
         try {
-            session.setAttribute("categorias", categoriaServices.obtenerCategorias().getCategorias());
+            session.setAttribute("categorias", response.getCategorias());
             log.info("FIN");
 
         }
@@ -53,8 +83,14 @@ public class HomeController {
             if (ex.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
                 modelAndView.setViewName("errorPage");
         }
+        
+        log.info("FIN");
         return modelAndView;
     }
+    
+    
+    
+    
 
     /*
     @RequestMapping(value = "/admin/home.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
