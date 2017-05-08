@@ -84,6 +84,8 @@ public class HomeController {
                 modelAndView.setViewName("errorPage");
         }
         
+        modelAndView.addObject("destacados", response.getBeneficiosDestacados());
+        
         log.info("FIN");
         return modelAndView;
     }

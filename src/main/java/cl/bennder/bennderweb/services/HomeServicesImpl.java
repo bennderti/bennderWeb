@@ -45,7 +45,7 @@ public class HomeServicesImpl implements HomeServices {
         log.info("INICIO");
         
         try{
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_CATEGORIAS, request, CargarHomeResponse.class, usuarioSession.getToken());
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_HOME_CARGAR_HOME, request, CargarHomeResponse.class, usuarioSession.getToken());
             
             if(response == null){
                 response = new CargarHomeResponse();

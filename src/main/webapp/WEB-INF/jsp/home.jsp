@@ -24,12 +24,12 @@
         <header>			
             <!-- header-bottom-area start -->            
             <jsp:include page="/WEB-INF/jsp/template-e-comerce/headerBottomAreaSearch.jsp">
-                <jsp:param name="categorias" value="${home}"/>
+                <jsp:param name="categorias" value="${categorias}"/>
             </jsp:include>
             <!-- header-bottom-area end -->
             <!-- main-menu-area start -->
             <jsp:include page="/WEB-INF/jsp/template-e-comerce/mainMenuAreaHidden.jsp">
-                <jsp:param name="categorias" value="${home}"/>
+                <jsp:param name="categorias" value="${categorias}"/>
             </jsp:include>
             <!-- main-menu-area end -->
             <!-- mobile-menu-area start -->
@@ -47,7 +47,9 @@
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/serviceArea.jsp"/> 
     <!-- service-area end -->
     <!-- features-area start -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/featuresArea.jsp"/> 
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/featuresArea.jsp">
+        <jsp:param name="destacados" value="${destacados}"/>
+    </jsp:include>/> 
     <!-- features-area end -->
     <!-- new-product-area start -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/newProductArea.jsp"/> 

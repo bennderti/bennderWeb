@@ -7,7 +7,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>
-                            features product</h2>
+                            Promociones Destacadas</h2>
                     </div>
                 </div>
             </div>
@@ -18,166 +18,58 @@
                             <div role="tabpanel" class="tab-pane active" id="home">
                                 <div class="row">
                                     <div class="product-curosel">
-                                        <!-- single-product start -->
-                                        <div class="col-lg-12">
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>' alt="" />
-                                                        <img class="secondary-img" src='<c:url value="/resources/img/product/2.jpg"/>'  alt="" />
-                                                    </a><span class="sale">sale</span>
-                                                    <div class="product-action">
-                                                        <div class="pro-button-top">
-                                                            <a href="#">add to cart</a>
+                                        <c:if test="${not empty destacados}"> 
+                                            <c:forEach items="${destacados}" var="destacado">
+                                                <!-- single-product start -->
+                                                <div class="col-lg-12">
+                                                    <div class="single-product">
+                                                        <div class="product-img">
+                                                            <a href="single-product.html">
+                                                                <img class="primary-img" src='<c:url value="${destacado.imagenesBeneficio[0].urlImagen}"/>' alt="" />
+                                                                <img class="secondary-img" src='<c:url value="${destacado.imagenesBeneficio[1].urlImagen}"/>'  alt="" />
+                                                            </a><!--span class="sale">sale</span-->
+                                                            <!--div class="product-action">
+                                                                <div class="pro-button-top">
+                                                                    <a href="#">add to cart</a>
+                                                                </div>
+                                                                <div class="pro-button-bottom">
+                                                                    <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
+                                                                    </a><a href="#"><i class="fa fa-search-plus"></i></a>
+                                                                </div>
+                                                            </div-->
                                                         </div>
-                                                        <div class="pro-button-bottom">
-                                                            <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
-                                                            </a><a href="#"><i class="fa fa-search-plus"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3>
-                                                        <a href="single-product.html">Dolor Sir Amet Percpectum</a></h3>
-                                                    <div class="pro-price">
-                                                        <span class="normal">$150</span> <span class="old">$180</span>
-                                                    </div>
-                                                    <div class="pro-rating">
-                                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                            class="fa fa-star"></i><i class="fa fa-star"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product end -->
-                                        <!-- single-product start -->
-                                        <div class="col-lg-12">
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img class="primary-img" src='<c:url value="/resources/img/product/12.jpg"/>' alt="" />
-                                                        <img class="secondary-img" src='<c:url value="/resources/img/product/13.jpg"/>'  alt="" />
-                                                    </a>
-                                                    <div class="product-action">
-                                                        <div class="pro-button-top">
-                                                            <a href="#">add to cart</a>
-                                                        </div>
-                                                        <div class="pro-button-bottom">
-                                                            <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
-                                                            </a><a href="#"><i class="fa fa-search-plus"></i></a>
+                                                        <div class="product-info">
+                                                            <h3>
+                                                                <a href="<c:url value="/detalleBeneficio/${destacado.idBeneficio}.html"/>">${destacado.titulo}</a>
+                                                            </h3>
+                                                            <h4>${destacado.nombreProveedor}</h4>                                                            
+                                                            <c:if test="${destacado.tipoBeneficio.idTipoBeneficio == 1}">
+                                                                <div class="pro-price">
+                                                                    <span class="normal">${destacado.porcentajeDescuento}%</span>
+                                                                </div>
+                                                            </c:if>
+                                                            <c:if test="${destacado.tipoBeneficio.idTipoBeneficio == 2}">
+                                                                <div class="pro-price">
+                                                                    <fmt:setLocale value="es_CL" scope="session"/>
+                                                                    <span class="normal">
+                                                                        <fmt:formatNumber value="${destacado.precioOferta}" type="currency" currencySymbol="$"/>
+                                                                    </span> 
+                                                                    <span class="old">
+                                                                        <fmt:formatNumber value="${destacado.precioNormal}" type="currency" currencySymbol="$"/>
+                                                                    </span>
+                                                                </div>
+                                                            </c:if>
+                                                            <div class="pro-rating">
+                                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                                                                    class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="product-info">
-                                                    <h3>
-                                                        <a href="single-product.html">Dolor Sir Amet Percpectum</a></h3>
-                                                    <div class="pro-price">
-                                                        <span class="normal">$150</span> <span class="old">$180</span>
-                                                    </div>
-                                                    <div class="pro-rating">
-                                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                            class="fa fa-star"></i><i class="fa fa-star"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product end -->
-                                        <!-- single-product start -->
-                                        <div class="col-lg-12">
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img class="primary-img" src='<c:url value="/resources/img/product/5.jpg"/>'  alt="" />
-                                                        <img class="secondary-img" src='<c:url value="/resources/img/product/6.jpg"/>'  alt="" />
-                                                    </a><span class="sale">sale</span>
-                                                    <div class="product-action">
-                                                        <div class="pro-button-top">
-                                                            <a href="#">add to cart</a>
-                                                        </div>
-                                                        <div class="pro-button-bottom">
-                                                            <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
-                                                            </a><a href="#"><i class="fa fa-search-plus"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3>
-                                                        <a href="single-product.html">Dolor Sir Amet Percpectum</a></h3>
-                                                    <div class="pro-price">
-                                                        <span class="normal">$150</span> <span class="old">$180</span>
-                                                    </div>
-                                                    <div class="pro-rating">
-                                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                            class="fa fa-star"></i><i class="fa fa-star"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product end -->
-                                        <!-- single-product start -->
-                                        <div class="col-lg-12">
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img class="primary-img" src='<c:url value="/resources/img/product/14.jpg"/>'  alt="" />
-                                                        <img class="secondary-img" src='<c:url value="/resources/img/product/1.jpg"/>'  alt="" />
-                                                    </a>
-                                                    <div class="product-action">
-                                                        <div class="pro-button-top">
-                                                            <a href="#">add to cart</a>
-                                                        </div>
-                                                        <div class="pro-button-bottom">
-                                                            <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
-                                                            </a><a href="#"><i class="fa fa-search-plus"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3>
-                                                        <a href="single-product.html">Dolor Sir Amet Percpectum</a></h3>
-                                                    <div class="pro-price">
-                                                        <span class="normal">$150</span> <span class="old">$180</span>
-                                                    </div>
-                                                    <div class="pro-rating">
-                                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                            class="fa fa-star"></i><i class="fa fa-star"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product end -->
-                                        <!-- single-product start -->
-                                        <div class="col-lg-12">
-                                            <div class="single-product">
-                                                <div class="product-img">
-                                                    <a href="single-product.html">
-                                                        <img class="primary-img" src='<c:url value="/resources/img/product/9.jpg"/>'  alt="" />
-                                                        <img class="secondary-img" src='<c:url value="/resources/img/product/10.jpg"/>'  alt="" />
-                                                    </a><span class="sale">sale</span>
-                                                    <div class="product-action">
-                                                        <div class="pro-button-top">
-                                                            <a href="#">add to cart</a>
-                                                        </div>
-                                                        <div class="pro-button-bottom">
-                                                            <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
-                                                            </a><a href="#"><i class="fa fa-search-plus"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info">
-                                                    <h3>
-                                                        <a href="single-product.html">Dolor Sir Amet Percpectum</a></h3>
-                                                    <div class="pro-price">
-                                                        <span class="normal">$150</span> <span class="old">$180</span>
-                                                    </div>
-                                                    <div class="pro-rating">
-                                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                            class="fa fa-star"></i><i class="fa fa-star"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- single-product end -->
+                                                <!-- single-product end -->
+                                            </c:forEach>    
+                                        </c:if>                                      
+                                        
                                     </div>
                                 </div>
                             </div>
