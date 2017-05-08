@@ -8,7 +8,7 @@
                 <div class="main-menu">
                     <nav>
                         <ul>
-                            <li><a href="home.html">home</a>
+                            <li><a href="<c:url value="/home.html"/>">home</a>
 <!--                                <ul>
                                     <li><a href="index.html">Homepage Version 1</a></li>
                                     <li><a href="index-2.html">Homepage Version 2</a></li>

@@ -83,11 +83,9 @@
                                                 <span class="normal"><fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/></span> <span class="old"><fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/></span>
                                             </div>
                                         </c:if>
-
-                                        <div class="pro-rating">
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </div>
+                                        <jsp:include page="pro-rating.jsp">
+                                            <jsp:param name="calificacion" value="${beneficio.calificacion}"/>
+                                        </jsp:include>
                                     </div>
                                 </div>
                             </div>
@@ -134,10 +132,9 @@
                                                 <span class="normal"><fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/></span> <span class="old"><fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/></span>
                                             </div>
                                         </c:if>
-                                        <div class="pro-rating">
-                                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                class="fa fa-star"></i><i class="fa fa-star"></i>
-                                        </div>
+                                        <jsp:include page="pro-rating.jsp">
+                                            <jsp:param name="calificacion" value="${beneficio.calificacion}"/>
+                                        </jsp:include>
                                         <div class="product-desc">
                                             <p>${beneficio.descripcion}</p>
                                         </div>

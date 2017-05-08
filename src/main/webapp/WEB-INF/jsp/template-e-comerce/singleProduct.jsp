@@ -60,26 +60,9 @@
                         <div class="product-info product-single">
                             <h3>${beneficio.titulo}</h3>
 
-                            <div class="pro-rating">
-                                <c:choose>
-                                    <c:when test="${beneficio.calificacion == 1}">
-                                        <i class="fa fa-star"></i>
-                                    </c:when>
-                                    <c:when test="${beneficio.calificacion == 2}">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                    </c:when>
-                                    <c:when test="${beneficio.calificacion == 3}">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                    </c:when>
-                                    <c:when test="${beneficio.calificacion == 4}">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                    </c:when>
-                                    <c:when test="${beneficio.calificacion == 5}">
-                                        <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                                    </c:when>
-                                </c:choose>
-                                    <%--<p><span class="stars">${beneficio.calificacion}</span></p>--%>
-                            </div>
+                            <jsp:include page="pro-rating.jsp">
+                                <jsp:param name="calificacion" value="${beneficio.calificacion}"/>
+                            </jsp:include>
                             <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
                                 <div class="pro-price">
                                     <span class="normal">${beneficio.porcentajeDescuento}%</span>
