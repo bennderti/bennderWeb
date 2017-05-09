@@ -52,10 +52,14 @@
     </jsp:include>/> 
     <!-- features-area end -->
     <!-- new-product-area start -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/newProductArea.jsp"/> 
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/newProductArea.jsp">
+        <jsp:param name="nuevos" value="${nuevos}"/>
+    </jsp:include>/> 
     <!-- new-product-area end -->
     <!-- latest-blog-area start -->
-    <jsp:include page="/WEB-INF/jsp/template-e-comerce/latestBlogArea.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/template-e-comerce/latestBlogArea.jsp">
+        <jsp:param name="visitados" value="${visitados}"/>
+    </jsp:include>
     <!-- latest-blog-area end -->
     <!-- brand-area start -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/brandArea.jsp"/>

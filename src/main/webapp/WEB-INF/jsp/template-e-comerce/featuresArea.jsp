@@ -1,5 +1,6 @@
 <%@page import="java.util.Calendar"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!-- features-area start -->
     <div class="features-area pad-60">
         <div class="container">
@@ -24,7 +25,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="single-product">
                                                         <div class="product-img">
-                                                            <a href="single-product.html">
+                                                            <a href="<c:url value="/detalleBeneficio/${destacado.idBeneficio}.html"/>">
                                                                 <img class="primary-img" src='<c:url value="${destacado.imagenesBeneficio[0].urlImagen}"/>' alt="" />
                                                                 <img class="secondary-img" src='<c:url value="${destacado.imagenesBeneficio[1].urlImagen}"/>'  alt="" />
                                                             </a><!--span class="sale">sale</span-->
@@ -68,8 +69,7 @@
                                                 </div>
                                                 <!-- single-product end -->
                                             </c:forEach>    
-                                        </c:if>                                      
-                                        
+                                        </c:if>                                                             
                                     </div>
                                 </div>
                             </div>

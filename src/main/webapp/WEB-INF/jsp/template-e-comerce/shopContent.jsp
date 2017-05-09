@@ -80,7 +80,12 @@
                                         <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 2}">
                                             <div class="pro-price">
                                                 <fmt:setLocale value="es_CL" scope="session"/>
-                                                <span class="normal"><fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/></span> <span class="old"><fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/></span>
+                                                <span class="normal">
+                                                    <fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/>
+                                                </span> 
+                                                <span class="old">
+                                                    <fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/>
+                                                </span>
                                             </div>
                                         </c:if>
                                         <jsp:include page="pro-rating.jsp">
