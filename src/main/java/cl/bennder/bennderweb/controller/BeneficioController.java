@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by Diego on 29-03-2017.
  */
 @Controller
+@RequestMapping("/{tenantId}")
 public class BeneficioController {
 
     private static final Logger log = LoggerFactory.getLogger(BeneficioController.class);

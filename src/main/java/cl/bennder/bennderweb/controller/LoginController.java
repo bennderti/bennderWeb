@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author dyanez 28-12-2016
  */
 @Controller
+@RequestMapping("/{tenantId}")
 public class LoginController {
     
     @Autowired
@@ -63,7 +64,7 @@ public class LoginController {
      * @return pagina home
      * @author driveros
      */
-    @RequestMapping(value="login.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="/login.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session){
         log.info("INICIO");
         log.info("datos ->{}",loginForm.toString());
@@ -96,7 +97,7 @@ public class LoginController {
         log.info("FIN");
         return respJson;
     }
-    @RequestMapping(value="logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="/logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public String logout(HttpSession session){
         if(session != null){
             log.info("limpiando datos de sessión...");
@@ -110,7 +111,7 @@ public class LoginController {
      * @param usuario usuario bennder, usualmente email
      * @return 
      */
-    @RequestMapping(value="requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="/requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String recuperarPassword(@RequestParam("u") String usuario){
         log.info("INICIO");
         log.info("Usuario/correo a recuperar password ->{}",usuario);

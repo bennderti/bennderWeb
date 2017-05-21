@@ -6,6 +6,7 @@
 package cl.bennder.bennderweb.rest.connector;
 
 import cl.bennder.bennderweb.constantes.URLServiciosBennder;
+import cl.bennder.bennderweb.multitenancy.TenantContext;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.entitybennderwebrest.request.*;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
@@ -38,12 +39,15 @@ import org.springframework.web.client.RestTemplate;
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
     private static final String AUTHENTICATION = "Authorization";
+    private static final String TENANT_HEADER_NAME = "X-TENANT-ID";
 
     public static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass, String token) {
         LOG.info("INICIO");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set(AUTHENTICATION, token);
+        headers.set(TENANT_HEADER_NAME, TenantContext.getCurrentTenant());
+
         HttpEntity<Q> req = new HttpEntity<>(query, headers);
 
         RestTemplate restTemplate = new RestTemplate();

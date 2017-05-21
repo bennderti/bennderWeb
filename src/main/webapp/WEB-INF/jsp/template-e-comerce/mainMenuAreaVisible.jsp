@@ -8,43 +8,23 @@
                 <div class="mobile-menu">
                     <nav id="dropdown">
                         <ul>
-                            <li><a href="index.html">home</a>
-                                <ul>
-                                    <li><a href="index.html">Homepage Version 1</a></li>
-                                    <li><a href="index-2.html">Homepage Version 2</a></li>
-                                    <li><a href="index-3.html">Homepage Version 3</a></li>													
-                                </ul>
+                            <li><a href="<c:url value="/home.html"/>">home</a>
                             </li>
 
-                            <li><a href="#">Clothing</a>
+                            <li><a href="#">Categorias</a>
                                 <div class="mega-menu">
-                                    <span>
-                                        <a class="mega-title" href="#">WOMEN CLOTH </a>
-                                        <a href="shop.html">casual shirt</a>
-                                        <a href="shop.html">rikke t-shirt</a>
-                                        <a href="shop.html">mia top </a>
-                                        <a href="shop.html">muscle tee </a>
-                                    </span>
-                                    <span>
-                                        <a class="mega-title" href="#">MEN CLOTH </a>
-                                        <a href="shop.html">casual shirt</a>
-                                        <a href="shop.html">rikke t-shirt</a>
-                                        <a href="shop.html">mia top </a>
-                                        <a href="shop.html">muscle tee </a>
-                                    </span>
-                                    <span>
-                                        <a class="mega-title" href="#">WOMEN JEWELRY </a>
-                                        <a href="shop.html">necklace </a>
-                                        <a href="shop.html">chunky short striped </a>
-                                        <a href="shop.html">samhar cuff</a>
-                                        <a href="shop.html">nail set </a>
-                                    </span>
-                                    <span class="mega-menu-img">
-                                        <a href="shop.html"><img alt="" src='<c:url value="/resources/img/5_hover_2.jpg"/>'></a>
-                                    </span>
-                                </div>										
+                                    <c:if test="${not empty sessionScope.categorias}">
+                                        <c:forEach items="${sessionScope.categorias}" var="categoria">
+                                            <span>
+                                                <a class="mega-title" href="<c:url value="/categoria/${categoria.nombre}.html"/>">${categoria.nombre}</a>
+                                                <c:forEach items="${categoria.subCategorias}" var="subCategoria">
+                                                    <a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre}</a>
+                                                </c:forEach>
+                                            </span>
+                                        </c:forEach>
+                                    </c:if>
+                                </div>
                             </li>
-                            <li><a href="contact.html">contact</a></li>
                         </ul>
                     </nav>
                 </div>					
