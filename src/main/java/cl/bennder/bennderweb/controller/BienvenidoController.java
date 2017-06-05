@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Marcos
  */
 @Controller
-@RequestMapping("/{tenantId}")
 public class BienvenidoController {
     
     private static final Logger log = LoggerFactory.getLogger(BienvenidoController.class);

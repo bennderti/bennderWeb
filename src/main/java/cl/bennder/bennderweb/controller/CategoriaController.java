@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by Diego on 01-03-2017.
  */
 @Controller
-@RequestMapping("/{tenantId}")
 public class CategoriaController {
 
     private static final Logger log = LoggerFactory.getLogger(CategoriaController.class);

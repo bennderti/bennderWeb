@@ -46,7 +46,8 @@ public class RestConnector {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set(AUTHENTICATION, token);
-        headers.set(TENANT_HEADER_NAME, TenantContext.getCurrentTenant());
+        if (url.contains(URLServiciosBennder.URL_VALIDACION_USUARIO))
+            headers.set(TENANT_HEADER_NAME, TenantContext.getCurrentTenant());
 
         HttpEntity<Q> req = new HttpEntity<>(query, headers);
 

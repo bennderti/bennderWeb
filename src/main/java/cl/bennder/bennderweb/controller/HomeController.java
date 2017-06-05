@@ -27,7 +27,6 @@ import javax.servlet.http.HttpSession;
  * @author dyanez 28-12-2016
  */
 @Controller
-@RequestMapping("/{tenantId}")
 public class HomeController {
     
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);

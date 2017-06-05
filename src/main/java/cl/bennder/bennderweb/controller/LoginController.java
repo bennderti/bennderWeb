@@ -8,6 +8,7 @@ package cl.bennder.bennderweb.controller;
 import cl.bennder.bennderweb.body.response.LoginBodyResponse;
 import cl.bennder.bennderweb.constantes.GoToUrl;
 import cl.bennder.bennderweb.model.LoginForm;
+import cl.bennder.bennderweb.multitenancy.TenantContext;
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.bennderweb.services.UsuarioServices;
@@ -16,24 +17,31 @@ import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import com.google.gson.Gson;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  *
  * @author dyanez 28-12-2016
  */
 @Controller
-@RequestMapping("/{tenantId}")
 public class LoginController {
     
     @Autowired
@@ -48,7 +56,7 @@ public class LoginController {
     private CuponBeneficioServices cuponBeneficioServices;
         
     //.- Index
-    @RequestMapping(value = "/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "{tenantId}/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView index() {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("login");
@@ -64,39 +72,48 @@ public class LoginController {
      * @return pagina home
      * @author driveros
      */
-    @RequestMapping(value="/login.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session){
+    @RequestMapping(value = "{tenantId}/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         log.info("INICIO");
-        log.info("datos ->{}",loginForm.toString());
-        LoginResponse response = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
-        LoginBodyResponse rBody = new LoginBodyResponse();
-        rBody.setValidacion(response.getValidacion());
-        if(response.getValidacion()!=null && response.getValidacion().getCodigo()!=null && "0".equals(response.getValidacion().getCodigo())){
-            String mensajeLog = "[token -> "+response.getToken()+"]";
+        log.info("datos ->{}", loginForm.toString());
 
-            //usuarioSession.setIdUsuario(response.getIdUsuario());//rut de cliente sin dv
-            session.setAttribute("user", loginForm.getUser());
-            usuarioSession.setToken(response.getToken());
-            log.debug(usuarioSession.getToken());
+        try {
+            if (!obtenerTenantId(request, response)){
+                return null;
+            }
+            LoginResponse loginResponse = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
+            LoginBodyResponse rBody = new LoginBodyResponse();
+            rBody.setValidacion(loginResponse.getValidacion());
 
-            if(usuarioSession!=null && usuarioSession.getCodigoCuponEncriptado()!=null){
-                log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando",mensajeLog);
-                 rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
-            }
-            else{
-                if(response.getIdEstadoUsuario() == 1){
-                    rBody.setGoToUrl(GoToUrl.URL_BIENVENIDO);
+            if (loginResponse.getValidacion() != null && loginResponse.getValidacion().getCodigo() != null && "0".equals(loginResponse.getValidacion().getCodigo())) {
+                String mensajeLog = "[token -> " + loginResponse.getToken() + "]";
+
+                //usuarioSession.setIdUsuario(response.getIdUsuario());//rut de cliente sin dv
+                session.setAttribute("user", loginForm.getUser());
+                usuarioSession.setToken(loginResponse.getToken());
+                log.debug(usuarioSession.getToken());
+
+                if (usuarioSession != null && usuarioSession.getCodigoCuponEncriptado() != null) {
+                    log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando", mensajeLog);
+                    rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
+                } else {
+                    if (loginResponse.getIdEstadoUsuario() == 1) {
+                        rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_BIENVENIDO);
+                    } else {
+                        rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_HOME);
+                    }
                 }
-                else{
-                    rBody.setGoToUrl(GoToUrl.URL_HOME);
-                }
+                log.info("Se guarda usuario en sessión ->{}", loginForm.getUser());
             }
-            log.info("Se guarda usuario en sessión ->{}",loginForm.getUser());
+            String respJson = new Gson().toJson(rBody);
+            log.info("FIN");
+            return respJson;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        String respJson =  new Gson().toJson(rBody);
-        log.info("FIN");
-        return respJson;
+        return null;
     }
+
     @RequestMapping(value="/logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public String logout(HttpSession session){
         if(session != null){
@@ -119,6 +136,22 @@ public class LoginController {
         String respJson =  new Gson().toJson(response);
         log.info("FIN");
         return respJson;
+    }
+
+    private Boolean obtenerTenantId(HttpServletRequest req, HttpServletResponse res) throws IOException{
+
+        Map<String, Object> pathVars = (Map<String, Object>) req.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+
+        if (pathVars.containsKey("tenantId")) {
+            req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
+            TenantContext.setCurrentTenant(pathVars.get("tenantId").toString());
+            return true;
+        }
+        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        res.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        res.getWriter().write("{\"error\": \"No tenant supplied\"}");
+        res.getWriter().flush();
+        return false;
     }
     
 }
