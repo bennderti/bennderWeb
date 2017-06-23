@@ -43,27 +43,33 @@ public class RestConnector {
 
     public static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass, String token) {
         LOG.info("INICIO");
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set(AUTHENTICATION, token);
-        if (url.contains(URLServiciosBennder.URL_VALIDACION_USUARIO))
-            headers.set(TENANT_HEADER_NAME, TenantContext.getCurrentTenant());
+        R response  = null;
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set(AUTHENTICATION, token);
+            if (url.contains(URLServiciosBennder.URL_VALIDACION_USUARIO))
+                headers.set(TENANT_HEADER_NAME, TenantContext.getCurrentTenant());
 
-        HttpEntity<Q> req = new HttpEntity<>(query, headers);
+            HttpEntity<Q> req = new HttpEntity<>(query, headers);
 
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-        LOG.info("URL->{} ", url);
-        
-        ResponseEntity<R> callResult = restTemplate.exchange(url, HttpMethod.POST, req, responseClass);
+            LOG.info("URL->{} ", url);
 
-        if ( callResult == null ) {
-            LOG.error("Sin respuesta de servicio REST (ResponseEntity)");
-            return null;
+            ResponseEntity<R> callResult = restTemplate.exchange(url, HttpMethod.POST, req, responseClass);
+
+            if ( callResult == null ) {
+                LOG.error("Sin respuesta de servicio REST (ResponseEntity)");
+                return null;
+            }
+
+            response = callResult.getBody();
+        } catch (Exception e) {
+             LOG.error("Exception clientRestGeneric.",e);
         }
-
-        R response = callResult.getBody();
+        
         LOG.info("FIN");
         return response;
     }

@@ -4,6 +4,7 @@ import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.model.ValidaCuponForm;
 import cl.bennder.bennderweb.services.BeneficioServices;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
+import cl.bennder.entitybennderwebrest.model.Beneficio;
 import cl.bennder.entitybennderwebrest.model.SucursalProveedor;
 import cl.bennder.entitybennderwebrest.model.Validacion;
 import cl.bennder.entitybennderwebrest.request.BeneficioRequest;
@@ -99,7 +100,7 @@ public class BeneficioController {
     
     
     @RequestMapping(value = "/downloadCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView obtenerDetalleBeneficio(@RequestParam("c") String codigoCuponEncriptado,HttpSession session) {
+    public ModelAndView downloadCupon(@RequestParam("c") String codigoCuponEncriptado,HttpSession session) {
         log.info("INICIO");
         log.info("codigoCuponEncriptado(antes formatear) ->{}",codigoCuponEncriptado);
         codigoCuponEncriptado = codigoCuponEncriptado.replaceAll(" ", "\\+");	
@@ -129,15 +130,20 @@ public class BeneficioController {
     @RequestMapping(value = "/detalleBeneficio/{idBeneficio}.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView obtenerDetalleBeneficio(@PathVariable Integer idBeneficio) {
         log.info("INICIO");
+        log.info("idBeneficio->{}",idBeneficio);
+        //log.info("usuarioSession.getToken()->{}",usuarioSession.getToken());
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("detalleBeneficio");
 
         try {
-            BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(usuarioSession.getToken(), idBeneficio));
-            if (response.getBeneficio() != null) {
-                response.getBeneficio().setIdBeneficio(idBeneficio);
-            }
+            BeneficioResponse response = beneficioServices.obtenerDetalleBeneficio(new BeneficioRequest(idBeneficio));
+//            if (response.getBeneficio() != null) {
+//                response.getBeneficio().setIdBeneficio(idBeneficio); 
+//            }
+            log.info("dejando beneficio en vista..");
             modelAndView.addObject("beneficio", response.getBeneficio());
+            //modelAndView.addObject("beneficio", new Beneficio());
+            
         }
         catch (HttpClientErrorException ex){
             log.error(ex.getLocalizedMessage());
