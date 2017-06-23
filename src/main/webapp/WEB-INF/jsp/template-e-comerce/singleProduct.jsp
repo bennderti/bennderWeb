@@ -120,7 +120,7 @@
                                 <!-- Nav tabs -->
                                 <ul class="pro-details-tab" role="tablist">
                                     <li role="presentation" class="active"><a href="#tab-desc" aria-controls="tab-desc"
-                                                                              role="tab" data-toggle="tab">Descripcion</a></li>
+                                                                              role="tab" data-toggle="tab">Descripción</a></li>
                                     <li role="presentation"><a href="#tab-condiciones" aria-controls="tab-condiciones" role="tab"
                                                                data-toggle="tab">Condiciones</a></li>
                                 </ul>
@@ -137,7 +137,7 @@
                                         <div role="tabpanel" class="tab-pane" id="tab-condiciones">
                                             <div class="product-tab-desc">
                                                 <h3>Condiciones sobre esta promocion</h3>
-                                                <ul>
+                                                <ul class = "condiciones">
                                                     <c:forEach items="${beneficio.condiciones}" var="condicion">
                                                         <li>${condicion}</li>
                                                     </c:forEach>

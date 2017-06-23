@@ -23,8 +23,9 @@
                     <button id="btn-busca-beneficio"><i class="fa fa-search"></i></button>
                 </div>
             </div>
+            <!-- heart, search,items    
+              
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 account-wrap">
-                <!-- Header shopping cart -->
                 <div class="my-account-holder">                
                     <div class="my-account-title">
                         <div class="user-icon float-left">
@@ -33,7 +34,6 @@
                         <div class="clearfix"></div>                     
                     </div>
                 </div>
-                <!-- Header shopping cart -->
                 <div class="my-account-holder">                
                     <div class="my-account-title">
                         <div class="user-icon float-left">
@@ -88,6 +88,8 @@
                     </div>
                 </div>
             </div>
+                               
+             -->                   
         </div>
     </div>
 </div>

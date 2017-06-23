@@ -11,6 +11,13 @@
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/head.jsp"/>
     <!-- all css here -->
     <jsp:include page="/WEB-INF/jsp/template-e-comerce/cssTemplate.jsp"/>
+    
+    <style>
+        ul.condiciones li{
+            list-style-type: initial;
+        }
+        
+    </style>
 </head>
 <body>
     <!--[if lt IE 8]>
