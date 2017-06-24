@@ -4,6 +4,7 @@ import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.model.ValidaCuponForm;
 import cl.bennder.bennderweb.services.BeneficioServices;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
+import cl.bennder.bennderweb.util.UtilBennderWeb;
 import cl.bennder.entitybennderwebrest.model.Beneficio;
 import cl.bennder.entitybennderwebrest.model.SucursalProveedor;
 import cl.bennder.entitybennderwebrest.model.Validacion;
@@ -20,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -163,10 +165,13 @@ public class BeneficioController {
      */
     @ExceptionHandler
     @RequestMapping(value = "/getCuponBeneficio/{idBeneficio}.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String getCuponBeneficio(@PathVariable Integer idBeneficio) {
+    public @ResponseBody String getCuponBeneficio(@PathVariable Integer idBeneficio,HttpServletRequest req) {
         log.info("INICIO");
         log.info("Usuario connected ->{}, beneficio seleccionado ->{}",usuarioSession.getIdUsuario(),idBeneficio);
-        GetCuponBeneficioResponse response = beneficioServices.getCuponBeneficio(new GetCuponBeneficioRequest(usuarioSession.getToken(), idBeneficio));
+        GetCuponBeneficioRequest r = new GetCuponBeneficioRequest();
+        r.setIdBeneficio(idBeneficio);
+        r.setTenantUser(usuarioSession.getTenantId());
+        GetCuponBeneficioResponse response = beneficioServices.getCuponBeneficio(r);
         String respJson =  new Gson().toJson(response);
         log.info("respJson ->{}",respJson);
         log.info("FIN");

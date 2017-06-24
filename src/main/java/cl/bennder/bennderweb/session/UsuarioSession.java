@@ -23,6 +23,7 @@ public class UsuarioSession {
     private String codigoCuponEncriptado;
     private Validacion validacion;
     private String token;
+    private String tenantId;
 
     public UsuarioSession() {
     }
@@ -70,4 +71,13 @@ public class UsuarioSession {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+    
 }

@@ -12,6 +12,7 @@ import cl.bennder.bennderweb.multitenancy.TenantContext;
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.bennderweb.services.UsuarioServices;
+import cl.bennder.bennderweb.util.UtilBennderWeb;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
@@ -81,6 +82,7 @@ public class LoginController {
             if (!obtenerTenantId(request, response)){
                 return null;
             }
+            usuarioSession.setTenantId(UtilBennderWeb.getTenantId(request));
             LoginResponse loginResponse = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
             LoginBodyResponse rBody = new LoginBodyResponse();
             rBody.setValidacion(loginResponse.getValidacion());
