@@ -10,6 +10,7 @@ import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
+import cl.bennder.bennderweb.util.UtilBennderWeb;
 import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.GeneraCuponQrRequest;
 import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
@@ -54,25 +55,26 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
    @Override
     public String validaLinkExternoCupon(HttpSession session) {
         log.info("inicio");
+        
         String url = "index.html";
         log.info("Validando si cliente ha pinchado link para generación de cupon QR desde mail");
         //.- se consume servicio de generacion de cupon QR
         //.- si es ok, se redire a url para descagar pdf en brower
         //.- sino, se envia mensaje a url validacion cupon
         try {
-            if(usuarioSession!=null && usuarioSession.getIdUsuario()!=null){
-                String mensajeLog = "[IdUsuario -> "+usuarioSession.getIdUsuario()+"]";
+            //if(usuarioSession!=null && usuarioSession.getIdUsuario()!=null){
+                String mensajeLog = "[IdUsuario -> "+usuarioSession.getUsuario()+"]";
                 log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando",mensajeLog);
                 //.- se consume servicio de generacion de cupon QR
                 //.- si es ok, se redire a url para descagar pdf en brower
                 //.- sino, se envia mensaje a url validacion cupon
-                GeneraCuponQrResponse gResponse = this.generaCuponQR(new GeneraCuponQrRequest(usuarioSession.getToken(), usuarioSession.getCodigoCuponEncriptado()));
+                GeneraCuponQrResponse gResponse = this.generaCuponQR(new GeneraCuponQrRequest(usuarioSession.getCodigoCuponEncriptado()));
                 if(gResponse!=null && gResponse.getValidacion()!=null){
                     if("0".equals(gResponse.getValidacion().getCodigo()) && "0".equals(gResponse.getValidacion().getCodigoNegocio()) 
                        && gResponse.getCuponPdf()!=null){
                         log.info("{} Ahora redireccionado par generar cupón en browser",mensajeLog);
                         session.setAttribute("cuponPdf", gResponse.getCuponPdf());
-                        url = GoToUrl.URL_DOWNLOAD_CUPON_PDF;
+                        url = ".."+GoToUrl.URL_DOWNLOAD_CUPON_PDF;
                     }
                     else{
                         log.info("{} Respuesta de generación cupón ->{}",mensajeLog,gResponse.getValidacion().getMensaje());
@@ -86,10 +88,10 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
                     url = GoToUrl.URL_VALIDACION_CUPON;
                 }
                 usuarioSession.setCodigoCuponEncriptado(null);
-            }
-            else{
-                log.info("Usuario no ha iniciado sesión, se redigige a login");
-            }
+//            }
+//            else{
+//                log.info("Usuario no ha iniciado sesión, se redigige a login");
+//            }
             
         } catch (Exception e) {
             log.error("Error en validaLinkGeneraCuponQr",e);

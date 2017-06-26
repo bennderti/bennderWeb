@@ -58,8 +58,17 @@ public class LoginController {
         
     //.- Index
     @RequestMapping(value = "{tenantId}/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView index() {
+    public ModelAndView index(HttpServletRequest request) {
         log.info("INICIO");
+        if(request!=null && request.getParameter("c")!=null){
+            String codigoCuponEncriptado = request.getParameter("c");
+            log.info("cliente ha seleccionado link bennder desde correo enviando códigos de cupón encriptado...");
+            log.info("codigoCuponEncriptado(antes formatear) ->{}",codigoCuponEncriptado);
+            codigoCuponEncriptado = codigoCuponEncriptado.replaceAll(" ", "\\+");	
+            log.info("codigoCuponEncriptado(despues formatear) ->{} y seteando en sesión de usuario",codigoCuponEncriptado);
+            usuarioSession.setCodigoCuponEncriptado(codigoCuponEncriptado);
+        }
+        
         ModelAndView modelAndView = new ModelAndView("login");
         modelAndView.addObject("loginForm", new LoginForm());
         log.info("FIN");
@@ -90,12 +99,13 @@ public class LoginController {
             if (loginResponse.getValidacion() != null && loginResponse.getValidacion().getCodigo() != null && "0".equals(loginResponse.getValidacion().getCodigo())) {
                 String mensajeLog = "[token -> " + loginResponse.getToken() + "]";
 
-                //usuarioSession.setIdUsuario(response.getIdUsuario());//rut de cliente sin dv
+                usuarioSession.setUsuario(loginForm.getUser());//rut de cliente sin dv
                 session.setAttribute("user", loginForm.getUser());
                 usuarioSession.setToken(loginResponse.getToken());
                 log.debug(usuarioSession.getToken());
 
                 if (usuarioSession != null && usuarioSession.getCodigoCuponEncriptado() != null) {
+                    
                     log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando", mensajeLog);
                     rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
                 } else {
