@@ -178,15 +178,20 @@ public class BeneficioController {
         return respJson;
     }
     
-    @RequestMapping(value = "/canjeCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView canjeCupon(@RequestParam("c") String codigoCuponEncriptado,HttpSession session) {
+    @RequestMapping(value = "{tenantId}/canjeCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView canjeCupon(@RequestParam("c") String codigoCuponEncriptado,HttpSession session,HttpServletRequest req) {
         log.info("INICIO");
         log.info("codigoCuponEncriptado(antes formatear) ->{}",codigoCuponEncriptado);
         codigoCuponEncriptado = codigoCuponEncriptado.replaceAll(" ", "\\+");	
         log.info("codigoCuponEncriptado(despues formatear) ->{}",codigoCuponEncriptado);
         log.info("Validando canje/cupón de beneficio");
-        CanjeaCuponResponse response = cuponBeneficioServices.validaCanjeCuponBeneficio(new CanjeaCuponRequest(codigoCuponEncriptado));
-        String url = "validacionCupon.html"; 
+        //   
+        usuarioSession.setTenantId(UtilBennderWeb.getTenantId(req));
+        CanjeaCuponRequest r = new CanjeaCuponRequest();
+        r.setCodigoBeneficioEncriptado(codigoCuponEncriptado);
+        r.setTenantId(usuarioSession.getTenantId());
+        CanjeaCuponResponse response = cuponBeneficioServices.validaCanjeCuponBeneficio(r);
+        String url = "../validacionCupon.html"; 
         ModelAndView model = new ModelAndView("redirect:"+url);
         if(response!=null && response.getValidacion()!=null && "0".equals(response.getValidacion().getCodigo())
            && "0".equals(response.getValidacion().getCodigoNegocio())){
@@ -234,7 +239,8 @@ public class BeneficioController {
         ValidacionCuponPOSResponse response = new ValidacionCuponPOSResponse();
         response.setValidacion(new Validacion("0", "1", "Problemas al validar cupon beneficio en POS"));
         if(validaCuponForm.getIdVendedor()!=null && validaCuponForm.getPasswordSucursal()!=null && validaCuponForm.getIdDireccionSucursal()!=null){
-            response =  cuponBeneficioServices.validacionCuponPOS(new ValidacionCuponPOSRequest(usuarioSession.getCodigoCuponEncriptado(), validaCuponForm.getIdVendedor(), validaCuponForm.getIdDireccionSucursal(), validaCuponForm.getPasswordSucursal()));
+            log.info("tenantId ->{}",usuarioSession.getTenantId());
+            response =  cuponBeneficioServices.validacionCuponPOS(new ValidacionCuponPOSRequest(usuarioSession.getCodigoCuponEncriptado(), validaCuponForm.getIdVendedor(), validaCuponForm.getIdDireccionSucursal(), validaCuponForm.getPasswordSucursal(),usuarioSession.getTenantId()));
         }
         else{
             response.setValidacion(new Validacion("0", "1", "Favor completar datos para validar cupon beneficio en POS"));

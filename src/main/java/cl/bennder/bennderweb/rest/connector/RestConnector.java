@@ -39,6 +39,8 @@ import org.springframework.web.client.RestTemplate;
 public class RestConnector {
     private static final Logger LOG = LoggerFactory.getLogger(RestConnector.class);
     private static final String AUTHENTICATION = "Authorization";
+    private static final String TENANT_ID = "tenant.id";
+    
     private static final String TENANT_HEADER_NAME = "X-TENANT-ID";
 
     public static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass, String token) {
@@ -73,6 +75,38 @@ public class RestConnector {
         LOG.info("FIN");
         return response;
     }
-    
+        public static <Q, R> R clientRestGenericUrlIgnoring( String url, Q query, Class<R> responseClass, String tenantId) {
+        LOG.info("INICIO");
+        R response  = null;
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            //headers.set(TENANT_ID, tenantId);
+            //if (url.contains(URLServiciosBennder.URL_VALIDACION_USUARIO))
+            headers.set(TENANT_ID, tenantId);
+            headers.set(TENANT_HEADER_NAME, tenantId);
+
+            HttpEntity<Q> req = new HttpEntity<>(query, headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+            LOG.info("URL->{} ", url);
+
+            ResponseEntity<R> callResult = restTemplate.exchange(url, HttpMethod.POST, req, responseClass);
+
+            if ( callResult == null ) {
+                LOG.error("Sin respuesta de servicio REST (ResponseEntity)");
+                return null;
+            }
+
+            response = callResult.getBody();
+        } catch (Exception e) {
+             LOG.error("Exception clientRestGeneric.",e);
+        }
+        
+        LOG.info("FIN");
+        return response;
+    }
     
 }

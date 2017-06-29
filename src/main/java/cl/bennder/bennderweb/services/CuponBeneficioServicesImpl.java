@@ -37,14 +37,14 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
 
     @Override
     public ValidacionCuponPOSResponse validacionCuponPOS(ValidacionCuponPOSRequest request) {
-        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_VALIDA_CUPON_POS, request, ValidacionCuponPOSResponse.class, usuarioSession.getToken());
+        return RestConnector.clientRestGenericUrlIgnoring(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_VALIDA_CUPON_POS, request, ValidacionCuponPOSResponse.class, usuarioSession.getTenantId());
     }
 
     
     
     @Override
     public CanjeaCuponResponse validaCanjeCuponBeneficio(CanjeaCuponRequest request) {
-        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GET_VALIDA_CANJEA_CUPON, request, CanjeaCuponResponse.class, usuarioSession.getToken());
+        return RestConnector.clientRestGenericUrlIgnoring(Properties.URL_SERVIDOR + URLServiciosBennder.URL_BENEFICIO_GET_VALIDA_CANJEA_CUPON, request, CanjeaCuponResponse.class, usuarioSession.getTenantId());
     }
     
     @Override
