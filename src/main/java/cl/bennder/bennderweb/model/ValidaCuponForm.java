@@ -11,16 +11,16 @@ package cl.bennder.bennderweb.model;
  */
 public class ValidaCuponForm {
     private Integer idVendedor;
-    private Integer idDireccionSucursal;//id direccion de sucursal
+    private Integer idSucursal;//id direccion de sucursal
     private String passwordSucursal;//contraseña sucusal
     private String urlLogoProveedor;
 
     public ValidaCuponForm() {
     }
 
-    public ValidaCuponForm(Integer idVendedor, Integer idDireccionSucursal, String passwordSucursal) {
+    public ValidaCuponForm(Integer idVendedor, Integer idSucursal, String passwordSucursal) {
         this.idVendedor = idVendedor;
-        this.idDireccionSucursal = idDireccionSucursal;
+        this.idSucursal = idSucursal;
         this.passwordSucursal = passwordSucursal;
     }
 
@@ -32,14 +32,15 @@ public class ValidaCuponForm {
         this.idVendedor = idVendedor;
     }
 
-    public Integer getIdDireccionSucursal() {
-        return idDireccionSucursal;
+    public Integer getIdSucursal() {
+        return idSucursal;
     }
 
-    public void setIdDireccionSucursal(Integer idDireccionSucursal) {
-        this.idDireccionSucursal = idDireccionSucursal;
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
+    
     public String getPasswordSucursal() {
         return passwordSucursal;
     }
@@ -58,7 +59,7 @@ public class ValidaCuponForm {
 
     @Override
     public String toString() {
-        return "ValidaCuponForm{" + "idVendedor=" + idVendedor + ", idDireccionSucursal=" + idDireccionSucursal + ", passwordSucursal=" + passwordSucursal + ", urlLogoProveedor=" + urlLogoProveedor + '}';
+        return "ValidaCuponForm{" + "idVendedor=" + idVendedor + ", idSucursal=" + idSucursal + ", passwordSucursal=" + passwordSucursal + ", urlLogoProveedor=" + urlLogoProveedor + '}';
     }
     
     

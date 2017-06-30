@@ -75,9 +75,9 @@
                         <p>
                             <label>
                                 Sucursal <span class="required">*</span></label>
-                                <form:select path="idDireccionSucursal" id = "direccion-sucursal" cssClass="form-control">
+                                <form:select path="idSucursal" id = "direccion-sucursal" cssClass="form-control">
                                     <form:option value="-1" label="--Seleccione sucursal--"/>
-                                    <form:options items="${listaSucursal}" itemValue="idDireccion" itemLabel="nombreSucursal"/>
+                                    <form:options items="${listaSucursal}" itemValue="idSucursal" itemLabel="nombreSucursal"/>
                                 </form:select>
                         </p>  
                         <p>

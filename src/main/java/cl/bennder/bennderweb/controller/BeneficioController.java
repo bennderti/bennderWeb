@@ -238,9 +238,9 @@ public class BeneficioController {
         log.info("datos ->{}",validaCuponForm.toString());
         ValidacionCuponPOSResponse response = new ValidacionCuponPOSResponse();
         response.setValidacion(new Validacion("0", "1", "Problemas al validar cupon beneficio en POS"));
-        if(validaCuponForm.getIdVendedor()!=null && validaCuponForm.getPasswordSucursal()!=null && validaCuponForm.getIdDireccionSucursal()!=null){
+        if(validaCuponForm.getIdVendedor()!=null && validaCuponForm.getPasswordSucursal()!=null && validaCuponForm.getIdSucursal()!=null){
             log.info("tenantId ->{}",usuarioSession.getTenantId());
-            response =  cuponBeneficioServices.validacionCuponPOS(new ValidacionCuponPOSRequest(usuarioSession.getCodigoCuponEncriptado(), validaCuponForm.getIdVendedor(), validaCuponForm.getIdDireccionSucursal(), validaCuponForm.getPasswordSucursal(),usuarioSession.getTenantId()));
+            response =  cuponBeneficioServices.validacionCuponPOS(new ValidacionCuponPOSRequest(usuarioSession.getCodigoCuponEncriptado(), validaCuponForm.getIdVendedor(), validaCuponForm.getIdSucursal(), validaCuponForm.getPasswordSucursal(),usuarioSession.getTenantId()));
         }
         else{
             response.setValidacion(new Validacion("0", "1", "Favor completar datos para validar cupon beneficio en POS"));
