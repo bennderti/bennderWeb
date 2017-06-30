@@ -68,7 +68,8 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
                 //.- se consume servicio de generacion de cupon QR
                 //.- si es ok, se redire a url para descagar pdf en brower
                 //.- sino, se envia mensaje a url validacion cupon
-                GeneraCuponQrResponse gResponse = this.generaCuponQR(new GeneraCuponQrRequest(usuarioSession.getCodigoCuponEncriptado()));
+                log.info("{} tenant user->{}",mensajeLog,usuarioSession.getTenantId());
+                GeneraCuponQrResponse gResponse = this.generaCuponQR(new GeneraCuponQrRequest(usuarioSession.getCodigoCuponEncriptado(),usuarioSession.getTenantId()));
                 if(gResponse!=null && gResponse.getValidacion()!=null){
                     if("0".equals(gResponse.getValidacion().getCodigo()) && "0".equals(gResponse.getValidacion().getCodigoNegocio()) 
                        && gResponse.getCuponPdf()!=null){
@@ -79,7 +80,7 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
                     else{
                         log.info("{} Respuesta de generación cupón ->{}",mensajeLog,gResponse.getValidacion().getMensaje());
                         usuarioSession.getValidacion().setMensaje(gResponse.getValidacion().getMensaje()); 
-                        url = GoToUrl.URL_VALIDACION_CUPON;
+                        url = ".."+GoToUrl.URL_VALIDACION_CUPON;
                     }
                 }
                 else{

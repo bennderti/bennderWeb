@@ -49,7 +49,6 @@
                 <div class="row">                
                     <div class="col-lg-4 col-lg-offset-4"> 
                         <p><c:out value="${mensaje}"></c:out></p>
-                        <a href="<c:url value="/home.html"/>">Ir a home</a>
                     </div>
                 </div>
             </div>

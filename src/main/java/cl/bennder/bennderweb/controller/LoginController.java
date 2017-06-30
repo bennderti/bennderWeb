@@ -92,6 +92,7 @@ public class LoginController {
                 return null;
             }
             usuarioSession.setTenantId(UtilBennderWeb.getTenantId(request));
+            log.info("TenantId ->{}",usuarioSession.getTenantId());
             LoginResponse loginResponse = usuarioServices.validacionUsuario(new LoginRequest(loginForm.getUser(), loginForm.getPassword()));
             LoginBodyResponse rBody = new LoginBodyResponse();
             rBody.setValidacion(loginResponse.getValidacion());
@@ -126,15 +127,26 @@ public class LoginController {
         return null;
     }
 
+//    @RequestMapping(value="{tenantId}/logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+//    public String logoutTenant(HttpSession session,HttpServletRequest req){
+//        String t = usuarioSession.getTenantId();
+//        log.info("t->{}",t);
+//        if(session != null){
+//            log.info("limpiando datos de sessión...");
+//            session.invalidate();
+//        }
+//        return "redirect:/"+t+"/index.html";
+//    }
     @RequestMapping(value="/logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session,HttpServletRequest req){
+        String t = usuarioSession.getTenantId();
+        log.info("t->{}",t);
         if(session != null){
             log.info("limpiando datos de sessión...");
             session.invalidate();
-        }
-        return "redirect:/index.html";
+        }        
+        return "redirect:/"+t+"/index.html";
     }
-    
     /***
      * Permite solicitar/recuperar la contraseña la cual es enviada al correo ingresado
      * @param usuario usuario bennder, usualmente email
