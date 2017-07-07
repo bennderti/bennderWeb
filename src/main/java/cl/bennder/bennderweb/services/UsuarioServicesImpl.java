@@ -36,7 +36,7 @@ public class UsuarioServicesImpl implements UsuarioServices{
 
     @Override
     public ValidacionResponse recuperacionPassword(RecuperacionPasswordRequest request) {
-        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_MAIL_RECUPERACION_PASSWORD, request, ValidacionResponse.class, usuarioSession.getToken());
+        return RestConnector.clientRestGenericUrlIgnoring(Properties.URL_SERVIDOR + URLServiciosBennder.URL_MAIL_RECUPERACION_PASSWORD, request, ValidacionResponse.class, usuarioSession.getTenantId());
     }    
     
     @Override

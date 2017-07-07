@@ -152,11 +152,17 @@ public class LoginController {
      * @param usuario usuario bennder, usualmente email
      * @return 
      */
-    @RequestMapping(value="/requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String recuperarPassword(@RequestParam("u") String usuario){
+    @RequestMapping(value="{tenantId}/requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String recuperarPassword(@RequestParam("u") String usuario,HttpServletRequest request){
         log.info("INICIO");
         log.info("Usuario/correo a recuperar password ->{}",usuario);
-        ValidacionResponse response = usuarioServices.recuperacionPassword(new RecuperacionPasswordRequest(usuario));
+        String ti = UtilBennderWeb.getTenantId(request);
+        usuarioSession.setTenantId(ti);
+        log.info("tenantid->{}",ti);   
+        RecuperacionPasswordRequest rp = new RecuperacionPasswordRequest();
+        rp.setUsuarioCorreo(usuario);
+        rp.setTenantId(ti);
+        ValidacionResponse response = usuarioServices.recuperacionPassword(rp);
         String respJson =  new Gson().toJson(response);
         log.info("FIN");
         return respJson;
