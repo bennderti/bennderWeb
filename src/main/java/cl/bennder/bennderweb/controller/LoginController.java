@@ -13,8 +13,10 @@ import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.bennderweb.services.UsuarioServices;
 import cl.bennder.bennderweb.util.UtilBennderWeb;
+import cl.bennder.entitybennderwebrest.request.CambioPasswordRequest;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
+import cl.bennder.entitybennderwebrest.response.CambioPasswordResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import com.google.gson.Gson;
@@ -182,6 +184,32 @@ public class LoginController {
         res.getWriter().write("{\"error\": \"No tenant supplied\"}");
         res.getWriter().flush();
         return false;
+    }
+    @RequestMapping(value = "/changepassword.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView changepassword() {
+        log.info("INICIO");
+        ModelAndView modelAndView = new ModelAndView("changepassword");
+        modelAndView.addObject("cambioPassword", new CambioPasswordRequest());
+        log.info("FIN");
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/changepassword.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String updatepassword(@ModelAttribute("cambioPassword") CambioPasswordRequest cambioPassword, HttpSession session,HttpServletRequest request) {
+        log.info("INICIO");
+        log.info("consumiendo servicio para cambiar password de usuario ->{}",usuarioSession.getUsuario());
+        //log.info("cambioPassword.getNewPassword()->{}",cambioPassword.getNewPassword());
+        String ti = UtilBennderWeb.getTenantId(request);
+        usuarioSession.setTenantId(ti);
+        log.info("tenantid->{}",ti);
+        CambioPasswordResponse response = usuarioServices.cambioPassword(new CambioPasswordRequest(cambioPassword.getNewPassword(),usuarioSession.getUsuario(),ti));
+        LoginBodyResponse rBody = new LoginBodyResponse();
+        rBody.setValidacion(response.getValidacion());
+        log.info("validacion ->{}",response.getValidacion().toString());
+        rBody.setGoToUrl(ti+"/index.html");        
+        String respJson =  new Gson().toJson(rBody);
+        log.info("FIN");
+        return respJson;
     }
     
 }

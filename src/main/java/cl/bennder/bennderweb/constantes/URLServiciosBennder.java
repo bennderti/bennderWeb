@@ -10,6 +10,7 @@ package cl.bennder.bennderweb.constantes;
  * @author dyanez
  */
 public abstract class URLServiciosBennder {
+    public static final String URL_CAMBIO_PASSWORD = "login/cambioPassword";
     public static final String URL_MAIL_RECUPERACION_PASSWORD = "mail/recuperacionPassword";
     public static final String URL_VALIDACION_USUARIO = "login";
     public static final String URL_GET_CATEGORIAS = "getCategorias";
