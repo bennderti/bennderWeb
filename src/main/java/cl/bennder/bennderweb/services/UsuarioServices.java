@@ -6,8 +6,10 @@
 package cl.bennder.bennderweb.services;
 
 import cl.bennder.bennderweb.controller.LoginController;
+import cl.bennder.entitybennderwebrest.request.CambioPasswordRequest;
 import cl.bennder.entitybennderwebrest.request.LoginRequest;
 import cl.bennder.entitybennderwebrest.request.RecuperacionPasswordRequest;
+import cl.bennder.entitybennderwebrest.response.CambioPasswordResponse;
 import cl.bennder.entitybennderwebrest.response.LoginResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpSession;
  * @author dyanez
  */
 public interface UsuarioServices {
+    
+    public CambioPasswordResponse cambioPassword(CambioPasswordRequest request);
     public LoginResponse validacionUsuario(LoginRequest request);
         /***
      * Método encargado de enviar un correo con la contraseña del usuario
