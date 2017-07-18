@@ -57,7 +57,7 @@ public class LoginController {
     private CuponBeneficioServices cuponBeneficioServices;
         
     //.- Index
-    @RequestMapping(value = "{tenantId}/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/index.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView index(HttpServletRequest request) {
         log.info("INICIO");
         if(request!=null && request.getParameter("c")!=null){
@@ -82,7 +82,7 @@ public class LoginController {
      * @return pagina home
      * @author driveros
      */
-    @RequestMapping(value = "{tenantId}/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/login.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String login(@ModelAttribute("loginForm") LoginForm loginForm, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         log.info("INICIO");
         log.info("datos ->{}", loginForm.toString());
@@ -164,11 +164,12 @@ public class LoginController {
 
     private Boolean obtenerTenantId(HttpServletRequest req, HttpServletResponse res) throws IOException{
 
-        Map<String, Object> pathVars = (Map<String, Object>) req.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        //Map<String, Object> pathVars = (Map<String, Object>) req.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+        String tenantId = req.getServerName().split("\\.")[0];
 
-        if (pathVars.containsKey("tenantId")) {
-            req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
-            TenantContext.setCurrentTenant(pathVars.get("tenantId").toString());
+        if (!tenantId.isEmpty() && !tenantId.equalsIgnoreCase("www")) {
+            //req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
+            TenantContext.setCurrentTenant(tenantId);
             return true;
         }
         res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
