@@ -25,11 +25,16 @@ public class UtilBennderWeb {
         String tenantId = null;
         
         try {
-            Map<String, Object> pathVars = (Map<String, Object>) req.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
+            /* Map<String, Object> pathVars = (Map<String, Object>) req.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
 
             if (pathVars.containsKey("tenantId")) {
-               tenantId = pathVars.get("tenantId").toString(); 
+               tenantId = pathVars.get("tenantId").toString();
                log.info("tenantId encontrado ->{}",tenantId);
+            }*/
+
+            tenantId = req.getServerName().split("\\.")[0];
+            if (!tenantId.isEmpty() || tenantId.equalsIgnoreCase("www")){
+                log.info("tenantId encontrado ->{}",tenantId);
             }
             else{
                 log.info("tenantId NO encontrado");
