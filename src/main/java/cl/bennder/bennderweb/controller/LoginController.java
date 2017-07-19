@@ -141,13 +141,13 @@ public class LoginController {
 //    }
     @RequestMapping(value="/logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public String logout(HttpSession session,HttpServletRequest req){
-        String t = usuarioSession.getTenantId();
-        log.info("t->{}",t);
+       // String t = usuarioSession.getTenantId();
+        //log.info("t->{}",t);
         if(session != null){
             log.info("limpiando datos de sessión...");
             session.invalidate();
         }        
-        return "redirect:/"+t+"/index.html";
+        return "redirect:/index.html";
     }
     /***
      * Permite solicitar/recuperar la contraseña la cual es enviada al correo ingresado
