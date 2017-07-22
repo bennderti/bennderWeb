@@ -154,7 +154,7 @@ public class LoginController {
      * @param usuario usuario bennder, usualmente email
      * @return 
      */
-    @RequestMapping(value="{tenantId}/requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="/requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String recuperarPassword(@RequestParam("u") String usuario,HttpServletRequest request){
         log.info("INICIO");
         log.info("Usuario/correo a recuperar password ->{}",usuario);
@@ -207,7 +207,7 @@ public class LoginController {
         LoginBodyResponse rBody = new LoginBodyResponse();
         rBody.setValidacion(response.getValidacion());
         log.info("validacion ->{}",response.getValidacion().toString());
-        rBody.setGoToUrl(ti+"/index.html");        
+        rBody.setGoToUrl("/index.html");        
         String respJson =  new Gson().toJson(rBody);
         log.info("FIN");
         return respJson;

@@ -93,7 +93,7 @@
                                         <div class="form-group">
                                             <input class="form-control input-lg" placeholder="Ingrese usuario" name="username-bennder" type="text" id="username-bennder">
                                         </div>
-                                        <a class="btn btn-lg btn-primary btn-block" onclick="LoginBennder.recuperacionPassword();">Solicitar contraseña</a>
+                                        <a class="btn btn-lg btn-primary btn-block" id="r-password" onclick="LoginBennder.recuperacionPassword();">Solicitar contraseña</a>
                                     </fieldset>
                                 </div>
                             </div>
