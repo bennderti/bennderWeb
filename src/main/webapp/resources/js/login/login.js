@@ -66,6 +66,15 @@ var LoginBennder = {
         }
         return {mensaje:"OK",isValid : true};
     },
+    validacionChangePassword:function(){
+        if($.trim($("#new-password").val()) === "" || $.trim($("#repeat-password").val()) === ""){
+            return {mensaje:"Favor completar contraseña",isValid : false};
+        }
+        if($.trim($("#new-password").val()) !== $.trim($("#repeat-password").val())){
+            return {mensaje:"Las contraseñas no son iguales.",isValid : false};
+        }
+        return {mensaje:"OK",isValid : true};
+    },
     changePassword:function(){
         var val = this.validacionChangePassword();
         if(!val.isValid){

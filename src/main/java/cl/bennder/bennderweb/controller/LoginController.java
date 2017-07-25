@@ -102,23 +102,32 @@ public class LoginController {
             if (loginResponse.getValidacion() != null && loginResponse.getValidacion().getCodigo() != null && "0".equals(loginResponse.getValidacion().getCodigo())) {
                 String mensajeLog = "[token -> " + loginResponse.getToken() + "]";
 
-                usuarioSession.setUsuario(loginForm.getUser());//rut de cliente sin dv
-                session.setAttribute("user", loginForm.getUser());
-                usuarioSession.setToken(loginResponse.getToken());
-                log.debug(usuarioSession.getToken());
-
-                if (usuarioSession != null && usuarioSession.getCodigoCuponEncriptado() != null) {
-                    
-                    log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando", mensajeLog);
-                    rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
-                } else {
-                    if (loginResponse.getIdEstadoUsuario() == 1) {
-                        rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_BIENVENIDO);
-                    } else {
-                        rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_HOME);
-                    }
+                if(loginResponse.isEsPasswordTemporal()){
+                            log.info("se procede enviar a usuario para cambiar password ->{}",loginForm.getUser());
+                    usuarioSession.setUsuario(loginForm.getUser());
+                    rBody.setGoToUrl(GoToUrl.URL_CAMBIAR_PASSWORD_TEMP);
                 }
-                log.info("Se guarda usuario en sessión ->{}", loginForm.getUser());
+                else{
+                    usuarioSession.setUsuario(loginForm.getUser());//rut de cliente sin dv
+                    session.setAttribute("user", loginForm.getUser());
+                    usuarioSession.setToken(loginResponse.getToken());
+                    log.debug(usuarioSession.getToken());
+
+                    if (usuarioSession != null && usuarioSession.getCodigoCuponEncriptado() != null) {
+
+                        log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando", mensajeLog);
+                        rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
+                    } else {
+                        if (loginResponse.getIdEstadoUsuario() == 1) {
+                            rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_BIENVENIDO);
+                        } else {
+                            rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_HOME);
+                        }
+                    }
+                    log.info("Se guarda usuario en sessión ->{}", loginForm.getUser());
+                }
+                
+
             }
             String respJson = new Gson().toJson(rBody);
             log.info("FIN");
@@ -207,7 +216,7 @@ public class LoginController {
         LoginBodyResponse rBody = new LoginBodyResponse();
         rBody.setValidacion(response.getValidacion());
         log.info("validacion ->{}",response.getValidacion().toString());
-        rBody.setGoToUrl("/index.html");        
+        rBody.setGoToUrl("index.html");        
         String respJson =  new Gson().toJson(rBody);
         log.info("FIN");
         return respJson;

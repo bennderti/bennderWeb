@@ -26,7 +26,7 @@
                                 <div class="row logo-bennder">
                                     <div class="">
                                         <div class="logo">
-                                            <a href="index.html"><img src="<c:url value="/resources/beneficio/img/logo-bennder-300.png"/>"></a>
+                                            <a href="index.html"><img src="<c:url value="/resources/img/bennder/logo.png"/>"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                         <p>
                             <label>
                                 Password <span class="required">*</span></label>
-                                <form:input path="newPassword" autocomplete="off" id="new-password" maxlength="50"/>
+                                <form:password path="newPassword" autocomplete="off" id="new-password" maxlength="50"/>
                         </p>
                         <p>
                             <label>
