@@ -200,12 +200,13 @@ public class LoginController {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("changepassword");
         modelAndView.addObject("cambioPassword", new CambioPasswordRequest());
+        modelAndView.addObject("usuario", usuarioSession.getUsuario()==null?"":usuarioSession.getUsuario());
         log.info("FIN");
         return modelAndView;
     }
     
     @RequestMapping(value = "/changepassword.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String updatepassword(@ModelAttribute("cambioPassword") CambioPasswordRequest cambioPassword, HttpSession session,HttpServletRequest request) {
+    public @ResponseBody String updatepassword(@ModelAttribute("cambioPassword") CambioPasswordRequest cambioPassword, HttpSession session,HttpServletRequest request,HttpServletResponse r) {
         log.info("INICIO");
         log.info("consumiendo servicio para cambiar password de usuario ->{}",usuarioSession.getUsuario());
         //log.info("cambioPassword.getNewPassword()->{}",cambioPassword.getNewPassword());
@@ -216,8 +217,17 @@ public class LoginController {
         LoginBodyResponse rBody = new LoginBodyResponse();
         rBody.setValidacion(response.getValidacion());
         log.info("validacion ->{}",response.getValidacion().toString());
-        rBody.setGoToUrl("index.html");        
-        String respJson =  new Gson().toJson(rBody);
+        String respJson = "";
+        if(response.getValidacion()!=null && response.getValidacion().getCodigoNegocio().equalsIgnoreCase("0")){
+            log.info("realizando login automático");
+            respJson = this.login(new LoginForm(usuarioSession.getUsuario(), cambioPassword.getNewPassword()), session, request,r);
+        }
+        else{
+            log.info("redireccionando a index...");
+            rBody.setGoToUrl("index.html"); 
+            respJson =  new Gson().toJson(rBody);
+        }    
+        log.info("respJson->{}",respJson);
         log.info("FIN");
         return respJson;
     }

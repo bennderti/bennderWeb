@@ -53,6 +53,7 @@
                     <div class="form-fields">
                         <h2>
                             Cambio de clave temporal</h2>
+                        <p>Usuario <strong><c:out value="${usuario}"/></strong></p>
                         <p>
                             <label>
                                 Password <span class="required">*</span></label>
