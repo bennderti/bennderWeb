@@ -39,7 +39,7 @@ var CanjeCupon = {
         }
         ModalLoading.mostrar();
         $.ajax({
-            url: '../validacionCanjeCuponPOS.html',
+            url: 'validacionCanjeCuponPOS.html',
             type: 'POST',
             dataType: 'JSON',
             data: $("#form-valida-canje-cupon").serialize(),

@@ -75,7 +75,7 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
                        && gResponse.getCuponPdf()!=null){
                         log.info("{} Ahora redireccionado par generar cupón en browser",mensajeLog);
                         session.setAttribute("cuponPdf", gResponse.getCuponPdf());
-                        url = ".."+GoToUrl.URL_DOWNLOAD_CUPON_PDF;
+                        url = GoToUrl.URL_DOWNLOAD_CUPON_PDF;
                     }
                     else{
                         log.info("{} Respuesta de generación cupón ->{}",mensajeLog,gResponse.getValidacion().getMensaje());

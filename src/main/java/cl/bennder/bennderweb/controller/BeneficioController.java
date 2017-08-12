@@ -178,7 +178,7 @@ public class BeneficioController {
         return respJson;
     }
     
-    @RequestMapping(value = "{tenantId}/canjeCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/canjeCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView canjeCupon(@RequestParam("c") String codigoCuponEncriptado,HttpSession session,HttpServletRequest req) {
         log.info("INICIO");
         log.info("codigoCuponEncriptado(antes formatear) ->{}",codigoCuponEncriptado);
