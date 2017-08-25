@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="breadcrumb">
-                        <li><a href="#">Validación cupón</a></li>
+                        <li><a href="#">Datos cuenta acceso</a></li>
                         <!--<li class="active">Login</li>-->
                     </ul>
                 </div>
@@ -59,14 +59,14 @@
         <div class="container">
             <div class="row center-login">
                 <!--<div class="col-md-6 col-sm-6">-->
-                <div class="">
+                <div class="container">
                         <form:form method="POST"
                                 action="../beneficio/guardar.html"
                                 id="form-perfil"
                                 modelAttribute="datosPerfilForm"
                                 accept-charset="iso-8859-1"
                                 cssClass="form-horizontal">
-                        <h2>Datos de Acceso</h2>
+                        <h3>Datos de Acceso</h3>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="ipt-usuario">Usuario:</label>
                              <div class="col-md-4">
@@ -79,35 +79,36 @@
                              <div class="col-md-4">
                                  <form:input path="password" id="ipt-password" cssClass="form-control"
                                              placeholder="Ingrese nueva contraseña" maxlength="50"/>
-                                 <button type="button" class="btn btn-default" onclick="Perfil.cambiarPassword();">Cambiar</button>                                 
+                                 <button type="button" class="btn btn-default btn-primary" onclick="Perfil.cambiarPassword();">Cambiar</button>                                 
                              </div>
                          </div>
-                        <h2>Datos Personales</h2>
+                        <h3>Datos Personales</h3>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="ipt-nombre">Nombres:</label>
                              <div class="col-md-4">
-                                 <form:input path="nombre" id="ipt-nombre" cssClass="form-control"
+                                 <form:input path="nombres" id="ipt-nombre" cssClass="form-control"
                                              placeholder="Ingrese nombres" maxlength="50"/>
                              </div>
                          </div>
                         <div class="form-group">
-                             <label class="control-label col-sm-2" for="ipt-apellidoPaterno">Apellido Paterno:</label>
+                             <label class="control-label col-sm-2" for="ipt-apellidoP">Apellido Paterno:</label>
                              <div class="col-md-4">
-                                 <form:input path="apellidoPaterno" id="ipt-apellidoPaterno" cssClass="form-control"
+                                 <form:input path="apellidoP" id="ipt-apellidoP" cssClass="form-control"
                                              placeholder="Ingrese apellido paterno" maxlength="50"/>
                              </div>
                          </div>
                         <div class="form-group">
-                             <label class="control-label col-sm-2" for="ipt-apellidoMaterno">Apellido Materno:</label>
+                             <label class="control-label col-sm-2" for="ipt-apellidoM">Apellido Materno:</label>
                              <div class="col-md-4">
-                                 <form:input path="apellidoMaterno" id="ipt-apellidoMaterno" cssClass="form-control"
+                                 <form:input path="apellidoM" id="ipt-apellidoM" cssClass="form-control"
                                              placeholder="Ingrese apellido materno" maxlength="50"/>
                              </div>
                          </div>   
                          <h3>Dirección:</h3> 
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="select-region">Región:</label>
-                             <div class="col-md-4">
+                             
+                             <%--<div class="col-md-4">
                                  <form:select path="direccion.comuna.region.idRegion"
                                               id="select-region"
                                               cssClass="form-control"
@@ -115,11 +116,11 @@
                                      <form:option value="-1" label="--Seleccione Región--"/>
                                      <form:options items="${regiones}" itemValue="idRegion" itemLabel="nombre"/>
                                  </form:select>
-                             </div>
+                             </div>--%>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="select-comunas">Comuna:</label>
-                             <div class="col-md-4">
+                             <%--<div class="col-md-4">
                                  <c:choose>
                                      <c:when test="${not empty comunasRegion}">
                                          <form:select path="direccion.comuna.idComuna"
@@ -135,23 +136,24 @@
                                          </select>
                                      </c:otherwise>
                                  </c:choose>
-                             </div>
+                             </div>--%>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="ipt-calle">Calle:</label>
-                             <div class="col-md-4">
+                             <%--<div class="col-md-4">
                                  <form:input path="direccion.calle" id="ipt-calle" cssClass="form-control" placeholder="Ingrese Calle"
                                              maxlength="20"/>
-                             </div>
+                             </div>--%>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="ipt-nro">Nro:</label>
+                             <%--
                              <div class="col-md-4">
                                  <form:input path="direccion.numero" id="ipt-nro" cssClass="form-control" placeholder="Ingrese Número"
                                              maxlength="10"/>
-                             </div>
+                             </div>--%>
                          </div>
-                         <form:hidden path="direccion.idDireccion"/>
+                         <%--<form:hidden path="direccion.idDireccion"/>--%>
                      </form:form>
                      <div class="form-group">
                          <div class="col-sm-offset-2 col-sm-10">

@@ -9,18 +9,11 @@ import cl.bennder.bennderweb.services.PerfilService;
 import cl.bennder.bennderweb.session.PerfilSession;
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.entitybennderwebrest.model.Comuna;
-import cl.bennder.entitybennderwebrest.model.DatosPerfil;
-import cl.bennder.entitybennderwebrest.model.Sucursal;
+import cl.bennder.entitybennderwebrest.model.Usuario;
 import cl.bennder.entitybennderwebrest.request.DatosPerfilRequest;
 import cl.bennder.entitybennderwebrest.request.InfoDatosPerfilRequest;
-import cl.bennder.entitybennderwebrest.request.InfoInicioSucursalRequest;
-import cl.bennder.entitybennderwebrest.request.InfoSucursalRequest;
-import cl.bennder.entitybennderwebrest.request.SucursalesRequest;
 import cl.bennder.entitybennderwebrest.response.DatosPerfilResponse;
 import cl.bennder.entitybennderwebrest.response.InfoDatosPerfilResponse;
-import cl.bennder.entitybennderwebrest.response.InfoInicioSucursalResponse;
-import cl.bennder.entitybennderwebrest.response.InfoSucursalResponse;
-import cl.bennder.entitybennderwebrest.response.SucursalesResponse;
 import com.google.gson.Gson;
 import java.util.List;
 import javax.servlet.http.HttpSession;
@@ -69,12 +62,12 @@ public class PerfilController {
     @RequestMapping(value = "/perfil/getDatos.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView getDatosPerfil() {
         log.info("inicio");
-        DatosPerfilResponse response = new DatosPerfilResponse();//perfilService.getDatosPerfil(new DatosPerfilRequest(usuarioSession.getUsuario()));
+        DatosPerfilResponse response = perfilService.getDatosPerfil(new DatosPerfilRequest(usuarioSession.getUsuario(),usuarioSession.getTenantId()));
         ModelAndView modelAndView = new ModelAndView("datosPerfil");
-        modelAndView.addObject("datosPerfilForm", response.getDatosPerfil());
+        modelAndView.addObject("datosPerfilForm", response.getUsuario());
         modelAndView.addObject("regiones", response.getRegiones());
         perfilSession.setComunas(response.getComunas());
-        modelAndView.addObject("comunasRegion", perfilService.getComunasByRegion(response.getDatosPerfil().getDireccion().getComuna().getRegion().getIdRegion()));
+        //modelAndView.addObject("comunasRegion", perfilService.getComunasByRegion(response.getUsuario().getDireccion().getComuna().getRegion().getIdRegion()));
         log.info("fin");
         return modelAndView;
     }
@@ -93,10 +86,10 @@ public class PerfilController {
     }
     
     @RequestMapping(value = "/perfil/guardar.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String  guardarDatosPerfil(@ModelAttribute("datosPerfilForm") DatosPerfil datosPerfil) {
+    public @ResponseBody String  guardarDatosPerfil(@ModelAttribute("datosPerfilForm") Usuario datosPerfil) {
         log.info("INICIO");
         log.info("Datos perfil ->{}.",datosPerfil.toString());
-        InfoDatosPerfilResponse response = perfilService.guardarDatosPerfil(new InfoDatosPerfilRequest(datosPerfil));
+        InfoDatosPerfilResponse response = perfilService.guardarDatosPerfil(new InfoDatosPerfilRequest(datosPerfil,usuarioSession.getTenantId()));
         log.info("FIN");
         String respJson =  new Gson().toJson(response.getValidacion());
         return respJson;
