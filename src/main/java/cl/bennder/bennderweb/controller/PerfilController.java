@@ -16,6 +16,7 @@ import cl.bennder.entitybennderwebrest.response.DatosPerfilResponse;
 import cl.bennder.entitybennderwebrest.response.InfoDatosPerfilResponse;
 import com.google.gson.Gson;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,10 @@ public class PerfilController {
         modelAndView.addObject("datosPerfilForm", response.getUsuario());
         modelAndView.addObject("regiones", response.getRegiones());
         perfilSession.setComunas(response.getComunas());
-        //modelAndView.addObject("comunasRegion", perfilService.getComunasByRegion(response.getUsuario().getDireccion().getComuna().getRegion().getIdRegion()));
+        if(response.getUsuario().getDireccion()!=null && response.getUsuario().getDireccion().getComuna()!=null && 
+           response.getUsuario().getDireccion().getComuna().getRegion()!=null && response.getUsuario().getDireccion().getComuna().getRegion().getIdRegion()!=null){
+          modelAndView.addObject("comunasRegion", perfilService.getComunasByRegion(response.getUsuario().getDireccion().getComuna().getRegion().getIdRegion()));
+        }
         log.info("fin");
         return modelAndView;
     }
@@ -86,9 +90,11 @@ public class PerfilController {
     }
     
     @RequestMapping(value = "/perfil/guardar.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String  guardarDatosPerfil(@ModelAttribute("datosPerfilForm") Usuario datosPerfil) {
+    public @ResponseBody String  guardarDatosPerfil(@ModelAttribute("datosPerfilForm") Usuario datosPerfil,HttpServletRequest req) {
         log.info("INICIO");
         log.info("Datos perfil ->{}.",datosPerfil.toString());
+        log.info("fechaNacimientoString->{}",req.getParameter("fechaNacimientoString"));
+        
         InfoDatosPerfilResponse response = perfilService.guardarDatosPerfil(new InfoDatosPerfilRequest(datosPerfil,usuarioSession.getTenantId()));
         log.info("FIN");
         String respJson =  new Gson().toJson(response.getValidacion());

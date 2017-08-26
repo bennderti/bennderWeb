@@ -24,7 +24,8 @@
                                     <ul>
                                         <li>
                                             <a href="${not empty param.children? '../perfil/getDatos.html':'perfil/getDatos.html'}">
-                                            <i class="fa fa-cog" aria-hidden="true"></i>Mi Cuenta</a>
+                                            Cuenta</a>
+<!--                                            <i class="fa fa-cog" aria-hidden="true"></i>Mi Cuenta</a>-->
                                         </li>
                                         <li>
                                             <a href="${not empty param.children? '../logout.html':'logout.html'}">

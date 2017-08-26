@@ -79,8 +79,10 @@
                              <div class="col-md-4">
                                  <form:input path="password" id="ipt-password" cssClass="form-control"
                                              placeholder="Ingrese nueva contraseña" maxlength="50"/>
-                                 <button type="button" class="btn btn-default btn-primary" onclick="Perfil.cambiarPassword();">Cambiar</button>                                 
+                                 <p></p>
+                                 <button type="button" class="btn btn-default btn-primary" onclick="Perfil.cambiarPassword();">Cambiar</button> 
                              </div>
+                            
                          </div>
                         <h3>Datos Personales</h3>
                          <div class="form-group">
@@ -103,12 +105,23 @@
                                  <form:input path="apellidoM" id="ipt-apellidoM" cssClass="form-control"
                                              placeholder="Ingrese apellido materno" maxlength="50"/>
                              </div>
-                         </div>   
+                         </div>  
+                        <div class="form-group">
+                             <label class="control-label col-sm-2" for="ipt-apellidoM">Fecha Nacimiento:</label>
+                             <div class="col-md-4">
+                                 <%--<form:input path="apellidoM" id="ipt-fechaNacimiento" cssClass="form-control"
+                                             placeholder="Ingrese apellido materno" maxlength="50"/> pattern="dd/MM/yyyy"--%>
+                                 <input class="form-control" id="fechaNacimiento"  
+                                    name="fechaNacimientoString" 
+                                    value="<fmt:formatDate value='${datosPerfilForm.fechaNacimiento}' type='date' pattern='yyyy-MM-dd'/>" type="date"/>
+                             </div>
+                         </div>                               
+                             
+                             
                          <h3>Dirección:</h3> 
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="select-region">Región:</label>
-                             
-                             <%--<div class="col-md-4">
+                             <div class="col-md-4">
                                  <form:select path="direccion.comuna.region.idRegion"
                                               id="select-region"
                                               cssClass="form-control"
@@ -116,11 +129,11 @@
                                      <form:option value="-1" label="--Seleccione Región--"/>
                                      <form:options items="${regiones}" itemValue="idRegion" itemLabel="nombre"/>
                                  </form:select>
-                             </div>--%>
+                             </div>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="select-comunas">Comuna:</label>
-                             <%--<div class="col-md-4">
+                             <div class="col-md-4">
                                  <c:choose>
                                      <c:when test="${not empty comunasRegion}">
                                          <form:select path="direccion.comuna.idComuna"
@@ -136,29 +149,66 @@
                                          </select>
                                      </c:otherwise>
                                  </c:choose>
-                             </div>--%>
+                             </div>
+                         </div>
+                         
+                        <div class="form-group">
+                             <label class="control-label col-sm-2" for="ipt-villa">Villa:</label>
+                             <div class="col-md-4">
+                                 <form:input path="direccion.villa" id="ipt-villa" cssClass="form-control" placeholder="Ingrese Villa (Opcional)"
+                                             maxlength="20"/>
+                             </div>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="ipt-calle">Calle:</label>
-                             <%--<div class="col-md-4">
+                             <div class="col-md-4">
                                  <form:input path="direccion.calle" id="ipt-calle" cssClass="form-control" placeholder="Ingrese Calle"
                                              maxlength="20"/>
-                             </div>--%>
+                             </div>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-sm-2" for="ipt-nro">Nro:</label>
-                             <%--
                              <div class="col-md-4">
                                  <form:input path="direccion.numero" id="ipt-nro" cssClass="form-control" placeholder="Ingrese Número"
                                              maxlength="10"/>
-                             </div>--%>
+                             </div>
+                         </div>                             
+                        <div class="form-group">
+                             <label class="control-label col-sm-2" for="ipt-departamento">Depto / Oficina:</label>
+                             <div class="col-md-4">
+                                 <form:input path="direccion.departamento" id="ipt-departamento" cssClass="form-control" placeholder="Ingrese Depto (Opcional)"
+                                             maxlength="10"/>
+                             </div>
+                         </div>   
+                         <h3>Contacto</h3>
+                        <div class="form-group">
+                             <label class="control-label col-sm-2" for="ipt-celular">Celular:</label>
+                             <div class="col-md-4">
+                                 <form:input path="contacto.celular" id="ipt-celular" cssClass="form-control" placeholder="Ingrese Celular"
+                                             maxlength="11" />
+                             </div>
+                         </div>                             
+                        <div class="form-group">
+                             <label class="control-label col-sm-2" for="ipt-fonoFijo">Fono Fijo:</label>
+                             <div class="col-md-4">
+                                 <form:input path="contacto.fonoFijo" id="ipt-fonoFijo" cssClass="form-control" placeholder="Ingrese Fono Fijo (Opcional)"
+                                             maxlength="11"/>
+                             </div>
                          </div>
-                         <%--<form:hidden path="direccion.idDireccion"/>--%>
+                        <div class="form-group">
+                             <label class="control-label col-sm-2" for="ipt-correo">Correo Contacto:</label>
+                             <div class="col-md-4">
+                                 <form:input path="contacto.correo" id="ipt-correo" cssClass="form-control" placeholder="Ingrese Correo de Contacto (Opcional)"
+                                             maxlength="50"/>
+                             </div>
+                         </div>                              
+                         <form:hidden path="direccion.idDireccion"/>
+                         <form:hidden path="contacto.idContacto"/>
                      </form:form>
                      <div class="form-group">
                          <div class="col-sm-offset-2 col-sm-10">
                              <button type="submit" class="btn btn-primary btn-guardar-beneficio"
-                                     onclick="Perfil.onValidaGuardaSucursal();">Guardar
+                                     onclick="Perfil.onValidaGuardaPerfil();">Guardar
                              </button>
                              <button type="button" class="btn btn-default" onclick="Perfil.onCancelar();">Cancelar</button>
                          </div>

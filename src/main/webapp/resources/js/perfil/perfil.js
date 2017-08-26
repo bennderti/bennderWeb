@@ -1,6 +1,8 @@
 jQuery(document).on('ready', function () {
     
-    
+        //.- restricciones caractéres
+    //$("#nombre-proveedor").alphanumeric({allow: ".-_"});
+    $("#ipt-celular,#ipt-fonoFijo").numeric();
     
 });
 
@@ -15,7 +17,7 @@ var Perfil = {
         var idRegion = $("#select-region").val();
         if(idRegion!=='-1'){
             $.ajax({
-                url: context+'/sucursal/getComunaByIdReg.html',
+                url: context+'/perfil/getComunaByIdReg.html',
                 type: 'GET',
                 dataType: 'JSON',
                 data: {idRegion:idRegion},
@@ -30,41 +32,41 @@ var Perfil = {
                     }
                 },
                 error: function (x, y, z) {
-                    ModalBennder.mostrar({tipo: "error", mensaje: "Error al cargar comunas", titulo: "Comuna Sucursal"});
+                    ModalBennder.mostrar({tipo: "error", mensaje: "Error al cargar comunas", titulo: "Comuna"});
                 }
             }); 
         }
         else{
-            ModalBennder.mostrar({tipo: "advertencia", mensaje: "Favor seleccionar región.", titulo: "Región Sucursal"});
+            ModalBennder.mostrar({tipo: "advertencia", mensaje: "Favor seleccionar región.", titulo: "Región"});
         }
     },
-    onValidaGuardaSucursal:function(){
+    onValidaGuardaPerfil:function(){
         
         ModalLoading.mostrar();
         $.ajax({
-            url: context+'/sucursal/guardar.html',
+            url: context+'/perfil/guardar.html',
             type: 'POST',
             dataType: 'JSON',
-            data: $("#form-sucursal").serialize(),
+            data: $("#form-perfil").serialize(),
             success: function (data) {                
                 if(data!==null && data !=='undefined'){
                     if(data.codigoNegocio === '0' && data.codigo ==='0'){                        
-                      window.location.href = "../sucursales.html";
+                      window.location.href = "../home.html";
                     }
                     else{
                         ModalLoading.cerrar();
-                        ModalBennder.mostrar({tipo: "error", mensaje: data.mensaje, titulo: "Sucursal"});
+                        ModalBennder.mostrar({tipo: "error", mensaje: data.mensaje, titulo: "Datos Perfil"});
                     }
                     
                 }
                 else{
                     ModalLoading.cerrar();
-                    ModalBennder.mostrar({tipo: "error", mensaje:"Problemas al guardar datos de beneficio" , titulo: "Sucursal"});
+                    ModalBennder.mostrar({tipo: "error", mensaje:"Problemas al guardar datos de perfil" , titulo: "Datos Perfil"});
                 }
             },
             error: function (x, y, z) {
                 ModalLoading.cerrar();
-                ModalBennder.mostrar({tipo: "error", mensaje: "Problemas al guardar información  de sucursal", titulo: "Sucursal"});
+                ModalBennder.mostrar({tipo: "error", mensaje: "Problemas al guardar información  de perfil", titulo: "Datos Perfil"});
             }
         });
     }
