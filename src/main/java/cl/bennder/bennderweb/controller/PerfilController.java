@@ -15,7 +15,11 @@ import cl.bennder.entitybennderwebrest.request.InfoDatosPerfilRequest;
 import cl.bennder.entitybennderwebrest.response.DatosPerfilResponse;
 import cl.bennder.entitybennderwebrest.response.InfoDatosPerfilResponse;
 import com.google.gson.Gson;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -93,8 +97,15 @@ public class PerfilController {
     public @ResponseBody String  guardarDatosPerfil(@ModelAttribute("datosPerfilForm") Usuario datosPerfil,HttpServletRequest req) {
         log.info("INICIO");
         log.info("Datos perfil ->{}.",datosPerfil.toString());
-        log.info("fechaNacimientoString->{}",req.getParameter("fechaNacimientoString"));
-        
+        log.info("fechaNacimientoString->{}",req.getParameter("fechaNacimientoString"));    
+        if(req.getParameter("fechaNacimientoString")!=null){
+            try {
+                SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+                datosPerfil.setFechaNacimiento(formatoDelTexto.parse((String)req.getParameter("fechaNacimientoString")));
+            } catch (ParseException ex) {
+                log.error("Error en ParseException.",ex);
+            }
+        }   
         InfoDatosPerfilResponse response = perfilService.guardarDatosPerfil(new InfoDatosPerfilRequest(datosPerfil,usuarioSession.getTenantId()));
         log.info("FIN");
         String respJson =  new Gson().toJson(response.getValidacion());
