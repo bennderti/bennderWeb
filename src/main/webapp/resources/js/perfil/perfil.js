@@ -11,7 +11,7 @@ var Perfil = {
         window.location.href = "home.html";
     },
     cambiarPassword:function(){
-        
+        window.location.href = "../changepassword.html?o=l";
     },
     onChangeRegion:function(){
         var idRegion = $("#select-region").val();

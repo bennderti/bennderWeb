@@ -196,9 +196,10 @@ public class LoginController {
         return false;
     }
     @RequestMapping(value = "/changepassword.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView changepassword() {
+    public ModelAndView changepassword(HttpServletRequest req) {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("changepassword");
+        modelAndView.addObject("titulo", req.getParameter("o") != null?"Cambio de clave":"Cambio de clave temporal");
         modelAndView.addObject("cambioPassword", new CambioPasswordRequest());
         modelAndView.addObject("usuario", usuarioSession.getUsuario()==null?"":usuarioSession.getUsuario());
         log.info("FIN");

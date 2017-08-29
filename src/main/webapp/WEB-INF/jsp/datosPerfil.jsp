@@ -75,14 +75,10 @@
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-sm-2" for="ipt-password">Password:</label>
+                             <label class="control-label col-sm-2" for="ipt-usuario">Contraseña:</label>
                              <div class="col-md-4">
-                                 <form:input path="password" id="ipt-password" cssClass="form-control"
-                                             placeholder="Ingrese nueva contraseña" maxlength="50"/>
-                                 <p></p>
-                                 <button type="button" class="btn btn-default btn-primary" onclick="Perfil.cambiarPassword();">Cambiar</button> 
+                                 <button type="button" class="btn btn-default btn-primary" onclick="Perfil.cambiarPassword();">Solicitar Cambio</button> 
                              </div>
-                            
                          </div>
                         <h3>Datos Personales</h3>
                          <div class="form-group">
