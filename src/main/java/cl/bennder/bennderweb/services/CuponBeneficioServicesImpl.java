@@ -80,7 +80,8 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
                     else{
                         log.info("{} Respuesta de generación cupón ->{}",mensajeLog,gResponse.getValidacion().getMensaje());
                         usuarioSession.getValidacion().setMensaje(gResponse.getValidacion().getMensaje()); 
-                        url = ".."+GoToUrl.URL_VALIDACION_CUPON;
+                        //url = ".."+GoToUrl.URL_VALIDACION_CUPON;
+                        url = GoToUrl.URL_VALIDACION_CUPON;
                     }
                 }
                 else{
@@ -97,7 +98,7 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
         } catch (Exception e) {
             log.error("Error en validaLinkGeneraCuponQr",e);
         }
-        log.info("inicio");
+        log.info("fin");
         return url;
     }
     
