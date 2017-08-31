@@ -186,6 +186,10 @@ public class LoginController {
 
         if (!tenantId.isEmpty() && !tenantId.equalsIgnoreCase("www")) {
             //req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
+            if(tenantId.equalsIgnoreCase("ec2-54-245-54-42")){
+                tenantId = "bennder";
+                log.info("tenantId para servidor desarrollo ->{}",tenantId);
+            }
             TenantContext.setCurrentTenant(tenantId);
             return true;
         }
