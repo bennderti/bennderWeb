@@ -3,19 +3,23 @@ package cl.bennder.bennderweb.controller;
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.model.ValidaCuponForm;
 import cl.bennder.bennderweb.services.BeneficioServices;
+import cl.bennder.bennderweb.services.CategoriaServices;
 import cl.bennder.bennderweb.services.CuponBeneficioServices;
 import cl.bennder.bennderweb.util.UtilBennderWeb;
 import cl.bennder.entitybennderwebrest.model.Beneficio;
 import cl.bennder.entitybennderwebrest.model.SucursalProveedor;
 import cl.bennder.entitybennderwebrest.model.Validacion;
 import cl.bennder.entitybennderwebrest.request.BeneficioRequest;
+import cl.bennder.entitybennderwebrest.request.BusquedaRequest;
 import cl.bennder.entitybennderwebrest.request.CanjeaCuponRequest;
 import cl.bennder.entitybennderwebrest.request.GetCuponBeneficioRequest;
 import cl.bennder.entitybennderwebrest.request.ValidacionCuponPOSRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficioResponse;
+import cl.bennder.entitybennderwebrest.response.BusquedaResponse;
 import cl.bennder.entitybennderwebrest.response.CanjeaCuponResponse;
 import cl.bennder.entitybennderwebrest.response.GetCuponBeneficioResponse;
 import cl.bennder.entitybennderwebrest.response.ValidacionCuponPOSResponse;
+import cl.bennder.entitybennderwebrest.response.ValidacionResponse;
 import com.google.gson.Gson;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -49,6 +53,9 @@ public class BeneficioController {
     
     @Autowired
     private CuponBeneficioServices cuponBeneficioServices;
+    
+    @Autowired
+    private CategoriaServices categoriaServices;
     
     /***
      * Método que entrega mensaje al usuario al momento de descargar cupón
@@ -178,7 +185,7 @@ public class BeneficioController {
         return respJson;
     }
     
-    @RequestMapping(value = "{tenantId}/canjeCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value = "/canjeCupon.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public ModelAndView canjeCupon(@RequestParam("c") String codigoCuponEncriptado,HttpSession session,HttpServletRequest req) {
         log.info("INICIO");
         log.info("codigoCuponEncriptado(antes formatear) ->{}",codigoCuponEncriptado);
@@ -248,5 +255,33 @@ public class BeneficioController {
         String respJson =  new Gson().toJson(response);
         log.info("FIN");
         return respJson;
+    }
+    
+    @RequestMapping(value="/beneficio/buscarBeneficios.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView buscarBeneficios(@RequestParam("busqueda") String busqueda, HttpSession session){
+        log.info("INICIO");
+        log.info("Busqueda realizada ->{}", busqueda);
+        
+        BusquedaResponse response;
+        
+        BusquedaRequest request = new BusquedaRequest();
+        request.setBusqueda(busqueda);
+        
+        response = beneficioServices.obtenerBeneficiosPorBusqueda(request);
+        
+        ModelAndView modelAndView = new ModelAndView("resultadoBusqueda");
+        
+        try{            
+            modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
+            modelAndView.addObject("beneficios", response.getBeneficios());
+        }
+        catch (HttpClientErrorException ex){
+            log.error(ex.getLocalizedMessage());
+            if (ex.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
+                modelAndView.setViewName("errorPage");
+        }    
+       
+        log.info("FIN");
+        return modelAndView;
     }
 }

@@ -102,23 +102,32 @@ public class LoginController {
             if (loginResponse.getValidacion() != null && loginResponse.getValidacion().getCodigo() != null && "0".equals(loginResponse.getValidacion().getCodigo())) {
                 String mensajeLog = "[token -> " + loginResponse.getToken() + "]";
 
-                usuarioSession.setUsuario(loginForm.getUser());//rut de cliente sin dv
-                session.setAttribute("user", loginForm.getUser());
-                usuarioSession.setToken(loginResponse.getToken());
-                log.debug(usuarioSession.getToken());
-
-                if (usuarioSession != null && usuarioSession.getCodigoCuponEncriptado() != null) {
-                    
-                    log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando", mensajeLog);
-                    rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
-                } else {
-                    if (loginResponse.getIdEstadoUsuario() == 1) {
-                        rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_BIENVENIDO);
-                    } else {
-                        rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_HOME);
-                    }
+                if(loginResponse.isEsPasswordTemporal()){
+                            log.info("se procede enviar a usuario para cambiar password ->{}",loginForm.getUser());
+                    usuarioSession.setUsuario(loginForm.getUser());
+                    rBody.setGoToUrl(GoToUrl.URL_CAMBIAR_PASSWORD_TEMP);
                 }
-                log.info("Se guarda usuario en sessión ->{}", loginForm.getUser());
+                else{
+                    usuarioSession.setUsuario(loginForm.getUser());//rut de cliente sin dv
+                    session.setAttribute("user", loginForm.getUser());
+                    usuarioSession.setToken(loginResponse.getToken());
+                    log.debug(usuarioSession.getToken());
+
+                    if (usuarioSession != null && usuarioSession.getCodigoCuponEncriptado() != null) {
+
+                        log.info("{} Usuario ha pinchado en link de correo enviado con información de cupón, por tanto ahora validando", mensajeLog);
+                        rBody.setGoToUrl(cuponBeneficioServices.validaLinkExternoCupon(session));
+                    } else {
+                        if (loginResponse.getIdEstadoUsuario() == 1) {
+                            rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_BIENVENIDO);
+                        } else {
+                            rBody.setGoToUrl(session.getServletContext().getContextPath() + GoToUrl.URL_HOME);
+                        }
+                    }
+                    log.info("Se guarda usuario en sessión ->{}", loginForm.getUser());
+                }
+                
+
             }
             String respJson = new Gson().toJson(rBody);
             log.info("FIN");
@@ -141,20 +150,20 @@ public class LoginController {
 //    }
     @RequestMapping(value="/logout.html", method=RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public String logout(HttpSession session,HttpServletRequest req){
-        String t = usuarioSession.getTenantId();
-        log.info("t->{}",t);
+       // String t = usuarioSession.getTenantId();
+        //log.info("t->{}",t);
         if(session != null){
             log.info("limpiando datos de sessión...");
             session.invalidate();
         }        
-        return "redirect:/"+t+"/index.html";
+        return "redirect:/index.html";
     }
     /***
      * Permite solicitar/recuperar la contraseña la cual es enviada al correo ingresado
      * @param usuario usuario bennder, usualmente email
      * @return 
      */
-    @RequestMapping(value="{tenantId}/requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
+    @RequestMapping(value="/requestPassword.html", method=RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody String recuperarPassword(@RequestParam("u") String usuario,HttpServletRequest request){
         log.info("INICIO");
         log.info("Usuario/correo a recuperar password ->{}",usuario);
@@ -177,6 +186,10 @@ public class LoginController {
 
         if (!tenantId.isEmpty() && !tenantId.equalsIgnoreCase("www")) {
             //req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
+            if(tenantId.equalsIgnoreCase("ec2-54-245-54-42")){
+                tenantId = "bennder";
+                log.info("tenantId para servidor desarrollo ->{}",tenantId);
+            }
             TenantContext.setCurrentTenant(tenantId);
             return true;
         }
@@ -187,16 +200,18 @@ public class LoginController {
         return false;
     }
     @RequestMapping(value = "/changepassword.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView changepassword() {
+    public ModelAndView changepassword(HttpServletRequest req) {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("changepassword");
+        modelAndView.addObject("titulo", req.getParameter("o") != null?"Cambio de clave":"Cambio de clave temporal");
         modelAndView.addObject("cambioPassword", new CambioPasswordRequest());
+        modelAndView.addObject("usuario", usuarioSession.getUsuario()==null?"":usuarioSession.getUsuario());
         log.info("FIN");
         return modelAndView;
     }
     
     @RequestMapping(value = "/changepassword.html", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String updatepassword(@ModelAttribute("cambioPassword") CambioPasswordRequest cambioPassword, HttpSession session,HttpServletRequest request) {
+    public @ResponseBody String updatepassword(@ModelAttribute("cambioPassword") CambioPasswordRequest cambioPassword, HttpSession session,HttpServletRequest request,HttpServletResponse r) {
         log.info("INICIO");
         log.info("consumiendo servicio para cambiar password de usuario ->{}",usuarioSession.getUsuario());
         //log.info("cambioPassword.getNewPassword()->{}",cambioPassword.getNewPassword());
@@ -207,8 +222,17 @@ public class LoginController {
         LoginBodyResponse rBody = new LoginBodyResponse();
         rBody.setValidacion(response.getValidacion());
         log.info("validacion ->{}",response.getValidacion().toString());
-        rBody.setGoToUrl(ti+"/index.html");        
-        String respJson =  new Gson().toJson(rBody);
+        String respJson = "";
+        if(response.getValidacion()!=null && response.getValidacion().getCodigoNegocio().equalsIgnoreCase("0")){
+            log.info("realizando login automático");
+            respJson = this.login(new LoginForm(usuarioSession.getUsuario(), cambioPassword.getNewPassword()), session, request,r);
+        }
+        else{
+            log.info("redireccionando a index...");
+            rBody.setGoToUrl("index.html"); 
+            respJson =  new Gson().toJson(rBody);
+        }    
+        log.info("respJson->{}",respJson);
         log.info("FIN");
         return respJson;
     }

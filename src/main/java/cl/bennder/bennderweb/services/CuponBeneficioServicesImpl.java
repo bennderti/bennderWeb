@@ -75,12 +75,13 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
                        && gResponse.getCuponPdf()!=null){
                         log.info("{} Ahora redireccionado par generar cupón en browser",mensajeLog);
                         session.setAttribute("cuponPdf", gResponse.getCuponPdf());
-                        url = ".."+GoToUrl.URL_DOWNLOAD_CUPON_PDF;
+                        url = GoToUrl.URL_DOWNLOAD_CUPON_PDF;
                     }
                     else{
                         log.info("{} Respuesta de generación cupón ->{}",mensajeLog,gResponse.getValidacion().getMensaje());
                         usuarioSession.getValidacion().setMensaje(gResponse.getValidacion().getMensaje()); 
-                        url = ".."+GoToUrl.URL_VALIDACION_CUPON;
+                        //url = ".."+GoToUrl.URL_VALIDACION_CUPON;
+                        url = GoToUrl.URL_VALIDACION_CUPON;
                     }
                 }
                 else{
@@ -97,7 +98,7 @@ public class CuponBeneficioServicesImpl implements CuponBeneficioServices{
         } catch (Exception e) {
             log.error("Error en validaLinkGeneraCuponQr",e);
         }
-        log.info("inicio");
+        log.info("fin");
         return url;
     }
     

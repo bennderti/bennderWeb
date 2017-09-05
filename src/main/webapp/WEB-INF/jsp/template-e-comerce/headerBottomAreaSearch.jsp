@@ -19,8 +19,10 @@
                             </c:forEach>
                         </c:if>
                     </select>
-                    <input type="text" placeholder="buscar beneficio..." />
-                    <button id="btn-busca-beneficio"><i class="fa fa-search"></i></button>
+                    <input id="tiBusqueda" type="text" placeholder="buscar beneficio..." />
+                    <button id="btn-busca-beneficio" onclick="BeneficioBennder.busquedaBeneficio()">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
             </div>
             <!-- heart, search,items    
@@ -93,3 +95,5 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="<c:url value="/resources/js/beneficio/beneficio.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/modal/bennder-loading.js"/>?v=<%=Calendar.getInstance().getTimeInMillis()%>"></script>

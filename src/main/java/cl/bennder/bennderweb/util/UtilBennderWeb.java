@@ -5,13 +5,9 @@
  */
 package cl.bennder.bennderweb.util;
 
-import cl.bennder.bennderweb.multitenancy.TenantContext;
-import cl.bennder.bennderweb.services.CargadorServicesImpl;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.HandlerMapping;
 
 /**
  *
@@ -35,6 +31,11 @@ public class UtilBennderWeb {
             tenantId = req.getServerName().split("\\.")[0];
             if (!tenantId.isEmpty() || tenantId.equalsIgnoreCase("www")){
                 log.info("tenantId encontrado ->{}",tenantId);
+                if(tenantId.equalsIgnoreCase("ec2-54-245-54-42")){
+                    tenantId = "bennder";
+                    log.info("tenantId para servidor desarrollo ->{}",tenantId);
+                }
+                
             }
             else{
                 log.info("tenantId NO encontrado");

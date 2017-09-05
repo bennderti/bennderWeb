@@ -19,6 +19,12 @@ jQuery(document).on('ready', function () {
             LoginBennder.changePassword();
         }
     });
+    $("#username-bennder").keyup(function (e) {
+        if (e.keyCode === 13) {
+            LoginBennder.recuperacionPassword();
+        }
+    });
+    
 
 });
 
@@ -57,6 +63,15 @@ var LoginBennder = {
         }
         if($.trim($("#password").val()) === ""){
             return {mensaje:"Favor completar contraseña",isValid : false};
+        }
+        return {mensaje:"OK",isValid : true};
+    },
+    validacionChangePassword:function(){
+        if($.trim($("#new-password").val()) === "" || $.trim($("#repeat-password").val()) === ""){
+            return {mensaje:"Favor completar contraseña",isValid : false};
+        }
+        if($.trim($("#new-password").val()) !== $.trim($("#repeat-password").val())){
+            return {mensaje:"Las contraseñas no son iguales.",isValid : false};
         }
         return {mensaje:"OK",isValid : true};
     },

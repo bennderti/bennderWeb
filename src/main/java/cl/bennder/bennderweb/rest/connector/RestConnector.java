@@ -45,13 +45,17 @@ public class RestConnector {
 
     public static <Q, R> R clientRestGeneric( String url, Q query, Class<R> responseClass, String token) {
         LOG.info("INICIO");
+        LOG.info("url->{}",url);
+
         R response  = null;
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set(AUTHENTICATION, token);
-            if (url.contains(URLServiciosBennder.URL_VALIDACION_USUARIO))
+            if (url.contains(URLServiciosBennder.URL_VALIDACION_USUARIO)){
                 headers.set(TENANT_HEADER_NAME, TenantContext.getCurrentTenant());
+                LOG.info("TenantContext.getCurrentTenant()->{}",TenantContext.getCurrentTenant());
+            }
 
             HttpEntity<Q> req = new HttpEntity<>(query, headers);
 
