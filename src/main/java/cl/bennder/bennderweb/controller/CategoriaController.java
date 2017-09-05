@@ -92,4 +92,21 @@ public class CategoriaController {
         log.info("FIN");
         return responseString;
     }
+
+    /**
+     * Obtiene una lista de beneficios dada una sub categoria
+     * @param proveedor
+     * @return Beneficios filtrados
+     */
+    @RequestMapping(value = "/filtrarBeneficiosPorProveedor.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String filtrarBeneficiosPorProveedor(@RequestParam("proveedor") String proveedor, @RequestParam("categoriaSeleccionada") String categoriaSeleccionada){
+        log.info("INICIO");
+        log.info("proveedor ->{}", proveedor);
+        log.info("categoriaSeleccionada ->{}", categoriaSeleccionada);
+
+        BeneficiosResponse response = categoriaServices.filtrarBeneficiosPorProveedor(proveedor, categoriaSeleccionada);
+        String responseString = new Gson().toJson(response);
+        log.info("FIN");
+        return responseString;
+    }
 }

@@ -10,13 +10,19 @@ $(function () {
 		Filtrador.filtrarPorPrecio(miPri, mxPri);
 	});
 
-//Filtro de descuento
+    //Filtro de descuento
 	$( '#btn-filtrar-descuento' ).on('click', function () {
 		console.log($( '#amount' ).val());
 		console.log("MIN IS " + miDes);
 		console.log("MAX IS " + mxDes);
 		Filtrador.filtrarPorDescuento(miDes, mxDes);
 	});
+
+    //Filtro de categorias
+    $( '#filtrosProveedor li a' ).on('click', function () {
+        console.log("filtrando por: " + $(this).data('filter'));
+        Filtrador.filtrarPorProveedor($(this).data('filter'));
+    });
 });
 
 var Filtrador = {
@@ -44,7 +50,11 @@ var Filtrador = {
 					Filtrador.renderearBeneficio(beneficio)
 				});
 			})
-			.fail()
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("Error filtrando beneficios por precio");
+                console.log(textStatus);
+                console.log(errorThrown);
+            })
 			.always(function () {
                 ModalLoading.cerrar();
             });
@@ -78,11 +88,48 @@ var Filtrador = {
                     Filtrador.renderearBeneficio(beneficio)
                 });
             })
-            .fail()
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("Error filtrando beneficios por descuento");
+                console.log(textStatus);
+                console.log(errorThrown);
+            })
             .always(function () {
                 ModalLoading.cerrar();
             });
 	},
+
+    filtrarPorProveedor:function (proveedor) {
+        ModalLoading.mostrar();
+        var inputCategoriaSeleccionada = $('#inputCategoriaSeleccionada').val();
+
+        $.ajax({
+            url: context+'/categoria/filtrarBeneficiosPorProveedor.html',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {
+                proveedor: proveedor,
+                categoriaSeleccionada: inputCategoriaSeleccionada
+            }
+        })
+            .done(function (data) {
+                console.log(data);
+
+                $('div .list').html("");
+                $.each(data.beneficios, function(index, beneficio){
+                    console.log("datos obtenidos de beneficio");
+                    console.log(beneficio);
+                    Filtrador.renderearBeneficio(beneficio)
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("Error filtrando beneficios por descuento");
+                console.log(textStatus);
+                console.log(errorThrown);
+            })
+            .always(function () {
+                ModalLoading.cerrar();
+            });
+    },
 
 	renderearBeneficio:function(beneficio) {
 		var item = '<div class="' + beneficio.nombreProveedor + ' ranking-' + beneficio.calificacion + ' col-lg-4 col-md-4 col-sm-4"';
@@ -100,8 +147,8 @@ var Filtrador = {
 				'       <a href="/detalleBeneficio/' + beneficio.idBeneficio + '.html">';
 
 		if (beneficio.imagenesBeneficio.size != 0){
-			item += '           <img class="primary-img" src="' + beneficio.imagenesBeneficio[0].path + '"/>' +
-					'           <img class="secondary-img" src="' + beneficio.imagenesBeneficio[1].path + '" />'
+			item += '           <img class="primary-img" src="' + beneficio.imagenesBeneficio[0].urlImagen + '"/>' +
+					'           <img class="secondary-img" src="' + beneficio.imagenesBeneficio[1].urlImagen + '" />'
 		}
 		else {
             item += '           <img class="primary-img" src="/resources/img/product/1.jpg"/>' +

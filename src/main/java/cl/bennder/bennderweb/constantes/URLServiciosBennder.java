@@ -35,4 +35,5 @@ public abstract class URLServiciosBennder {
     public static final String URL_GUARDAR_DATOS_PERFIL = "perfil/guardarDatos";
     public static final String URL_CATEGORIA_FILTRAR_BENEFICIOS_PRECIO = "categoria/obtenerBeneficiosCategoriaFiltradosPorPrecio";
     public static final String URL_CATEGORIA_FILTRAR_BENEFICIOS_DESCUENTO = "categoria/obtenerBeneficiosCategoriaFiltradosPorDescuento";
+    public static final String URL_CATEGORIA_FILTRAR_BENEFICIOS_PROVEEDOR = "categoria/filtrarBeneficiosPorProveedor";
 }

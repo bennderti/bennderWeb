@@ -171,7 +171,7 @@ var mxDes;
         max: 100,
         values: [ 1, 100 ],
         slide: function( event, ui ) {
-            $( "#amount-descuento" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            $( "#amount-descuento" ).val( "%" + ui.values[ 0 ] + " - %" + ui.values[ 1 ] );
             miDes = ui.values[0];
             mxDes = ui.values[1];
         }

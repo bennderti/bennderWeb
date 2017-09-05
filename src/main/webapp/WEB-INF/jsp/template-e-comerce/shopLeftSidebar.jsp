@@ -59,10 +59,10 @@
         <h3 class="sidebar-title">Filtrar por</h3>
 
         <h5><b>Proveedor</b></h5>
-        <ul class="sidebar-menu">
+        <ul id="filtrosProveedor" class="sidebar-menu">
             <li><a href="#" data-filter="all">Todos</a><span class="count">(4)</span></li>
             <c:forEach items="${filtroProveedores}" var="proveedor">
-                <li><a href="#" data-filter=".${proveedor}">${proveedor}</a><span class="count">(6)</span></li>
+                <li><a href="#" data-filter="${proveedor}">${proveedor}</a><span class="count">(6)</span></li>
             </c:forEach>
         </ul>
 
