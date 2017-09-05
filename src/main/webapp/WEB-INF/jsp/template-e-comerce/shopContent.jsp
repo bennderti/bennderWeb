@@ -39,64 +39,74 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
                 <div class="row">
-                    <c:if test="${not empty beneficios}">
-                        <c:forEach items="${beneficios}" var="beneficio">
-                            <!-- single-product start -->
-                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                <div class="single-product">
-                                    <div class="product-img">
-                                        <a href="<c:url value="/detalleBeneficio/${beneficio.idBeneficio}.html"/>">
-                                            <c:choose >
-                                                <c:when test="${not empty beneficio.imagenesBeneficio}">
-                                                    <%--<img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
-                                                    <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />--%>                                                    
-                                                    <img class="primary-img" src="${beneficio.imagenesBeneficio[0].urlImagen}"/>
-                                                    <img class="secondary-img" src="${beneficio.imagenesBeneficio[1].urlImagen}" />
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>'/>
-                                                    <img class="secondary-img" src='<c:url value="/resources/img/product/2.jpg"/>'/>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </a>
-                                        <div class="product-action hidden">
-                                            <div class="pro-button-top">
-                                                <a href="#">add to cart</a>
-                                            </div>
-                                            <div class="pro-button-bottom">
-                                                <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
-                                            </a><a href="#"><i class="fa fa-search-plus"></i></a>
+                    <div class="list">
+                        <c:if test="${not empty beneficios}">
+                            <c:forEach items="${beneficios}" var="beneficio">
+                                <!-- single-product start -->
+                                <div class="mix ${beneficio.nombreProveedor} ranking-${beneficio.calificacion} col-lg-4 col-md-4 col-sm-4"
+                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 2}">
+                                            data-precioOferta="${beneficio.precioOferta}"
+                                        </c:if>
+                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
+                                            data-descuento="${beneficio.porcentajeDescuento}"
+                                        </c:if>
+                                >
+
+                                    <div class="single-product">
+                                        <div class="product-img">
+                                            <a href="<c:url value="/detalleBeneficio/${beneficio.idBeneficio}.html"/>">
+                                                <c:choose >
+                                                    <c:when test="${not empty beneficio.imagenesBeneficio}">
+                                                        <%--<img class="primary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[0].imagenBase64}"/>
+                                                        <img class="secondary-img" src="data:image/jpg;base64, ${beneficio.imagenesBeneficio[1].imagenBase64}" />--%>
+                                                        <img class="primary-img" src="${beneficio.imagenesBeneficio[0].urlImagen}"/>
+                                                        <img class="secondary-img" src="${beneficio.imagenesBeneficio[1].urlImagen}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img class="primary-img" src='<c:url value="/resources/img/product/1.jpg"/>'/>
+                                                        <img class="secondary-img" src='<c:url value="/resources/img/product/2.jpg"/>'/>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </a>
+                                            <div class="product-action hidden">
+                                                <div class="pro-button-top">
+                                                    <a href="#">add to cart</a>
+                                                </div>
+                                                <div class="pro-button-bottom">
+                                                    <a href="#"><i class="fa fa-heart"></i></a><a href="#"><i class="fa fa-retweet"></i>
+                                                </a><a href="#"><i class="fa fa-search-plus"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="product-info">
-                                        <h3><a href="<c:url value="/detalleBeneficio/${beneficio.idBeneficio}.html"/>">${beneficio.titulo}</a></h3>
-                                        <h4>${beneficio.nombreProveedor}</h4>
-                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
-                                            <div class="pro-price">
-                                                <span class="normal">${beneficio.porcentajeDescuento}%</span>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 2}">
-                                            <div class="pro-price">
-                                                <fmt:setLocale value="es_CL" scope="session"/>
-                                                <span class="normal">
-                                                    <fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/>
-                                                </span> 
-                                                <span class="old">
-                                                    <fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/>
-                                                </span>
-                                            </div>
-                                        </c:if>
-                                        <jsp:include page="pro-rating.jsp">
-                                            <jsp:param name="calificacion" value="${beneficio.calificacion}"/>
-                                        </jsp:include>
+                                        <div class="product-info">
+                                            <h3><a href="<c:url value="/detalleBeneficio/${beneficio.idBeneficio}.html"/>">${beneficio.titulo}</a></h3>
+                                            <h4>${beneficio.nombreProveedor}</h4>
+                                            <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 1}">
+                                                <div class="pro-price">
+                                                    <span class="normal">${beneficio.porcentajeDescuento}%</span>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${beneficio.tipoBeneficio.idTipoBeneficio == 2}">
+                                                <div class="pro-price">
+                                                    <fmt:setLocale value="es_CL" scope="session"/>
+                                                    <span class="normal">
+                                                        <fmt:formatNumber value="${beneficio.precioOferta}" type="currency" currencySymbol="$"/>
+                                                    </span>
+                                                    <span class="old">
+                                                        <fmt:formatNumber value="${beneficio.precioNormal}" type="currency" currencySymbol="$"/>
+                                                    </span>
+                                                </div>
+                                            </c:if>
+                                            <jsp:include page="pro-rating.jsp">
+                                                <jsp:param name="calificacion" value="${beneficio.calificacion}"/>
+                                            </jsp:include>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- single-product end -->
-                        </c:forEach>
-                    </c:if>
+                                <!-- single-product end -->
+                            </c:forEach>
+                        </c:if>
+                    </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">

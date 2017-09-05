@@ -27,6 +27,6 @@ public interface CategoriaServices {
     //CategoriasResponse obtenerCategoriasById(CategoriaByIdRequest request);
     public SubCategoriaProveedorResponse getSubCategoriasProveedor(SubCategoriaProveedorRequest request);
     BeneficiosCargadorResponse getBeneficiosByIdCat(CategoriaByIdRequest request);
-    
-    
+    BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorPrecio(String categoriaSeleccionada, Integer precioMin, Integer precioMax);
+    BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(String categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax);
 }
