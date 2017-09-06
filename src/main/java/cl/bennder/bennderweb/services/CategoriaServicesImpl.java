@@ -190,6 +190,34 @@ public class CategoriaServicesImpl implements CategoriaServices{
     }
 
     @Override
+    public BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, String categoriaSeleccionada) {
+        BeneficiosResponse response = new BeneficiosResponse();
+        response.getValidacion().setCodigo("NOK");
+        response.getValidacion().setMensaje("Problemas al obtener beneficios por Categoria ");
+        log.info("INICIO");
+
+        FiltrarBeneficiosRequest request = new FiltrarBeneficiosRequest();
+        request.setNombreCategoria(categoriaSeleccionada);
+        request.setCampoAFiltrar(calificacion);
+        try {
+
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CATEGORIA_FILTRAR_BENEFICIOS_CALIFICACION, request, BeneficiosResponse.class, usuarioSession.getToken());
+            if(response == null){
+                response = new BeneficiosResponse();
+                response.getValidacion().setCodigo("NOK");
+                response.getValidacion().setMensaje("Problemas al filtrar beneficios");
+                log.error("No se pudo obtener respuesta en URL_CATEGORIA_FILTRAR_BENEFICIOS_CALIFICACION");
+            }
+        } catch (Exception e) {
+            log.error("[Exception] Error al filtrarBeneficiosPorCalificacion", e);
+            response.getValidacion().setCodigo("NOK");
+            response.getValidacion().setMensaje("Error al obtener beneficios");
+        }
+        log.info("FIN");
+        return response;
+    }
+
+    @Override
     public CategoriasResponse obtenerCategoriasRelacionadas(String nombreCategoria) {
         CategoriasResponse response = new CategoriasResponse();
         response.getValidacion().setCodigo("NOK");

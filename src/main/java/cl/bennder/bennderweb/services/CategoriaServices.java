@@ -30,4 +30,5 @@ public interface CategoriaServices {
     BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorPrecio(String categoriaSeleccionada, Integer precioMin, Integer precioMax);
     BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(String categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax);
     BeneficiosResponse filtrarBeneficiosPorProveedor(String proveedor, String categoriaSeleccionada);
+    BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, String categoriaSeleccionada);
 }

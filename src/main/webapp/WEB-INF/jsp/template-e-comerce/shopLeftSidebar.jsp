@@ -67,13 +67,13 @@
         </ul>
 
         <h5><b>Calificacion</b></h5>
-        <ul class="sidebar-menu">
-            <li><a href="#" data-filter="all">Todos</a></li>
-            <li><a href="#" data-filter=".ranking-1"><i class="fa fa-star"></i></a></li>
-            <li><a href="#" data-filter=".ranking-2"><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
-            <li><a href="#" data-filter=".ranking-3"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
-            <li><a href="#" data-filter=".ranking-4"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
-            <li><a href="#" data-filter=".ranking-5"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+        <ul id="filtrosRanking" class="sidebar-menu">
+            <%--<li><a href="#" data-filter="all">Todos</a></li>--%>
+            <li><a href="#" data-ranking="1"><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="2"><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="3"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="4"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="5"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
         </ul>
 
     </aside>
