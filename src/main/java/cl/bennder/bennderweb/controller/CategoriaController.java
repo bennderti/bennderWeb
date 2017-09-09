@@ -2,8 +2,10 @@ package cl.bennder.bennderweb.controller;
 
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CategoriaServices;
+import cl.bennder.bennderweb.session.BeneficioSession;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
+import cl.bennder.entitybennderwebrest.response.PaginadorBeneficioResponse;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,20 @@ public class CategoriaController {
 
     @Autowired
     private UsuarioSession usuarioSession;
+    
+    @Autowired
+    private BeneficioSession beneficioSession;
+    
+    @RequestMapping(value = "/beneficiosPaginados.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public @ResponseBody String beneficiosPaginados(@RequestParam("indicePagina") Integer indicePagina,
+                                                           @RequestParam("esInicial") Integer esInicial){
+        log.info("INICIO");
+        log.info("indicePagina->{}, esInicial ->{}",indicePagina,esInicial);
+        String beneficiosJson = new Gson().toJson(new PaginadorBeneficioResponse(beneficioSession.getPaginador(), beneficioSession.getBeneficios()));
+        log.info("beneficiosJson ->{} ",beneficiosJson);
+        log.info("FIN");
+        return beneficiosJson;
+    }
 
     /**
      * @author Diego
@@ -46,6 +62,12 @@ public class CategoriaController {
             modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
             CategoriaResponse response = categoriaServices.cargarCategoria(nombreCategoria);
             modelAndView.addObject("beneficios", response.getBeneficios());
+            beneficioSession.setBeneficios(response.getBeneficios());
+            beneficioSession.setPaginador(response.getPaginador());
+//            modelAndView.addObject("arrayBeneficios", new Gson().toJson(response.getBeneficios()));
+//            modelAndView.addObject("paginador", new Gson().toJson(response.getPaginador()));
+            
+            
             modelAndView.addObject("categoriasRelacionadas", response.getCategoriasRelacionadas());
             modelAndView.addObject("nombreCategoria", response.getCategoriaPadre().getNombre());
             modelAndView.addObject("categoriaSeleccionada", nombreCategoria);

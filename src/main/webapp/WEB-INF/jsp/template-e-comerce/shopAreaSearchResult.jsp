@@ -14,6 +14,7 @@
             <!--jsp:include page="shopLeftSidebar.jsp"-->
                 <!--jsp:param name="nombreCategoria" value="${nombreCategoria}"/-->
             <!--/jsp:include-->
+            <jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
             <jsp:include page="shopContent.jsp">
                 <jsp:param name="beneficios" value="${beneficios}"/>
             </jsp:include>
@@ -22,4 +23,3 @@
     </div>
 </div>
 <!-- shop-area end -->
-<jsp:include page="/WEB-INF/jsp/template-e-comerce/jsTemplate.jsp"/>
