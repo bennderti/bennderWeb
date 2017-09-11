@@ -55,13 +55,13 @@ public class CategoriaServicesImpl implements CategoriaServices{
     }
 
     @Override
-    public BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorPrecio(String categoriaSeleccionada, Integer precioMin, Integer precioMax) {
+    public BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorPrecio(Integer categoriaSeleccionada, Integer precioMin, Integer precioMax) {
         BeneficiosResponse response = new BeneficiosResponse();
 
         log.info("INICIO");
         try {
             FiltrarBeneficiosRangoRequest request = new FiltrarBeneficiosRangoRequest();
-            request.setNombreCategoria(categoriaSeleccionada);
+            request.setIdCategoria(categoriaSeleccionada);
             request.setRangoMin(precioMin);
             request.setRangoMax(precioMax);
 
@@ -83,13 +83,13 @@ public class CategoriaServicesImpl implements CategoriaServices{
     }
 
     @Override
-    public BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(String categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax) {
+    public BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(Integer categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax) {
         BeneficiosResponse response = new BeneficiosResponse();
 
         log.info("INICIO");
         try {
             FiltrarBeneficiosRangoRequest request = new FiltrarBeneficiosRangoRequest();
-            request.setNombreCategoria(categoriaSeleccionada);
+            request.setIdCategoria(categoriaSeleccionada);
             request.setRangoMin(descuentoMin);
             request.setRangoMax(descuentoMax);
 
@@ -162,14 +162,14 @@ public class CategoriaServicesImpl implements CategoriaServices{
 
 
     @Override
-    public BeneficiosResponse filtrarBeneficiosPorProveedor(String proveedor, String categoriaSeleccionada) {
+    public BeneficiosResponse filtrarBeneficiosPorProveedor(String proveedor, Integer categoriaSeleccionada) {
         BeneficiosResponse response = new BeneficiosResponse();
         response.getValidacion().setCodigo("NOK");
         response.getValidacion().setMensaje("Problemas al obtener beneficios por Categoria ");
         log.info("INICIO");
 
         FiltrarBeneficiosRequest request = new FiltrarBeneficiosRequest();
-        request.setNombreCategoria(categoriaSeleccionada);
+        request.setIdCategoria(categoriaSeleccionada);
         request.setCampoAFiltrar(proveedor);
         try {
 
@@ -190,14 +190,14 @@ public class CategoriaServicesImpl implements CategoriaServices{
     }
 
     @Override
-    public BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, String categoriaSeleccionada) {
+    public BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, Integer categoriaSeleccionada) {
         BeneficiosResponse response = new BeneficiosResponse();
         response.getValidacion().setCodigo("NOK");
         response.getValidacion().setMensaje("Problemas al obtener beneficios por Categoria ");
         log.info("INICIO");
 
         FiltrarBeneficiosRequest request = new FiltrarBeneficiosRequest();
-        request.setNombreCategoria(categoriaSeleccionada);
+        request.setIdCategoria(categoriaSeleccionada);
         request.setCampoAFiltrar(calificacion);
         try {
 
@@ -246,21 +246,21 @@ public class CategoriaServicesImpl implements CategoriaServices{
 
     /**
      * @author Diego
-     * @param nombreCategoria
+     * @param idCategoria
      * @return Categoria con sus beneficios
      */
     @Override
-    public CategoriaResponse cargarCategoria(String nombreCategoria) {
+    public CategoriaResponse cargarCategoria(Integer idCategoria) {
         CategoriaResponse response = new CategoriaResponse();
         response.getValidacion().setCodigo("NOK");
         response.getValidacion().setMensaje("Problemas al obtener categorías");
         log.info("INICIO");
         try {
 
-            CategoriasRequest categoriasRequest = new CategoriasRequest(usuarioSession.getToken());
-            categoriasRequest.setNombreCategoria(nombreCategoria);
+            CategoriaByIdRequest categoriaByIdRequest = new CategoriaByIdRequest();
+            categoriaByIdRequest.setIdCategoria(idCategoria);
 
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CARGAR_CATEGORIA, categoriasRequest , CategoriaResponse.class, usuarioSession.getToken());
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CARGAR_CATEGORIA, categoriaByIdRequest , CategoriaResponse.class, usuarioSession.getToken());
             obtenerRangoPrecios(response);
 
             if(response == null){
