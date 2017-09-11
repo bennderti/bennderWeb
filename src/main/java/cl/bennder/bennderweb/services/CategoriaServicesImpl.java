@@ -136,29 +136,29 @@ public class CategoriaServicesImpl implements CategoriaServices{
         return response;
     }
 
-    @Override
-    public BeneficiosResponse obtenerBeneficiosPorCategoria() {
-        BeneficiosResponse response = new BeneficiosResponse();
-        response.getValidacion().setCodigo("NOK");
-        response.getValidacion().setMensaje("Problemas al obtener categorías");
-        log.info("INICIO");
-        try {
-
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_BENEFICIOS_POR_CATEGORIA, new BeneficiosRequest(), BeneficiosResponse.class, usuarioSession.getToken());
-            if(response == null){
-                response = new BeneficiosResponse();
-                response.getValidacion().setCodigo("NOK");
-                response.getValidacion().setMensaje("Problemas al obtener categorías");
-                log.error("No se pudo obtener respuesta en URL_OBTENER_BENEFICIOS_POR_CATEGORIA");
-            }
-        } catch (Exception e) {
-            log.error("[Exception] Error al obtenerBeneficiosPorCategoria", e);
-            response.getValidacion().setCodigo("NOK");
-            response.getValidacion().setMensaje("Error al obtener categorías");
-        }
-        log.info("FIN");
-        return response;
-    }
+//    @Override
+//    public BeneficiosResponse obtenerBeneficiosPorCategoria() {
+//        BeneficiosResponse response = new BeneficiosResponse();
+//        response.getValidacion().setCodigo("NOK");
+//        response.getValidacion().setMensaje("Problemas al obtener categorías");
+//        log.info("INICIO");
+//        try {
+//
+//            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_BENEFICIOS_POR_CATEGORIA, new BeneficiosRequest(), BeneficiosResponse.class, usuarioSession.getToken());
+//            if(response == null){
+//                response = new BeneficiosResponse();
+//                response.getValidacion().setCodigo("NOK");
+//                response.getValidacion().setMensaje("Problemas al obtener categorías");
+//                log.error("No se pudo obtener respuesta en URL_OBTENER_BENEFICIOS_POR_CATEGORIA");
+//            }
+//        } catch (Exception e) {
+//            log.error("[Exception] Error al obtenerBeneficiosPorCategoria", e);
+//            response.getValidacion().setCodigo("NOK");
+//            response.getValidacion().setMensaje("Error al obtener categorías");
+//        }
+//        log.info("FIN");
+//        return response;
+//    }
 
 
     @Override

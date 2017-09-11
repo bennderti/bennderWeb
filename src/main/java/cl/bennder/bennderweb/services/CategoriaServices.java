@@ -21,7 +21,7 @@ import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
  */
 public interface CategoriaServices {
     CategoriasResponse obtenerCategorias();
-    BeneficiosResponse obtenerBeneficiosPorCategoria();
+//    BeneficiosResponse obtenerBeneficiosPorCategoria();
     CategoriasResponse obtenerCategoriasRelacionadas(String nombreCategoria);
     CategoriaResponse cargarCategoria(Integer nombreCategoria);
     //CategoriasResponse obtenerCategoriasById(CategoriaByIdRequest request);
