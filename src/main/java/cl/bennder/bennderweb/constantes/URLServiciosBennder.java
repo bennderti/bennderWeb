@@ -31,6 +31,6 @@ public abstract class URLServiciosBennder {
     public static final String URL_BENEFICIO_VALIDA_CUPON_POS= "beneficio/validacionCuponPOS";
     public static final String URL_HOME_CARGAR_HOME = "home/cargarHome";
     public static final String URL_BENEFICIO_BUSCAR_BENEFICIOS = "beneficio/buscarBeneficios";
-    
-    
+    public static final String URL_OBTENER_DATOS_BIENVENIDA = "bienvenido/obtenerDatosBienvenida";   
+    public static final String URL_GUARDAR_DATOS_BIENVENIDA = "bienvenido/guardarDatosBienvenida"; 
 }
