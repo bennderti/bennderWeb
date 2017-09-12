@@ -9,10 +9,9 @@ import cl.bennder.bennderweb.constantes.URLServiciosBennder;
 import cl.bennder.bennderweb.properties.Properties;
 import cl.bennder.bennderweb.rest.connector.RestConnector;
 import cl.bennder.bennderweb.session.UsuarioSession;
-import cl.bennder.entitybennderwebrest.request.BeneficiosRequest;
-import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
-import cl.bennder.entitybennderwebrest.request.CategoriasRequest;
-import cl.bennder.entitybennderwebrest.request.SubCategoriaProveedorRequest;
+import cl.bennder.entitybennderwebrest.model.Producto;
+import cl.bennder.entitybennderwebrest.model.TipoBeneficio;
+import cl.bennder.entitybennderwebrest.request.*;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
@@ -21,9 +20,11 @@ import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.HashMap;
+import java.util.IntSummaryStatistics;
+import java.util.Map;
 
 
 /**
@@ -54,6 +55,62 @@ public class CategoriaServicesImpl implements CategoriaServices{
     }
 
     @Override
+    public BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorPrecio(Integer categoriaSeleccionada, Integer precioMin, Integer precioMax) {
+        BeneficiosResponse response = new BeneficiosResponse();
+
+        log.info("INICIO");
+        try {
+            FiltrarBeneficiosRangoRequest request = new FiltrarBeneficiosRangoRequest();
+            request.setIdCategoria(categoriaSeleccionada);
+            request.setRangoMin(precioMin);
+            request.setRangoMax(precioMax);
+
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CATEGORIA_FILTRAR_BENEFICIOS_PRECIO, request, BeneficiosResponse.class, usuarioSession.getToken());
+
+            if(response == null){
+                response = new BeneficiosResponse();
+                response.getValidacion().setCodigo("NOK");
+                response.getValidacion().setMensaje("Problemas al filtrar beneficios");
+            }
+        }
+        catch (Exception e) {
+            log.error("[Exception] Error al obtener beneficios", e);
+            response.getValidacion().setCodigo("NOK");
+            response.getValidacion().setMensaje("Error al obtener beneficios");
+        }
+        log.info("FIN");
+        return response;
+    }
+
+    @Override
+    public BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(Integer categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax) {
+        BeneficiosResponse response = new BeneficiosResponse();
+
+        log.info("INICIO");
+        try {
+            FiltrarBeneficiosRangoRequest request = new FiltrarBeneficiosRangoRequest();
+            request.setIdCategoria(categoriaSeleccionada);
+            request.setRangoMin(descuentoMin);
+            request.setRangoMax(descuentoMax);
+
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CATEGORIA_FILTRAR_BENEFICIOS_DESCUENTO, request, BeneficiosResponse.class, usuarioSession.getToken());
+
+            if(response == null){
+                response = new BeneficiosResponse();
+                response.getValidacion().setCodigo("NOK");
+                response.getValidacion().setMensaje("Problemas al filtrar beneficios");
+            }
+        }
+        catch (Exception e) {
+            log.error("[Exception] Error al obtener beneficios", e);
+            response.getValidacion().setCodigo("NOK");
+            response.getValidacion().setMensaje("Error al obtener beneficios");
+        }
+        log.info("FIN");
+        return response;
+    }
+
+    @Override
     public CategoriasResponse obtenerCategorias() {
         CategoriasResponse response = new CategoriasResponse();
         response.getValidacion().setCodigo("NOK");
@@ -79,25 +136,82 @@ public class CategoriaServicesImpl implements CategoriaServices{
         return response;
     }
 
+//    @Override
+//    public BeneficiosResponse obtenerBeneficiosPorCategoria() {
+//        BeneficiosResponse response = new BeneficiosResponse();
+//        response.getValidacion().setCodigo("NOK");
+//        response.getValidacion().setMensaje("Problemas al obtener categorías");
+//        log.info("INICIO");
+//        try {
+//
+//            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_BENEFICIOS_POR_CATEGORIA, new BeneficiosRequest(), BeneficiosResponse.class, usuarioSession.getToken());
+//            if(response == null){
+//                response = new BeneficiosResponse();
+//                response.getValidacion().setCodigo("NOK");
+//                response.getValidacion().setMensaje("Problemas al obtener categorías");
+//                log.error("No se pudo obtener respuesta en URL_OBTENER_BENEFICIOS_POR_CATEGORIA");
+//            }
+//        } catch (Exception e) {
+//            log.error("[Exception] Error al obtenerBeneficiosPorCategoria", e);
+//            response.getValidacion().setCodigo("NOK");
+//            response.getValidacion().setMensaje("Error al obtener categorías");
+//        }
+//        log.info("FIN");
+//        return response;
+//    }
+
+
     @Override
-    public BeneficiosResponse obtenerBeneficiosPorCategoria() {
+    public BeneficiosResponse filtrarBeneficiosPorProveedor(String proveedor, Integer categoriaSeleccionada) {
         BeneficiosResponse response = new BeneficiosResponse();
         response.getValidacion().setCodigo("NOK");
-        response.getValidacion().setMensaje("Problemas al obtener categorías");
+        response.getValidacion().setMensaje("Problemas al obtener beneficios por Categoria ");
         log.info("INICIO");
+
+        FiltrarBeneficiosRequest request = new FiltrarBeneficiosRequest();
+        request.setIdCategoria(categoriaSeleccionada);
+        request.setCampoAFiltrar(proveedor);
         try {
 
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_OBTENER_BENEFICIOS_POR_CATEGORIA, new BeneficiosRequest(), BeneficiosResponse.class, usuarioSession.getToken());
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CATEGORIA_FILTRAR_BENEFICIOS_PROVEEDOR, request, BeneficiosResponse.class, usuarioSession.getToken());
             if(response == null){
                 response = new BeneficiosResponse();
                 response.getValidacion().setCodigo("NOK");
-                response.getValidacion().setMensaje("Problemas al obtener categorías");
-                log.error("No se pudo obtener respuesta en URL_OBTENER_BENEFICIOS_POR_CATEGORIA");
+                response.getValidacion().setMensaje("Problemas al filtrar beneficios");
+                log.error("No se pudo obtener respuesta en URL_CATEGORIA_FILTRAR_BENEFICIOS_PROVEEDOR");
             }
         } catch (Exception e) {
-            log.error("[Exception] Error al obtenerBeneficiosPorCategoria", e);
+            log.error("[Exception] Error al filtrarBeneficiosPorProveedor", e);
             response.getValidacion().setCodigo("NOK");
-            response.getValidacion().setMensaje("Error al obtener categorías");
+            response.getValidacion().setMensaje("Error al obtener beneficios");
+        }
+        log.info("FIN");
+        return response;
+    }
+
+    @Override
+    public BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, Integer categoriaSeleccionada) {
+        BeneficiosResponse response = new BeneficiosResponse();
+        response.getValidacion().setCodigo("NOK");
+        response.getValidacion().setMensaje("Problemas al obtener beneficios por Categoria ");
+        log.info("INICIO");
+
+        FiltrarBeneficiosRequest request = new FiltrarBeneficiosRequest();
+        request.setIdCategoria(categoriaSeleccionada);
+        request.setCampoAFiltrar(calificacion);
+        try {
+
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CATEGORIA_FILTRAR_BENEFICIOS_CALIFICACION, request, BeneficiosResponse.class, usuarioSession.getToken());
+            if(response == null){
+                response = new BeneficiosResponse();
+                response.getValidacion().setCodigo("NOK");
+                response.getValidacion().setMensaje("Problemas al filtrar beneficios");
+                log.error("No se pudo obtener respuesta en URL_CATEGORIA_FILTRAR_BENEFICIOS_CALIFICACION");
+            }
+        } catch (Exception e) {
+            log.error("[Exception] Error al filtrarBeneficiosPorCalificacion", e);
+            response.getValidacion().setCodigo("NOK");
+            response.getValidacion().setMensaje("Error al obtener beneficios");
         }
         log.info("FIN");
         return response;
@@ -132,21 +246,23 @@ public class CategoriaServicesImpl implements CategoriaServices{
 
     /**
      * @author Diego
-     * @param nombreCategoria
+     * @param idCategoria
      * @return Categoria con sus beneficios
      */
     @Override
-    public CategoriaResponse cargarCategoria(String nombreCategoria) {
+    public CategoriaResponse cargarCategoria(Integer idCategoria) {
         CategoriaResponse response = new CategoriaResponse();
         response.getValidacion().setCodigo("NOK");
         response.getValidacion().setMensaje("Problemas al obtener categorías");
         log.info("INICIO");
         try {
 
-            CategoriasRequest categoriasRequest = new CategoriasRequest(usuarioSession.getToken());
-            categoriasRequest.setNombreCategoria(nombreCategoria);
+            CategoriaByIdRequest categoriaByIdRequest = new CategoriaByIdRequest();
+            categoriaByIdRequest.setIdCategoria(idCategoria);
 
-            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CARGAR_CATEGORIA, categoriasRequest , CategoriaResponse.class, usuarioSession.getToken());
+            response = RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_CARGAR_CATEGORIA, categoriaByIdRequest , CategoriaResponse.class, usuarioSession.getToken());
+            obtenerRangoPrecios(response);
+
             if(response == null){
                 response = new CategoriaResponse();
                 response.getValidacion().setCodigo("NOK");
@@ -162,6 +278,22 @@ public class CategoriaServicesImpl implements CategoriaServices{
         }
         log.info("FIN");
         return response;
+    }
+
+    private void obtenerRangoPrecios(CategoriaResponse response) {
+
+        IntSummaryStatistics summaryStatistics = response.getBeneficios().stream()
+                .filter(beneficio -> beneficio instanceof Producto)
+                .mapToInt(beneficio -> ((Producto) beneficio).getPrecioOferta())
+                .summaryStatistics();
+
+        Map<String, Integer> rango = new HashMap<>();
+        if (summaryStatistics.getMin() != Integer.MIN_VALUE)
+            rango.put("precioMin", summaryStatistics.getMin());
+        if (summaryStatistics.getMax() != Integer.MAX_VALUE)
+            rango.put("precioMax", summaryStatistics.getMax());
+
+        response.setRango(rango);
     }
 
 }

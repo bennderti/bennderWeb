@@ -1,4 +1,10 @@
-﻿(function ($) {
+﻿var miPri;
+var mxPri;
+var miDes;
+var mxDes;
+
+
+(function ($) {
  "use strict";
 
 /*----------------------------
@@ -139,21 +145,40 @@
 
 /*----------------------------
  price-slider active
------------------------------- */  
-	  $( "#slider-range" ).slider({
-	   range: true,
-	   min: 40,
-	   max: 600,
-	   values: [ 60, 570 ],
-	   slide: function( event, ui ) {
-		$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-	   }
-	  });
-	  $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-	   " - $" + $( "#slider-range" ).slider( "values", 1 ) );  
-	   	
+------------------------------ */
 
-/*----- cart-plus-minus-button -----*/	
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 100,
+        max: 999999,
+        values: [ 1000, 20000 ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            miPri= ui.values[0];
+            mxPri = ui.values[1];
+        }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+	/*----------------------------
+	 descuento-slider active
+	 ------------------------------ */
+
+    $( "#slider-range-descuento" ).slider({
+        range: true,
+        min: 1,
+        max: 100,
+        values: [ 1, 100 ],
+        slide: function( event, ui ) {
+            $( "#amount-descuento" ).val( "%" + ui.values[ 0 ] + " - %" + ui.values[ 1 ] );
+            miDes = ui.values[0];
+            mxDes = ui.values[1];
+        }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    /*----- cart-plus-minus-button -----*/
 	 $(".cart-plus-minus").append('<div class="dec qtybutton">-</div><div class="inc qtybutton">+</div>');
 	  $(".qtybutton").on("click", function() {
 		var $button = $(this);

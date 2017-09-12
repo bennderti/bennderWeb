@@ -21,7 +21,7 @@ public abstract class URLServiciosBennder {
     public static final String URL_UPLOAD_IMAGENES_BENEFICIOS = "uploadImagenesBeneficios";    
     public static final String URL_GET_PROVEEDORES_HABILITADOS = "obtenerProveedorHabilitados";    
     public static final String URL_GET_BENEFICIOS_BY_ID_CAT = "getBeneficiosByIdCat";
-    public static final String URL_OBTENER_BENEFICIOS_POR_CATEGORIA = "obtenerBeneficiosPorCategoria";
+    //public static final String URL_OBTENER_BENEFICIOS_POR_CATEGORIA = "obtenerBeneficiosPorCategoria";
     public static final String URL_OBTENER_CATEGORIAS_RELACIONADAS = "obtenerCategoriasRelacionadas";
     public static final String URL_CARGAR_CATEGORIA = "cargarCategoria";
     public static final String URL_OBTENER_DETALLE_BENEFICIO = "obtenerDetalleBeneficio";
@@ -33,4 +33,10 @@ public abstract class URLServiciosBennder {
     public static final String URL_BENEFICIO_BUSCAR_BENEFICIOS = "beneficio/buscarBeneficios";
     public static final String URL_OBTENER_DATOS_BIENVENIDA = "bienvenido/obtenerDatosBienvenida";   
     public static final String URL_GUARDAR_DATOS_BIENVENIDA = "bienvenido/guardarDatosBienvenida"; 
+    public static final String URL_GET_DATOS_PERFIL = "perfil/getDatos";
+    public static final String URL_GUARDAR_DATOS_PERFIL = "perfil/guardarDatos";
+    public static final String URL_CATEGORIA_FILTRAR_BENEFICIOS_PRECIO = "categoria/obtenerBeneficiosCategoriaFiltradosPorPrecio";
+    public static final String URL_CATEGORIA_FILTRAR_BENEFICIOS_DESCUENTO = "categoria/obtenerBeneficiosCategoriaFiltradosPorDescuento";
+    public static final String URL_CATEGORIA_FILTRAR_BENEFICIOS_PROVEEDOR = "categoria/filtrarBeneficiosPorProveedor";
+    public static final String URL_CATEGORIA_FILTRAR_BENEFICIOS_CALIFICACION = "categoria/filtrarBeneficiosPorCalificacion";
 }

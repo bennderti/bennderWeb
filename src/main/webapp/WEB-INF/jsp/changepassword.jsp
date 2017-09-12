@@ -51,8 +51,7 @@
                 <div class="">
                 <form:form method="POST" action="changepassword.html" id="form-login" commandName="cambioPassword">
                     <div class="form-fields">
-                        <h2>
-                            Cambio de clave temporal</h2>
+                         <h2>${titulo}</h2>
                         <p>Usuario <strong><c:out value="${usuario}"/></strong></p>
                         <p>
                             <label>

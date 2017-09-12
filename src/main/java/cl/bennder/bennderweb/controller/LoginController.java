@@ -186,6 +186,10 @@ public class LoginController {
 
         if (!tenantId.isEmpty() && !tenantId.equalsIgnoreCase("www")) {
             //req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
+            if(tenantId.equalsIgnoreCase("ec2-54-245-54-42")){
+                tenantId = "bennder";
+                log.info("tenantId para servidor desarrollo ->{}",tenantId);
+            }
             TenantContext.setCurrentTenant(tenantId);
             return true;
         }
@@ -196,9 +200,10 @@ public class LoginController {
         return false;
     }
     @RequestMapping(value = "/changepassword.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView changepassword() {
+    public ModelAndView changepassword(HttpServletRequest req) {
         log.info("INICIO");
         ModelAndView modelAndView = new ModelAndView("changepassword");
+        modelAndView.addObject("titulo", req.getParameter("o") != null?"Cambio de clave":"Cambio de clave temporal");
         modelAndView.addObject("cambioPassword", new CambioPasswordRequest());
         modelAndView.addObject("usuario", usuarioSession.getUsuario()==null?"":usuarioSession.getUsuario());
         log.info("FIN");

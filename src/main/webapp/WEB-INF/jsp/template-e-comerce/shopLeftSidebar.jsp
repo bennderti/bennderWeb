@@ -11,15 +11,16 @@
     <!-- widget-categories start -->
     <aside class="widget widget-categories">
         <h3 class="sidebar-title">${nombreCategoria}</h3>
+        <input type="hidden" id="inputCategoriaSeleccionada" value="${categoriaSeleccionada}">
         <ul class="sidebar-menu">
             <c:if test="${not empty categoriasRelacionadas}">
                 <c:forEach items="${categoriasRelacionadas}" var="subCategoria">
                     <c:choose >
-                        <c:when test="${categoriaSeleccionada eq subCategoria.nombre}">
-                            <li class="active"><a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
+                        <c:when test="${categoriaSeleccionada eq subCategoria.idCategoria}">
+                            <li class="active"><a href="<c:url value="/categoria/${subCategoria.idCategoria}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
                         </c:when>
                         <c:otherwise>
-                            <li><a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
+                            <li><a href="<c:url value="/categoria/${subCategoria.idCategoria}.html"/>">${subCategoria.nombre} <span class="count">(${subCategoria.cantidadBeneficios})</span></a></li>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
@@ -29,13 +30,25 @@
     <!-- widget-categories end -->
     <!-- shop-filter start -->
     <aside class="widget shop-filter">
-        <h3 class="sidebar-title">price</h3>
+        <h3 class="sidebar-title">Precio</h3>
         <div class="info_widget">
             <div class="price_filter">
                 <div id="slider-range"></div>
                 <div class="price_slider_amount">
-                    <input type="text" id="amount" name="price"  placeholder="Add Your Price" />
-                    <input type="submit"  value="Filter"/>
+                    <input type="text" id="amount" name="price"  placeholder="Agregue Precio" />
+                    <input type="submit" id="btn-filtrar-precio"  value="Filtrar"/>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <aside class="widget shop-filter">
+        <h3 class="sidebar-title">Porcentaje Descuento</h3>
+        <div class="info_widget">
+            <div class="price_filter">
+                <div id="slider-range-descuento"></div>
+                <div class="price_slider_amount">
+                    <input type="text" id="amount-descuento" name="price"  placeholder="Agregue Precio" />
+                    <input type="submit" id="btn-filtrar-descuento"  value="Filtrar"/>
                 </div>
             </div>
         </div>
@@ -43,82 +56,27 @@
     <!-- shop-filter end -->
     <!-- filter-by start -->
     <aside class="widget filter-by">
-        <h3 class="sidebar-title">Filter by</h3>
-        <h5><b>Color</b></h5>
-        <ul class="sidebar-menu">
-            <li><a href="#">Red</a> <span class="count">(4)</span></li>
-            <li><a href="#">Yellow</a> <span class="count">(6)</span></li>
-            <li><a href="#">Blue</a> <span class="count">(1)</span></li>
-            <li><a href="#">Green</a> <span class="count">(2)</span></li>
+        <h3 class="sidebar-title">Filtrar por</h3>
+
+        <h5><b>Proveedor</b></h5>
+        <ul id="filtrosProveedor" class="sidebar-menu">
+            <li><a href="#" data-filter="all">Todos</a><span class="count">(4)</span></li>
+            <c:forEach items="${filtroProveedores}" var="proveedor">
+                <li><a href="#" data-filter="${proveedor}">${proveedor}</a><span class="count">(6)</span></li>
+            </c:forEach>
         </ul>
-        <h5><b>Size</b></h5>
-        <ul class="sidebar-menu">
-            <li><a href="#">L</a> <span class="count">(4)</span></li>
-            <li><a href="#">MS</a> <span class="count">(6)</span></li>
-            <li><a href="#">S</a> <span class="count">(1)</span></li>
-            <li><a href="#">XL</a> <span class="count">(2)</span></li>
+
+        <h5><b>Calificacion</b></h5>
+        <ul id="filtrosRanking" class="sidebar-menu">
+            <%--<li><a href="#" data-filter="all">Todos</a></li>--%>
+            <li><a href="#" data-ranking="1"><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="2"><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="3"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="4"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
+            <li><a href="#" data-ranking="5"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></a></li>
         </ul>
+
     </aside>
     <!-- filter-by end -->
-    <!-- widget-tags start -->
-    <aside class="widget widget-tags">
-        <h3 class="sidebar-title">Tags</h3>
-        <ul>
-            <li><a href="#">asian</a></li>
-            <li><a href="#">brown</a></li>
-            <li><a href="#">euro</a></li>
-            <li><a href="#">fashion</a></li>
-            <li><a href="#">france</a></li>
-            <li><a href="#">hat</a></li>
-            <li><a href="#">travel</a></li>
-            <li><a href="#">white</a></li>
-            <li><a href="#">t-shirt</a></li>
-            <li><a href="#">teen</a></li>
-        </ul>
-    </aside>
-    <!-- widget-tags end -->
-    <!-- widget-recent start -->
-    <aside class="widget top-product-widget hidden-sm">
-        <h3 class="sidebar-title">upcoming product</h3>
-        <div class="banner-curosel">
-            <div class="banner">
-                <a href="#"><img src="img/product/1.jpg" alt="" /></a>
-                <div class="upcoming-pro">
-                    <div data-countdown="2017/06/01"></div>
-                </div>
-            </div>
-            <div class="banner">
-                <a href="#"><img src="img/product/19.jpg" alt="" /></a>
-                <div class="upcoming-pro">
-                    <div data-countdown="2017/06/01"></div>
-                </div>
-            </div>
-            <div class="banner">
-                <a href="#"><img src="img/product/12.jpg" alt="" /></a>
-                <div class="upcoming-pro">
-                    <div data-countdown="2017/06/01"></div>
-                </div>
-            </div>
-            <div class="banner">
-                <a href="#"><img src="img/product/9.jpg" alt="" /></a>
-                <div class="upcoming-pro">
-                    <div data-countdown="2017/06/01"></div>
-                </div>
-            </div>
-            <div class="banner">
-                <a href="#"><img src="img/product/35.jpg" alt="" /></a>
-                <div class="upcoming-pro">
-                    <div data-countdown="2017/06/01"></div>
-                </div>
-            </div>
-            <div class="banner">
-                <a href="#"><img src="img/product/14.jpg" alt="" /></a>
-                <div class="upcoming-pro">
-                    <div data-countdown="2017/06/01"></div>
-                </div>
-            </div>
-        </div>
-    </aside>
-    <!-- widget-recent end -->
 </div>
 <!-- left-sidebar end -->
