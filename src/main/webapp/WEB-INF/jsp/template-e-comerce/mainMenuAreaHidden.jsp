@@ -22,7 +22,7 @@
                                             <span>
                                                 <a class="mega-title" href="<c:url value="/categoria/${categoria.nombre}.html"/>">${categoria.nombre}</a>
                                                 <c:forEach items="${categoria.subCategorias}" var="subCategoria">
-                                                    <a href="<c:url value="/categoria/${subCategoria.nombre}.html"/>">${subCategoria.nombre}</a>
+                                                    <a href="<c:url value="/categoria/${subCategoria.idCategoria}.html"/>" >${subCategoria.nombre}</a>
                                                 </c:forEach>
                                             </span>
                                         </c:forEach>

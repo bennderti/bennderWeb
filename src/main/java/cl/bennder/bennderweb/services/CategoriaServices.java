@@ -23,12 +23,12 @@ public interface CategoriaServices {
     CategoriasResponse obtenerCategorias();
 //    BeneficiosResponse obtenerBeneficiosPorCategoria();
     CategoriasResponse obtenerCategoriasRelacionadas(String nombreCategoria);
-    CategoriaResponse cargarCategoria(String nombreCategoria);
+    CategoriaResponse cargarCategoria(Integer nombreCategoria);
     //CategoriasResponse obtenerCategoriasById(CategoriaByIdRequest request);
     public SubCategoriaProveedorResponse getSubCategoriasProveedor(SubCategoriaProveedorRequest request);
     BeneficiosCargadorResponse getBeneficiosByIdCat(CategoriaByIdRequest request);
-    BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorPrecio(String categoriaSeleccionada, Integer precioMin, Integer precioMax);
-    BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(String categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax);
-    BeneficiosResponse filtrarBeneficiosPorProveedor(String proveedor, String categoriaSeleccionada);
-    BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, String categoriaSeleccionada);
+    BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorPrecio(Integer categoriaSeleccionada, Integer precioMin, Integer precioMax);
+    BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(Integer categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax);
+    BeneficiosResponse filtrarBeneficiosPorProveedor(String proveedor, Integer categoriaSeleccionada);
+    BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, Integer categoriaSeleccionada);
 }

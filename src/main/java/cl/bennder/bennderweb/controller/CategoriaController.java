@@ -49,18 +49,18 @@ public class CategoriaController {
 
     /**
      * @author Diego
-     * @param nombreCategoria
+     * @param idCategoria
      * Carga la pantalla al seleccionar una categoria
      */
     @ExceptionHandler
-    @RequestMapping(value = "/{nombreCategoria}.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public ModelAndView obtenerDetalleCategoria(@PathVariable String nombreCategoria) {
+    @RequestMapping(value = "/{idCategoria}.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
+    public ModelAndView obtenerDetalleCategoria(@PathVariable Integer idCategoria) {
         log.info("INICIO");
         log.info("Usuario connected ->{}",usuarioSession.getIdUsuario());
         ModelAndView modelAndView = new ModelAndView("categoria");
         try {
             modelAndView.addObject("categorias", categoriaServices.obtenerCategorias().getCategorias());
-            CategoriaResponse response = categoriaServices.cargarCategoria(nombreCategoria);
+            CategoriaResponse response = categoriaServices.cargarCategoria(idCategoria);
             modelAndView.addObject("beneficios", response.getBeneficios());
             beneficioSession.setBeneficios(response.getBeneficios());
             beneficioSession.setPaginador(response.getPaginador());
@@ -70,7 +70,7 @@ public class CategoriaController {
             
             modelAndView.addObject("categoriasRelacionadas", response.getCategoriasRelacionadas());
             modelAndView.addObject("nombreCategoria", response.getCategoriaPadre().getNombre());
-            modelAndView.addObject("categoriaSeleccionada", nombreCategoria);
+            modelAndView.addObject("categoriaSeleccionada", idCategoria);
             modelAndView.addObject("filtroProveedores", response.getFiltros().get("proveedores"));
             if (response.getRango().get("precioMin") != null && response.getRango().get("precioMax") != null)
                 modelAndView.addObject("rango", response.getRango());
@@ -86,7 +86,7 @@ public class CategoriaController {
     }
 
     @RequestMapping(value = "/filtrarBeneficiosPorPrecio.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String filtrarBeneficiosPorPrecio(@RequestParam("categoriaSeleccionada") String categoriaSeleccionada,
+    public @ResponseBody String filtrarBeneficiosPorPrecio(@RequestParam("categoriaSeleccionada") Integer categoriaSeleccionada,
                                                    @RequestParam("precioMin") Integer precioMin,
                                                    @RequestParam("precioMax") Integer precioMax){
         log.info("INICIO");
@@ -101,7 +101,7 @@ public class CategoriaController {
     }
 
     @RequestMapping(value = "/filtrarBeneficiosPorDescuento.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String filtrarBeneficiosPorDescuento(@RequestParam("categoriaSeleccionada") String categoriaSeleccionada,
+    public @ResponseBody String filtrarBeneficiosPorDescuento(@RequestParam("categoriaSeleccionada") Integer categoriaSeleccionada,
                                                            @RequestParam("descuentoMin") Integer descuentoMin,
                                                            @RequestParam("descuentoMax") Integer descuentoMax){
         log.info("INICIO");
@@ -121,7 +121,7 @@ public class CategoriaController {
      * @return Beneficios filtrados
      */
     @RequestMapping(value = "/filtrarBeneficiosPorProveedor.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String filtrarBeneficiosPorProveedor(@RequestParam("proveedor") String proveedor, @RequestParam("categoriaSeleccionada") String categoriaSeleccionada){
+    public @ResponseBody String filtrarBeneficiosPorProveedor(@RequestParam("proveedor") String proveedor, @RequestParam("categoriaSeleccionada") Integer categoriaSeleccionada){
         log.info("INICIO");
         log.info("proveedor ->{}", proveedor);
         log.info("categoriaSeleccionada ->{}", categoriaSeleccionada);
@@ -138,7 +138,7 @@ public class CategoriaController {
      * @return Beneficios filtrados
      */
     @RequestMapping(value = "/filtrarBeneficiosPorCalificacion.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public @ResponseBody String filtrarBeneficiosPorCalificacion(@RequestParam("calificacion") String calificacion, @RequestParam("categoriaSeleccionada") String categoriaSeleccionada){
+    public @ResponseBody String filtrarBeneficiosPorCalificacion(@RequestParam("calificacion") String calificacion, @RequestParam("categoriaSeleccionada") Integer categoriaSeleccionada){
         log.info("INICIO");
         log.info("calificacion ->{}", calificacion);
         log.info("categoriaSeleccionada ->{}", categoriaSeleccionada);
