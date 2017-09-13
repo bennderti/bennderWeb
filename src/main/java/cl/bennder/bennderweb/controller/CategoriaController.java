@@ -3,6 +3,7 @@ package cl.bennder.bennderweb.controller;
 import cl.bennder.bennderweb.session.UsuarioSession;
 import cl.bennder.bennderweb.services.CategoriaServices;
 import cl.bennder.bennderweb.session.BeneficioSession;
+import cl.bennder.entitybennderwebrest.request.PaginadorBeneficioRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
 import cl.bennder.entitybennderwebrest.response.PaginadorBeneficioResponse;
@@ -38,10 +39,24 @@ public class CategoriaController {
     
     @RequestMapping(value = "/beneficiosPaginados.html", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
     public @ResponseBody String beneficiosPaginados(@RequestParam("indicePagina") Integer indicePagina,
-                                                           @RequestParam("esInicial") Integer esInicial){
+                                                    @RequestParam("esInicial") Integer esInicial,
+                                                    @RequestParam("idCatP") Integer idCatP,
+                                                    @RequestParam("idCat") Integer idCat){
         log.info("INICIO");
-        log.info("indicePagina->{}, esInicial ->{}",indicePagina,esInicial);
-        String beneficiosJson = new Gson().toJson(new PaginadorBeneficioResponse(beneficioSession.getPaginador(), beneficioSession.getBeneficios()));
+        log.info("indicePagina->{}, esInicial ->{}, idCatP ->{}, idCat ->{}",indicePagina,esInicial,idCatP,idCat);
+        String beneficiosJson = "";
+        if(esInicial!=null && esInicial.equals(1)){
+            log.info("obtenemos beneficios paginados...");
+            beneficioSession.getPaginador().setIndicePagina(indicePagina);
+            beneficioSession.getPaginador().getCategoria().setIdCategoria(idCat);
+            beneficioSession.getPaginador().getCategoria().setIdCategoriaPadre(idCatP);
+            PaginadorBeneficioResponse resp = categoriaServices.obtenerBeneficiosPaginados(new PaginadorBeneficioRequest(beneficioSession.getPaginador()));
+            beneficiosJson = new Gson().toJson(resp);
+        }
+        else{
+            log.info("obtenemos beneficios de sessión (carga inicial de página)");
+            beneficiosJson = new Gson().toJson(new PaginadorBeneficioResponse(beneficioSession.getPaginador(), beneficioSession.getBeneficios()));
+        }
         log.info("beneficiosJson ->{} ",beneficiosJson);
         log.info("FIN");
         return beneficiosJson;
@@ -67,7 +82,9 @@ public class CategoriaController {
 //            modelAndView.addObject("arrayBeneficios", new Gson().toJson(response.getBeneficios()));
 //            modelAndView.addObject("paginador", new Gson().toJson(response.getPaginador()));
             
-            
+            modelAndView.addObject("idCategoriaPadre", response.getPaginador().getCategoria().getIdCategoriaPadre());
+            modelAndView.addObject("idCategoria", response.getPaginador().getCategoria().getIdCategoria());
+            modelAndView.addObject("categoriasRelacionadas", response.getCategoriasRelacionadas());
             modelAndView.addObject("categoriasRelacionadas", response.getCategoriasRelacionadas());
             modelAndView.addObject("nombreCategoria", response.getCategoriaPadre().getNombre());
             modelAndView.addObject("categoriaSeleccionada", idCategoria);

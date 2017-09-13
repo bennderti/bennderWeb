@@ -2,13 +2,16 @@
 
 var PaginadorBeneficio = { 
    paginador: {},
-   cargaBeneficios:function(){
+   cargaBeneficios:function(){        
+        this.paginar(0,0);
+   },
+   paginar:function(indicePagina,esInicial){    
         ModalLoading.mostrar();
         $.ajax({
             url: context+"/categoria/beneficiosPaginados.html",
             type: 'GET',
             dataType: 'JSON',
-            data:{indicePagina:0,esInicial:0},
+            data:{indicePagina:indicePagina,esInicial:esInicial,idCatP:PaginadorBeneficio.getInfoCat().idCatP,idCat:PaginadorBeneficio.getInfoCat().idCat},
             success: function (data) {
                 ModalLoading.cerrar();
                 PaginadorBeneficio.showBeneficioPaginados(data.beneficios,data.paginador);
@@ -17,15 +20,56 @@ var PaginadorBeneficio = {
                 ModalLoading.cerrar();
                 ModalBennder.mostrar({tipo: "error", mensaje: "Problemas al cargar beneficios", titulo: "Beneficios"});
             }
-        });  
+        });
+   },
+   setInfoCat:function(idCatP,idCat){
+       $("#idCategoriaPadre").val(idCatP);
+       $("#idCategoria").val(idCat);
+   },
+   getInfoCat:function(){      
+      return {idCatP:parseInt($("#idCategoriaPadre").val()),idCat:parseInt($("#idCategoria").val())};
+   },
+   generarIndicePagina:function(total,cantidadPagina,indiceActive){
+       
+       var nPaginas = total/cantidadPagina;
+       if(nPaginas === 0){
+           nPaginas = 1;
+       }
+       var html = "";
+       for(var i = 0; i < nPaginas; i++){
+           //html+='<li><a href="#" onclick="PaginadorBeneficio.paginar('+i+',1);">'+(i+1)+'</a></li>'; 
+           //html+='<li id="idx-'+i+'" style="cursor: pointer;">'+(i+1)+'</li>'; 
+           html+='<li id="idx-'+i+'"><a href="#">'+(i+1)+'</a></li>'; 
+       }
+       $(".pagination ul").html(html);
+       $(".pagination ul li:eq("+indiceActive+")").html(indiceActive+1)
+                                                  .addClass("active");
+       $(".pagination ul li").off();
+       $(".pagination ul li").on("click",function(){
+           var idx = $(this).attr("id").split("-")[1];
+           PaginadorBeneficio.paginar(parseInt(idx),1);
+       });
    },
    showBeneficioPaginados:function(arrayBeneficio,paginador){
+       //.- set info paginación
+       this.setInfoCat(paginador.categoria.idCategoriaPadre,paginador.categoria.idCategoria);
        //.- Datos paginador
        this.paginador = paginador;
        //.- generar lista A
        this.generarListaA(arrayBeneficio);
        //.- generar lista B
-       this.generarListaB(arrayBeneficio);
+       this.generarListaB(arrayBeneficio);       
+       //.- generar indices de páginas
+       this.generarIndicePagina(paginador.total,paginador.cantidadPagina,paginador.indicePagina);
+       //.- genera show results
+       this.generarShowResult(paginador.total,paginador.cantidadPagina,paginador.indicePagina);
+       
+   },
+   generarShowResult:function(t,c,i){
+       //var texto = "Mostrando "+(c)+"-"+(i+1)*c +" de "+t+" beneficios";
+       var texto = "Mostrando "+(c)+" de "+t+" beneficios";
+       $(".show-result p").html(texto);
+   
    },
    formatPesos:function(pesos){
        var value = pesos;

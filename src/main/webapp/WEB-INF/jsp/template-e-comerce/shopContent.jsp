@@ -19,11 +19,10 @@
                 <i class="fa fa-list"></i></a></li>
         </ul>
         <div class="show-result">
-            <p>
-                Showing 1&ndash;12 of 19 results</p>
+            <p></p>
         </div>
         <div class="toolbar-form">
-            <form action="#">
+<!--            <form action="#">
                 <div class="tolbar-select">
                     <select>
                         <option value="volvo">Sort by Popularity</option>
@@ -35,7 +34,7 @@
                     </select>
                 </div>
             </form>
-        </div>
+        </div>-->
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
@@ -53,13 +52,15 @@
     <div class="shop-pagination">
         <div class="pagination">
             <ul>
-                <li class="active">1</li>
+                <li class="active"><a href="#" onclick="PaginadorBeneficio.paginar(0,1);">1</a></li>
                 <li><a href="#">2</a></li>
                 <li><a href="#">3</a></li>
                 <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
             </ul>
         </div>
     </div>
+    <input type="hidden" id="idCategoriaPadre" value="${idCategoriaPadre}"/>
+    <input type="hidden" id="idCategoria" value="${idCategoria}"/>
       <jsp:include page="/WEB-INF/jsp/utils/modal.jsp">     
         <jsp:param name="btnAceptar" value="Aceptar"/>
         <jsp:param name="btnCancelar" value="Cancelar"/>
