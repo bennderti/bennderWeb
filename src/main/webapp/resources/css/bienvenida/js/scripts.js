@@ -24,7 +24,7 @@ jQuery(document).ready(function() {
     /*
         Fullscreen background
     */
-    $.backstretch("/BennderWeb/resources/css/bienvenida/img/backgrounds/1.jpg");
+    $.backstretch(context + "/resources/css/bienvenida/img/backgrounds/1.jpg");
     
     $('#top-navbar-1').on('shown.bs.collapse', function(){
     	$.backstretch("resize");
