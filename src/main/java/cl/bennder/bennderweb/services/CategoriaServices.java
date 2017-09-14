@@ -6,11 +6,13 @@
 package cl.bennder.bennderweb.services;
 
 import cl.bennder.entitybennderwebrest.request.CategoriaByIdRequest;
+import cl.bennder.entitybennderwebrest.request.PaginadorBeneficioRequest;
 import cl.bennder.entitybennderwebrest.request.SubCategoriaProveedorRequest;
 import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.PaginadorBeneficioResponse;
 import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 
 
@@ -31,4 +33,5 @@ public interface CategoriaServices {
     BeneficiosResponse obtenerBeneficiosCategoriaFiltradosPorDescuento(Integer categoriaSeleccionada, Integer descuentoMin, Integer descuentoMax);
     BeneficiosResponse filtrarBeneficiosPorProveedor(String proveedor, Integer categoriaSeleccionada);
     BeneficiosResponse filtrarBeneficiosPorCalificacion(String calificacion, Integer categoriaSeleccionada);
+    PaginadorBeneficioResponse obtenerBeneficiosPaginados(PaginadorBeneficioRequest request);
 }

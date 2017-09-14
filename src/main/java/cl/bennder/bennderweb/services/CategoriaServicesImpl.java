@@ -16,6 +16,7 @@ import cl.bennder.entitybennderwebrest.response.BeneficiosCargadorResponse;
 import cl.bennder.entitybennderwebrest.response.BeneficiosResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriaResponse;
 import cl.bennder.entitybennderwebrest.response.CategoriasResponse;
+import cl.bennder.entitybennderwebrest.response.PaginadorBeneficioResponse;
 import cl.bennder.entitybennderwebrest.response.SubCategoriaProveedorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,12 @@ public class CategoriaServicesImpl implements CategoriaServices{
 
     @Autowired
     UsuarioSession usuarioSession;
+
+    @Override
+    public PaginadorBeneficioResponse obtenerBeneficiosPaginados(PaginadorBeneficioRequest request) {
+        return RestConnector.clientRestGeneric(Properties.URL_SERVIDOR + URLServiciosBennder.URL_GET_BENEFICIOS_PAGINADOS, request, PaginadorBeneficioResponse.class, usuarioSession.getToken());
+    }
+    
     /***
      * Obtiene las categorias por id de categoria
      * @param request
