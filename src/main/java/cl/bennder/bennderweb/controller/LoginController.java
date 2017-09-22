@@ -186,7 +186,7 @@ public class LoginController {
 
         if (!tenantId.isEmpty() && !tenantId.equalsIgnoreCase("www")) {
             //req.setAttribute("CURRENT_TENANT_IDENTIFIER", pathVars.get("tenantid"));
-            if(tenantId.equalsIgnoreCase("ec2-54-245-54-42")){
+            if(tenantId.equalsIgnoreCase("ec2-54-245-54-42") || tenantId.equalsIgnoreCase("localhost")){
                 tenantId = "bennder";
                 log.info("tenantId para servidor desarrollo ->{}",tenantId);
             }

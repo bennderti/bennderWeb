@@ -31,7 +31,7 @@ public class UtilBennderWeb {
             tenantId = req.getServerName().split("\\.")[0];
             if (!tenantId.isEmpty() || tenantId.equalsIgnoreCase("www")){
                 log.info("tenantId encontrado ->{}",tenantId);
-                if(tenantId.equalsIgnoreCase("ec2-54-245-54-42")){
+                if(tenantId.equalsIgnoreCase("ec2-54-245-54-42") || tenantId.equalsIgnoreCase("localhost")){
                     tenantId = "bennder";
                     log.info("tenantId para servidor desarrollo ->{}",tenantId);
                 }
